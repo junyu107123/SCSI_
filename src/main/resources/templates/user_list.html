@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/input.css}">
+<link rel="stylesheet" th:href="@{/css/search.css}">
+<title>input_data</title>
+</head>
+<body>
+	<!--     <div class="main"> -->
+	<style>
+.no_deta::-webkit-scrollbar {
+	width: 8px;
+}
+
+.no_deta::-webkit-scrollbar-button {
+	background: transparent;
+	border-radius: 5px;
+}
+
+.no_deta::-webkit-scrollbar-track-piece {
+	background: rgba(21, 97, 27, 0.1);
+	border-radius: 5px;
+}
+
+.no_deta::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background-color: #165f4b;
+	border: 1px solid #165f4b;
+}
+
+.no_deta::-webkit-scrollbar-track {
+	box-shadow: transparent;
+}
+
+.rightheader {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.rh {
+	width: 95%;
+}
+
+.rhtittle {
+	display: flex;
+	align-items: center;
+	font-size: 2.8rem;
+	letter-spacing: 5px;
+	color: #165f4b;
+	margin-top: -2.5rem;
+}
+
+.rhtittle img {
+	margin-right: .8rem;
+	margin-top: -0.8rem;
+}
+
+.right_table_title_right {
+	display: flex;
+	position: absolute;
+	left: 460px;
+	top: 33px;
+	/*right: 10;*/
+}
+
+.right_text {
+	display: none;
+	width: 100%;
+	height: 70%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	position: relative;
+}
+
+.right_text::-webkit-scrollbar {
+	width: 8px;
+}
+
+.right_text::-webkit-scrollbar-button {
+	background: transparent;
+	border-radius: 5px;
+}
+
+.right_text::-webkit-scrollbar-track-piece {
+	background: rgba(21, 97, 27, 0.1);
+	border-radius: 5px;
+}
+
+.right_text::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background-color: #165f4b;
+	border: 1px solid #165f4b;
+}
+
+.right_text::-webkit-scrollbar-track {
+	box-shadow: transparent;
+}
+
+.title_add_icon {
+	width: 68px;
+	height: 72px;
+	margin-left: -15px;
+	background-image: url("images/add_data_icon.png");
+	margin-top: .6rem;
+}
+
+.title_add_icon:hover, .title_add_icon:active {
+	background-image: url("images/add_data_icon_h.png");
+}
+
+.pagetext {
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif, 微軟正黑體;
+	font-size: 1.5rem;
+	margin-top: 1%;
+	color: #165f4b;
+}
+
+.pagetext :hover {
+	text-decoration: underline;
+}
+</style>
+
+	<div class="right_main">
+		<div class="tilte">
+
+			<div class="rightheader">
+				<div class="rh">
+					<div class="rhtittle">
+						<img src="images/right_table_tilte_icon.png">
+						<p>帳號管理</p>
+					</div>
+				</div>
+
+				<div class="right_table_title_right">
+					<div class="title_add">
+						<div id="newuser" class="title_add_icon" title="新增帳號"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="text_top_line"></div>
+		<div class="no_deta">
+			<div class="table">
+				<div class="table_title">
+				<div class="title5">  
+                                <p>序號</p>
+                            </div> 
+					<div class="title2">
+						<p>帳號名稱</p>
+					</div>
+					<div class="title2">
+						<p>使用者</p>
+					</div>
+					<div class="title2">
+						<p>使用者群組</p>
+					</div>
+					<div class="title5">
+						<p>修改</p>
+					</div>
+					<div class="title6">
+						<p>刪除</p>
+					</div>
+				</div>
+			</div>
+			<div class="table_main" th:each="user: ${userlist}">
+				<div class="tablemain" th:if="${userStat.odd}">
+				<div class="title5">  
+                                <p th:text="${userStat.index+1}"></p>
+                            </div> 
+					<div class="main2">
+						<p th:text="${user.userid}"></p>
+					</div>
+					<div class="main2">
+						<p th:text="${user.username}"></p>
+					</div>
+					<div class="main2">
+						<p th:text="${user.user_gr}"></p>
+					</div>
+					<div class="main5">
+						<div class="add-icon"
+							th:onclick="go_mody([[${mody_user}]],[[${user.usersysid}]])"></div>
+					</div>
+					<div class="main6">
+						<div class="del-icon"
+							th:onclick="dele_user([[${user.usersysid}]])"></div>
+					</div>
+				</div>
+
+				<div class="tablemain tw" th:if="${userStat.even}">
+				<div class="title5">  
+                                <p th:text="${userStat.index+1}"></p>
+                            </div> 
+					<div class="main2">
+						<p th:text="${user.userid}"></p>
+					</div>
+					<div class="main2">
+						<p th:text="${user.username}"></p>
+					</div>
+					<div class="main2">
+						<p th:text="${user.user_gr}"></p>
+					</div>
+					<div class="main5">
+						<div class="add-icon"
+							th:onclick="go_mody([[${mody_user}]],[[${user.usersysid}]])"></div>
+					</div>
+					<div class="main6">
+						<div class="del-icon"
+							th:onclick="dele_user([[${user.usersysid}]])"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="right_text">
+			<div class="text_flex">
+				<div class="industry">
+					<div class="name">
+						<p>帳號</p>
+					</div>
+					<input type="text" class="form-control" id="g1" value=""
+						placeholder="user_id">
+				</div>
+				<div class="industry">
+					<div class="name">
+						<p>使用者</p>
+					</div>
+					<input type="text" class="form-control" id="g3" value=""
+						placeholder="user_name"> <input type="hidden"
+						class="form-control" id="g0" value="" placeholder="user_sysid">
+				</div>
+			</div>
+			<div class="text_flex mg_t">
+				<div class="industry">
+					<div class="name">
+						<p>密碼</p>
+					</div>
+					<div class="name">
+						<input type="password" class="form-control" id="g2" value=""
+							placeholder="password">
+					</div>
+				</div>
+				<div class="industry">
+					<div class="name">
+						<p>密碼確認</p>
+					</div>
+					<div class="name">
+						<input type="password" class="form-control" id="g5" value=""
+							placeholder="password">
+					</div>
+				</div>
+			</div>
+			<div class="text_flex">
+				<div class="industry">
+					<div class="name">
+						<p>使用者群組</p>
+					</div>
+					<div class="dropdown">
+						<select id="g4" name="g4">
+							<option value="">請選擇</option>
+							<option value="admin">admin</option>
+							<option th:each="codetab: ${ownerlist}"
+								th:value="${codetab.name_zh}" th:text="${codetab.name_desc_zh}"
+								th:selected="${usergr==codetab.name_zh}"></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="button_group">
+				<div class="button" onclick="addusers('1')">
+					<p>確定</p>
+				</div>
+				<div class="button mg_l" onclick="clearl()">
+					<p>清除</p>
+				</div>
+				<div class="button mg_l" onclick="goback()">
+					<p>取消/回上一頁</p>
+				</div>
+			</div>
+		</div>
+		<div class="float_icon">
+			<div class="float_icon1" onclick="switch1();"></div>
+			<div class="float_icon2" onclick="switch2();"></div>
+			<div class="float_icon3"></div>
+		</div>
+	</div>
+	<!--         </div> -->
+	<!--     </div> -->
+
+	<script>
+		$("#newuser").click(function() {
+			$(".no_deta").css("display", "none");
+			$(".right_text").css("display", "block");
+			$(".page").css("display", "none");
+		});
+		function go_news_page1(urlToLoad) {
+			//alert(urlToLoad);
+			$('.right').load(urlToLoad);
+		}
+
+		function go_mody(urlk, xxx) {
+			//alert(urlk+":"+xxx);
+			$(".right").load("/scsi/mody_user?sysid=" + xxx);
+		}
+		function clearl() {
+			//       	alert("clear");
+			var a = $("#g1").val("");
+			var b = $("#g2").val("");
+			var c = $("#g3").val("");
+			var d = $("#g4").val("");
+		}
+		function addusers(xxx) {
+			var sysid = $("#g0").val()
+			var a = $("#g1").val()
+			var b = $("#g2").val();
+			const eb = btoa(encodeURI(b));
+			var c = $("#g3").val();
+			var d = $("#g4").val();
+			var pc = $("#g5").val();
+
+			//	alert(a+"/"+b+"/"+c+"/"+d+"/"+e+"/"+f+"/"+g+"/"+h+"/"+i+"/"+j+"/"+xxx);
+
+			if (a == '' || b == '') {
+				alert('請填寫全部欄位!');
+			} else if (pc != b) {
+				alert('密碼不一致!');
+				var pc = $("#g5").val("");
+			} else {
+				var yes = confirm('確定執行？');
+
+				if (yes) {
+					$
+							.ajax({
+								async : false,
+								type : 'POST',
+								dataType : "html",
+								data : {
+									user_id : a,
+									password : b,
+									user_name : c,
+									user_gr : d,
+									sysid : sysid
+								},
+								contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+								//                 contentType:"application/json",
+								url : '/scsi/newuser',
+								cache : false,
+								success : function(data) {
+									//                     alert(data);
+									if (data == "OK") {
+										alert('新增完成');
+										$(".right").load("/scsi/user_list");
+									}
+									if (data == "exist") {
+										alert('新增失敗(編號或名稱重複)');
+									}
+								},
+								error : function(errorMsg) {
+									console.log(errorMsg);
+								}
+							});
+				}
+
+			}
+		}
+		function goback() {
+			//          alert("click");
+			$(".right").load("/scsi/user_list");
+		}
+		function dele_user(xxx) {
+			var yes = confirm('是否刪除？');
+
+			if (yes) {
+				$
+						.ajax({
+							async : false,
+							type : 'POST',
+							dataType : "html",
+							data : {
+								sysid : xxx
+							},
+							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+							url : '/scsi/deluser',
+							cache : false,
+							success : function(data) {
+								//                         alert(data);
+								alert('刪除完成');
+								$(".right").load("/scsi/user_list");
+							},
+							error : function(errorMsg) {
+								console.log(errorMsg);
+							}
+						});
+			}
+		}
+	</script>
+</body>
+</html>

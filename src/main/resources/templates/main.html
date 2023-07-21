@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/main.css}">
+        <link rel="stylesheet" th:href="@{/css/input.css}">
+        <link rel="stylesheet" th:href="@{/css/search.css}">
+        <link rel="stylesheet" th:href="@{/css/dropzone.min.css}">
+        <title>路由調度模擬系統-資料管理</title>
+<!--         <p th:text="'Hello, ' + ${userid} + '!'" /> -->
+    </head>
+<body>
+
+ 
+<style>
+.no_deta{
+    display: block;
+    width: 100%;
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+.right_text{
+    display: none;
+    width: 100%;
+    height: 70%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+</style>
+    <div class="main">
+        <div class="left">
+            <div class="left_main">
+                <div class="left_text">
+                    <div class="text1">
+                        <p>現在日期/時間</p>
+                        <ul id="time-wrap">
+                            <li id="date"></li>
+                            <li id="time"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="icon_group">
+                    <div class="icons">
+                        <div class="icon13" id="nodelist"><div class="icon_text">機房/節點</div></div>
+                        <div class="icon14" id="linklist"><div class="icon_text">路由管理</div></div>
+                        <div class="icon15" id="users"><div class="icon_text">帳號管理</div></div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon4" id="newdata1"><div class="icon_text">國家代碼</div></div>
+                        <div class="icon5" id="newdata2"><div class="icon_text">業者管理</div></div>
+                        <div class="icon6" id="newdata3"><div class="icon_text">節點類型</div></div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon7" id="newdata4"><div class="icon_text">節點狀態</div></div>
+                        <div class="icon8" id="newdata5"><div class="icon_text">路由類型</div></div>
+                        <div class="icon9" id="newdata6"><div class="icon_text">路由狀態</div></div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon10" id="resetf"><div class="icon_text">重置</div></div>
+                        <div class="icon11" id="upload"><div class="icon_text">資料匯入</div></div>
+                        <div class="icon12" id="logout"><div class="icon_text">登出</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/time.js}"></script>
+    <script type="text/javascript" th:src="@{/js/dropzone.min.js}"></script>
+    <script type="text/javascript" >
+	function switch1(){
+		window.location.replace("/scsi/index1?id=1");
+	}		
+	function switch2(){
+		window.location.replace("/scsi/index1?id=2");
+	}
+	reset();
+    $("#nodelist").attr("class","icon1 active");
+    $(".right").load("/scsi/node_list");
+    $("#item1").click(function(){
+        $(".no_deta").css("display","none");
+        $(".right_text").css("display","block");
+    });
+        $("#linklist").click(function(){
+//             alert("click");
+				reset();
+        	 $("#linklist").attr("class","icon2 active");
+//         	 $("#nodelist").attr("class","icon5 ");
+        	$(".right").load("/scsi/link_list");
+        });
+        $("#users").click(function(){
+//          alert("click");
+				reset();
+     	 $("#users").attr("class","icon3 active");
+//      	 $("#nodelist").attr("class","icon5 ");
+     	$(".right").load("/scsi/user_list");
+     });
+        $("#nodelist").click(function(){
+//         	 alert("click");
+			reset();
+            $("#nodelist").attr("class","icon1 active");
+        	 $(".right").load("/scsi/node_list");
+        });
+        function reset()
+        {
+//         	alert("reset");
+        	$("#nodelist").attr("class","icon1");
+        	$("#linklist").attr("class","icon2");
+        	$("#users").attr("class","icon3");
+        	$("#newdata1").attr("class","icon4");
+        	$("#newdata2").attr("class","icon5");
+        	$("#newdata3").attr("class","icon6");
+        	$("#newdata4").attr("class","icon7");
+        	$("#newdata5").attr("class","icon8");
+        	$("#newdata6").attr("class","icon9");
+        	$("#newdata7").attr("class","icon10");
+			$("#upload").attr("class","icon11");
+			$("#logout").attr("class","icon12");        	
+        }
+        function go_news_page1(urlToLoad)
+        {
+        	//alert(urlToLoad);
+        	 $('.right').load(urlToLoad);
+        }
+        $("#newdata1").click(function(){
+            reset();
+            $("#newdata1").attr("class","icon4 active");
+            $(".right").load("/scsi/edit_list?gk=2");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata2").click(function(){
+        	reset();
+            $("#newdata2").attr("class","icon5 active");
+            $(".right").load("/scsi/edit_list?gk=4");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata3").click(function(){
+        	reset();
+            $("#newdata3").attr("class","icon6 active");
+            $(".right").load("/scsi/edit_list?gk=3");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata4").click(function(){
+        	reset();
+            $("#newdata4").attr("class","icon7 active");
+            $(".right").load("/scsi/edit_list?gk=7&ck=1");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata5").click(function(){
+        	reset();
+            $("#newdata5").attr("class","icon8 active");
+            $(".right").load("/scsi/edit_list?gk=5&ck=1");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata6").click(function(){
+        	reset();
+            $("#newdata6").attr("class","icon9 active");
+            $(".right").load("/scsi/edit_list?gk=6&ck=1");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+
+        $("#logout").click(function(){
+            location.replace("/scsi/logout");
+    		});
+		
+        $("#resetf").click(function(){
+        	var yes = confirm('是否重置？');
+            if (yes) {
+            $.ajax({
+                async: false,
+                type: 'POST',
+                dataType: "html",
+                data:{},
+                contentType:"application/x-www-form-urlencoded;charset=UTF-8",
+                url: '/scsi/resetf',
+                cache:false,
+                success: function (data){
+//                     alert(data);
+   					alert('重置完成');
+                    $(".right").load("/scsi/main");
+                },
+            });
+            }
+    		});
+        
+		 $("#upload").click(function(){
+        	reset();
+            $("#upload").attr("class","icon11 active");
+			//alert("暫不提供服務");
+            $(".right").load("/scsi/upfile");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+    </script>
+    
+</body>
+</html> 

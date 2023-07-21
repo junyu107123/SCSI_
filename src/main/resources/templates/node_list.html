@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/input.css}">
+		<link rel="stylesheet" th:href="@{/css/search.css}">
+        <title>input_data</title>
+    </head>
+<body>
+<!--     <div class="main"> -->
+<style>
+.no_deta::-webkit-scrollbar {
+    width: 8px;
+}
+.no_deta::-webkit-scrollbar-button {
+    background: transparent;
+    border-radius: 5px;
+}
+.no_deta::-webkit-scrollbar-track-piece {
+    background: rgba(21, 97, 27, 0.1);
+    border-radius: 5px;
+}
+.no_deta::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #165f4b;
+    border: 1px solid #165f4b;
+}
+.no_deta::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+.right_text{
+    display: none;
+    width: 100%;
+    height: 70%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+.right_text::-webkit-scrollbar {
+    width: 8px;
+}
+.right_text::-webkit-scrollbar-button {
+    background: transparent;
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-track-piece {
+    background: rgba(21, 97, 27, 0.1);
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+   
+    background-color: #165f4b;
+    border: 1px solid #165f4b;
+}
+.right_text::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+.pagetext{
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif, 微軟正黑體;
+	font-size: 1.5rem;
+	margin-top: 1%;
+	color: #165f4b;
+}
+.pagetext :hover{
+	text-decoration: underline;
+}
+</style>
+<style>
+.scrolling-content {
+    position: relative;
+}
+.rightheader{
+	width: 100%;
+	height: 15%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.rh{
+	width: 95%;
+}
+.rhtittle {
+	display: flex;
+	align-items: center;
+	font-size: 2.8rem;
+	letter-spacing: 5px;
+	color: #165f4b;
+	margin-top: -2.5rem;
+}
+.rhtittle img {
+	margin-right: .8rem;
+	margin-top: -0.8rem;
+}
+.right_table_title_right{
+	display: flex;
+    position: absolute;
+	right: 10%;
+	top: 50px;
+    /*right: 10;*/
+}
+.title_search{
+	display: flex;
+    align-items: center;
+    margin-right: 1rem;
+	font-size: 1.5rem;
+}
+.search_input input{
+    border: 2px solid #165f4b;
+    background: transparent;
+    color: #165f4b;;
+    width: 20rem;
+    height: 46px;
+    border-radius: .5rem;
+    font-size: 1.3rem;
+    padding: .5rem;
+}
+.search_input input:focus-visible{
+    outline: none;
+}
+.title_search_icon{
+    width: 62px;
+    height: 72px;
+    background-image: url("images/searchicon.png");
+}
+.title_search_icon:hover,.title_search_icon:active{
+    background-image: url("images/searchicon_h.png");
+}
+.title_add_icon{
+    width: 68px;
+    height: 72px;
+	margin-left: -15px;
+    background-image: url("images/add_data_icon.png");
+}
+.title_add_icon:hover,.title_add_icon:active{
+    background-image: url("images/add_data_icon_h.png");
+}
+</style>
+            <div class="right_main">
+            
+            <div class="rightheader">
+	<div class="rh">
+	<div class="rhtittle">
+		<img src="images/right_table_tilte_icon.png">
+		<p>節點 / 機房</p>
+	</div>
+	
+	</div>
+
+					<div class="right_table_title_right">
+						
+                            <div class="title_search">
+                                <div class="search_input">關鍵字
+                                    <input id="gk" autocomplete="off" value=""  type="text">
+                                </div>
+                                <div id="send_search" class="title_search_icon" th:onclick="">
+                                </div>
+                            </div>
+                            <div class="title_add">
+                                <div id="newnode" class="title_add_icon" th:onclick="" ></div>
+                            </div>
+                     </div>
+</div>
+                <div class="text_top_line"></div>
+                <div class="no_deta">
+                    <div class="table">
+                        <div class="table_title">
+                        	<div class="title5">  
+                                <p>序號</p>
+                            </div> 
+                            <div class="title2">  
+                                <p>節點編號</p>
+                            </div> 
+                            <div class="title2">
+                                <p>節點名稱</p>
+                            </div>
+                            <div class="title2">
+                                <p>擁有者</p>
+                            </div>
+                            <div class="title2">
+                                <p>節點類型</p>
+                            </div>
+                            <div class="title2">
+                                <p>節點所在國家</p>
+                            </div>
+                            <div class="title2">
+                                <p>節點狀態</p>
+                            </div>
+                            <div class="title5">
+                                <p>修改</p>
+                            </div>
+                            <div class="title6">
+                                <p>刪除</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_main" th:each="nodes: ${nodeslist}">
+                        <div class="tablemain" th:if="${nodesStat.odd}" >
+        <div class="main5">
+        <p th:text="${nodesStat.index+1}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.node_id}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.node_name}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.owner}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.node_type}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.node_country}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.node_failure}"></p> 
+        </div>
+                            <div class="main5">
+                            
+                                <div class="add-icon" th:onclick="go_mody([[${mody_node}]],[[${nodes.sysid}]])"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon" th:onclick="dele_node([[${nodes.sysid}]])"></div>
+                            </div>
+                        </div>
+                    
+					
+					<div class="tablemain tw" th:if="${nodesStat.even}">
+					<div class="main5">
+        <p th:text="${nodesStat.index+1}"></p> 
+        </div>
+                        	<div class="main2">
+        <p th:text="${nodes.node_id}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.node_name}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.owner}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.node_type}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.node_country}"></p> 
+        </div>
+        <div class="main2">
+        <p th:text="${nodes.node_failure}"></p> 
+        </div>
+                            <div class="main5">
+                                <div class="add-icon" th:onclick="go_mody([[${mody_node}]],[[${nodes.sysid}]])"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon" th:onclick="dele_node([[${nodes.sysid}]])"></div>
+                            </div>
+                    </div>
+			</div>
+              </div>  
+                <div class="right_text">
+                    <div class="text_flex">
+                        <div class="industry">
+                            <div class="name">
+                                <p>節點編號</p>
+                            </div>
+                            <div class="name">
+                            <input type="hidden" class="pop4font" id="g0" value=""  readonly/>
+                            <input type="text" class="form-control" id="g1" value="" placeholder="node_id"  >
+                            </div>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>節點名稱</p>
+                            </div>
+                            <input type="text" class="form-control" id="g2" value="" placeholder="node_name" >
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>擁有者</p>
+                            </div>
+                            <div class="dropdown">
+                            <select id="g3" name="g3">
+	<option value="none">請選擇</option>
+	<option th:each="codetab: ${ownerlist}" th:value="${codetab.name_zh}" th:text="${codetab.name_desc_zh}"> </option>
+	</select>
+	</div>
+                        </div>
+                        <div class="industry">
+                        </div>
+                    </div>
+                    <div class="text mg_t">
+                        <div class="address">
+                            <div class="name">
+                                <p>節點地址</p>
+                            </div>
+                            <input type="text" class="form-control" id="g4" value="none" placeholder="address" ></textarea>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>經度</p>
+                            </div>
+                            <input type="text" class="form-control" id="g5" value="0" placeholder="lon" ></textarea>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>緯度</p>
+                            </div>
+							<input type="text" class="form-control" id="g6" value="0" placeholder="lat" ></textarea>                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>節點類型</p>
+                            </div>
+                            <div class="dropdown">
+                                <select id="g7" name="g7" >
+	<option value="" >請選擇</option>
+	<option th:each="codetab: ${typelist}" th:value="${codetab.name_zh}" th:text="${codetab.name_desc_zh}"> </option>
+	</select>
+                            </div>
+                        </div>
+                        <div class="industry" >
+                        <div id="co" style="display:block">
+                            <div class="name" >
+                                <p>節點所在國家</p>
+                            </div>
+                            <div class="dropdown">
+                               <select id="g81" name="g81">
+    <option value="none" >請選擇</option>                           
+	<option value="TWN" text="台灣" >台灣</option>
+	</select>
+                            </div>
+                        </div>
+                        <div id="co1" style="display:none">
+                            <div class="name" >
+                                <p>節點所在國家</p>
+                            </div>
+                            <div class="dropdown">
+                               <select id="g82" name="g82">
+	<option value="none" >請選擇</option>
+	<option th:each="codetab: ${counlist}" th:value="${codetab.name_zh}" th:text="${codetab.name_desc_zh}"> </option>
+	</select>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>排列順序</p>
+                            </div>
+                            <input type="text" class="form-control" id="g9" value="0" placeholder="pos" ></textarea>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>節點狀態</p>
+                            </div>
+                            <div class="dropdown">
+                               <select id="g10" name="g10">
+	<option value="0" disabled="disabled">請選擇</option>
+	<option th:each="codetab: ${faillist}" th:value="${codetab.name_zh}" th:text="${codetab.name_desc_zh}"> </option>
+	</select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button_group">
+                        <div class="button" onclick="addnode('1')">
+                            <p>確定</p>
+                        </div>
+                        <div class="button mg_l" th:onclick="clearl()">
+                            <p>清除</p>
+                        </div>
+                        <div class="button mg_l" th:onclick="goback()">
+                            <p>取消/回上一頁 </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="float_icon">
+                    <div class="float_icon1" onclick="switch1();" ></div>
+                    <div class="float_icon2" onclick="switch2();" ></div>
+                    <div class="float_icon3"></div>
+                </div>
+            </div>
+<!--         </div> -->
+<!--     </div> -->
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/time.js}"></script>
+    <script type="text/javascript">
+    $("#newnode").click(function(){
+		$(".no_deta").css("display","none");
+        $(".right_text").css("display","block");
+        $(".page").css("display","none");
+		});
+	
+    $("#g7").change(function(){
+        	var aa = $("#g7").val();
+//         	alert(aa);
+        	if (aa=='FOREIGN'){
+//             	alert(1)
+            	$("#co").css("display","none");
+                $("#co1").css("display","block");
+            	}else{
+//                alert(0) 
+               $("#co1").css("display","none");
+               $("#co").css("display","block");	
+               }
+        });
+        $("#item1").click(function(){
+            $(".no_deta").css("display","none");
+            $(".right_text").css("display","block");
+        });
+        
+        function go_mody(urlk,xxx){
+        	//alert(urlk+":"+xxx);
+        	$( ".right" ).load("/scsi/mody_node?sysid="+xxx);
+        }
+        function clearl(){
+//       	alert("clear");
+    	var a = $("#g1").val("");
+		var b = $("#g2").val("");
+		var c = $("#g3").val("");
+		var d = $("#g4").val("");
+		var e = $("#g5").val("");
+		var f = $("#g6").val("");
+		var g = $("#g7").val("");
+		var h = $("#g81").val("");
+		var h = $("#g82").val("");
+		var i = $("#g9").val("");
+		var j = $("#g10").val("");
+      	}
+        function addnode(xxx){
+        	var sysid = $("#g0").val()
+        	if(sysid ==''){
+        		sysid="0000";
+        	}
+        	var a = $("#g1").val();
+        	const ea = btoa(encodeURI(a));
+        	var b = $("#g2").val();
+        	var c = $("#g3").val();
+        	var d = $("#g4").val();
+        	var e = $("#g5").val();
+        	const ee = btoa(encodeURI(e));
+        	var f = $("#g6").val();
+        	const ef = btoa(encodeURI(f));
+        	var g = $("#g7").val();
+        	const eg = btoa(encodeURI(g));
+			if(g=="FOREIGN"){
+        	var h = $("#g82").val();
+				}else{
+					var h = $("#g81").val();
+				}
+        	const eh = btoa(encodeURI(h));
+        	var i = $("#g9").val();
+        	const ei = btoa(encodeURI(i));
+        	var j = $("#g10").val();
+        	const ej = btoa(encodeURI(j));
+        	
+//         	alert(a+"/"+b+"/"+c+"/"+d+"/"+e+"/"+f+"/"+g+"/"+h+"/"+i+"/"+j+"/"+xxx);
+
+        	if (a == '' || b == ''||g == '') {
+        	alert('請填寫編號 名稱 及 節點類型!');
+        } else {
+        var yes = confirm('確定執行？');
+        	
+        	if (yes) {
+        		$.ajax({
+                    async: false,
+                    type: 'POST',
+                    dataType: "html",
+                    data:{node_id: a, node_name: b, owner: c, address: d, lon: e, lat: f ,node_type: g,node_country: h, pos:i ,node_failure:j,sysid:sysid},
+                    contentType:"application/x-www-form-urlencoded;charset=UTF-8",
+//                     contentType:"application/json",
+                    url: '/scsi/newnode',
+                    cache:false,
+                    success: function (data){
+//                         alert(data);
+						if(data=="OK"){
+    					alert('新增完成');
+                        $(".right").load("/scsi/node_list");
+                    }
+						if(data=="exist"){
+	    					alert('新增失敗(編號或名稱重複)');
+	                    }
+                    }
+						,
+                    error:function (errorMsg){
+                    	console.log(errorMsg);
+                    }
+                });
+        		}
+        	}
+        }
+        
+        function goback() {
+//          alert("click");
+        	$(".right").load("/scsi/node_list");
+     }
+        $("#send_search").click(function(){
+        	var gk = $("#gk").val();
+//          alert("click");
+        	$(".right").load("/scsi/node_list?gk="+encodeURIComponent(gk.trim()));
+     });
+
+        function dele_node(xxx){
+            alert(xxx);
+            var yes = confirm('是否刪除？');
+            if (yes) {
+            $.ajax({
+                async: false,
+                type: 'POST',
+                dataType: "html",
+                data:{sysid:xxx},
+                contentType:"application/x-www-form-urlencoded;charset=UTF-8",
+                url: '/scsi/delnode',
+                cache:false,
+                success: function (data){
+//                     alert(data);
+					alert('刪除完成');
+                    $(".right").load("/scsi/node_list");
+                },
+                error:function (errorMsg){
+                	console.log(errorMsg);
+                }
+            });
+            }
+        }
+        function del_node(xxx) {
+            alert(xxx);
+    		var yes = confirm('是否刪除？');
+
+    		if (yes) {
+    		 
+    		$.post("/delnode", {sysid:xxx}).done(
+    				function(data) {
+    					//alert(data);
+    					var str1 = data.replace(/(^\s*)|(\s*$)/g, "");
+    					//var myArray = str1.split(':');
+    					if (str1 == 'OK') {
+    						alert('刪除完成');
+    						$(".right").load("node_list.jsp");
+    					}else if(str1=='WAIT'){
+    						var yes = confirm('有使用中的資料! 確定執行？');
+    						if (yes){
+    							$.post("deletenode2.jsp", {sysid:xxx}).done(
+    				    				function(data) {
+//    				     					alert(data);
+    				    					var str1 = data.replace(/(^\s*)|(\s*$)/g, "");
+    				    					var myArray = str1.split(':');
+//    				     					alert(str1);
+    				    					if (str1 == 'OK') {
+    				    						alert('刪除完成');
+    				    						$(".right").load("node_list.jsp");
+    				    					}else {
+    				    						alert('刪除失敗');
+    				    						//  $( "#simpleedit" ).load('LocArea.jsp');
+    				    						$(".right").load("node_list.jsp");
+    				    					}
+
+    				    				});
+    						}
+							$(".right").load("node_list.jsp");
+    					
+    					}else {
+    						alert('刪除失敗');
+    						//  $( "#simpleedit" ).load('LocArea.jsp');
+    						$(".right").load("node_list.jsp");
+    					}
+
+    				});
+    		}
+    	}
+    </script>
+</body>
+</html> 

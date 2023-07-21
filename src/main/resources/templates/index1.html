@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/main.css?t=20220524}">
+<link rel="stylesheet" th:href="@{/css/simulation.css}">
+<link rel="stylesheet" th:href="@{/css/diagram.css}">
+<link rel="stylesheet" th:href="@{/css/map/ol420.css}">
+<link rel="stylesheet" th:href="@{/css/map/colorbox.css}">
+<link rel="stylesheet" th:href="@{/css/myinfra.css}">
+
+<script type="text/javascript" th:src="@{/js/map/jquery-3.2.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/map/ol530.js}"></script>
+
+<title>海纜模擬系統</title>
+</head>
+<body>
+	<div class="main">
+		<div id="myinput" class="left">
+			<div class="left_main">
+				<div class="left_text">
+					<div class="text1">
+						<p>現在日期/時間</p>
+						<ul id="time-wrap">
+							<li id="date"></li>
+							<li id="time"></li>
+							<li id="day" style="display: none;"></li>
+						</ul>
+					</div>
+					<div class="text2">
+						<div class="button_group">
+							<button type="button" onclick="goCase(1);"
+								class="btn btn-outline-primary">情境一</button>
+							<button type="button" onclick="goCase(2);"
+								class="btn btn-outline-primary">情境二</button>
+							<button type="button" onclick="goCase(3);getScableData();"
+								class="btn btn-outline-primary">情境三</button>
+						</div>
+					</div>
+					<div class="text3">
+						<p>
+							障礙海纜<span style="padding-left: 20px;"><button
+									type="button" onclick="showThisCable();"
+									class="btn btn-outline-primary">海纜查看</button></span>
+						</p>
+						<div class="dropdown">
+							<select id="scablealllist"
+								onchange="getScableNations(this.value);">
+								<option value="0">Select ...</option>
+							</select>
+						</div>
+					</div>
+					<div class="text4">
+						<div class="text4_l">
+							<p>障礙位置</p>
+							<div class="dropdown">
+								<select id="faillocation"
+									onchange="getFailLoacation(this.value);">
+									<option value="0">Select ...</option>
+								</select>
+							</div>
+						</div>
+						<div class="text4_r">
+							<p>障礙影響頻寬(GB)</p>
+							<input type="number" id="failbw" class="form-control"
+								placeholder="Username" aria-label="Username"
+								aria-describedby="addon-wrapping">
+						</div>
+					</div>
+					<div class="text5">
+						<p>障礙說明</p>
+						<textarea id="faildesc" class="form-control"
+							aria-label="With textarea"></textarea>
+					</div>
+					<div class="text6">
+						<p>備援海纜/可用頻寬/總頻寛</p>
+						<div id="scablelist" class="rdobutton"
+							style="height: 200px; overflow: auto; width: 80%;"></div>
+					</div>
+				</div>
+				<div class="send_button" onclick="showResult();"></div>
+			</div>
+		</div>
+
+		<div id="myresult" class="left1">
+			<div class="left_main1">
+				<div class="left_text1">
+					<div class="text1">
+						<p>現在日期/時間</p>
+						<ul id="time-wrap">
+							<li id="date1"></li>
+							<li id="time1"></li>
+
+						</ul>
+						<span id="info" style="display: none"></span>
+					</div>
+					<div class="text21">
+						<p>
+							障礙海纜：<span id="fail_scable"></span> <span class="dotred"></span>
+						</p>
+						<p>
+							障礙位置（至）：<span id="fail_location"></span>
+						</p>
+						<p>
+							障礙影響頻寬：<span id="fail_bw"></span>GB
+						</p>
+					</div>
+					<div class="text31">
+						<p>故障說明：</p>
+						<p>
+							<span id="fail_desc"></span>
+						</p>
+					</div>
+					<div class="text41">
+						<p>備援海纜/可用頻寬</p>
+						<span id="fail_sol">
+							<p>
+								<span class="dotgreen"></span>利用NCP海纜，尚餘2000GB容量，以解決APG日本段斷纜之狀況。
+							</p>
+							<p>
+								<span class="dotblue"></span>利用FASTER海纜，尚餘1000GB容量，以解決APG日本段斷纜之狀況。
+							</p>
+						</span>
+						<!--
+						<p>利用NCP海纜，尚餘2000GB容量，暫時將所需頻寬及資料流量，導至於此，以解決APG日本段斷纜之狀況。</p>
+						<p>利用FASTER海纜，尚餘1000GB容量，暫時將所需頻寬及資料流量，導至於此，以解決APG日本段斷纜之狀況。</p>
+						-->
+
+
+					</div>
+				</div>
+				<div class="inquire_button" onclick="showInput();"></div>
+			</div>
+		</div>
+
+		<div id="maindata" class="left1">
+			<div class="left_main1">
+				<div class="left_text1">
+					<div class="text1">
+						<p>現在日期/時間</p>
+						<ul id="time-wrap">
+							<li id="date2"></li>
+							<li id="time2"></li>
+						</ul>
+					</div>
+
+					<div class="text2">
+						<div class="button_group">
+							<button type="button" onclick="showAllInfra();"
+								class="btn btn-outline-primary">
+								全部顯示<BR>架構圖
+							</button>
+							<button type="button" onclick="showInfra();"
+								class="btn btn-outline-primary">
+								模擬結果<BR>架構圖
+							</button>
+							<button type="button" onclick="showSimuData();"
+								class="btn btn-outline-primary">
+								模擬結果<BR>路由資訊
+							</button>
+						</div>
+					</div>
+					<div class="text3">
+						<p>站點A</p>
+						<div class="dropdown">
+							<select id="node_left"
+								onchange="getNodeInfo1('nodemiddle1',this.value);">
+								<option value="left-node-01">馬祖</option>
+								<option value="left-node-02">金門</option>
+								<option value="left-node-03">澎湖</option>
+								<option value="left-node-04">小琉球</option>
+							</select>
+						</div>
+					</div>
+					<div class="text3">
+						<p>站點B</p>
+						<div class="dropdown">
+							<select id="nodemiddle1"
+								onchange="getNodeInfo1('node_left',this.value);">
+								<option value="middle1-node-01">臺中日南</option>
+								<option value="middle1-node-02">金門1</option>
+								<option value="middle1-node-03">澎湖1</option>
+								<option value="middle1-node-04">小琉球1</option>
+							</select>
+						</div>
+					</div>
+					<div class="text4">
+						<div class="text4_l">
+							<p>路由權重</p>
+							<div class="dropdown">
+								<select id="g1">
+									<option value="0">頻寬優先</option>
+									<!--<option value="1">路由長度</option>-->
+									<option value="2">回應時間(路由短)</option>
+									<option value="3">路由權重</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="text4_r">
+							<p>訊務需求頻寬(GB)</p>
+							<input type="text" id="bw_needs" class="form-control"
+								onfocus="changeme(this);" onfocusout="changemeback(this);"
+								placeholder="Bandwidth" aria-label="Bandwidth"
+								aria-describedby="addon-wrapping">
+						</div>
+
+					</div>
+					<div class="text3">
+						<div class="button_group">
+							<!--<button type="button" onclick="findPath();" class="btn btn-outline-primary">送出模擬</button> -->
+							<button type="button" onclick="findPath2();"
+								class="btn btn-outline-primary">送出模擬</button>
+							<button type="button" onclick="window.open('dl.jsp');"
+								class="btn btn-outline-primary">EXPORT</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="right">
+			<div id="showinput" class="mapmain">
+				<div id="map" class="map"></div>
+				<div id="dataarea" style="margin-left: 150px; overflow: hidden;">
+					<div id="shorestpath" class="simulation" style="display: none">
+						<!-- begin -->
+
+						<div class="right_table">
+							<div class="right_align">
+								<div class="right_table_main">
+									<div class="right_table_tilte">
+										<img src="images/right_table_tilte_icon.png" alt="">
+										<p id="startname1">起始地點</p>
+										<div class="title_triangle"></div>
+										<p id="endname1">到達地點</p>
+										<!--模擬結果-->
+									</div>
+									<div class="right_table_main_title">
+										<div class="start">
+											<p>起始節點</p>
+										</div>
+										<div class="end">
+											<p>到達節點</p>
+										</div>
+										<div class="routing">
+											<p>路由</p>
+										</div>
+										<div class="illustrate">
+											<p>障礙說明</p>
+										</div>
+										<div class="result">
+											<p>模擬結果說明</p>
+										</div>
+									</div>
+									<div id="abc" class="right_table_main_data"
+										style="overflow: hidden"></div>
+								</div>
+							</div>
+						</div>
+
+						<!-- end -->
+					</div>
+					<div id="infraarea" style="overflow: hidden;">
+						<div class="right_table_main1">
+							<div class="right_table_main_title1">
+								<div class="title1 ">
+									<p>離島地區</p>
+								</div>
+								<div class="title2 ">
+									<p>陸鏈第一介街站</p>
+								</div>
+								<div class="title3">
+									<p>海纜登入站</p>
+								</div>
+								<div class="title4">
+									<p>聯外國家</p>
+								</div>
+							</div>
+							<div class="right_table_main_data">
+								<svg id="drawarea" style="height: 4800px; overflow-x: hidden;"
+									xmlns:xlink="http://www.w3.org/1999/xlink">
+					<defs>
+    <linearGradient id="rect_normal" x1="0%" y1="0%" x2="0%" y2="100%"
+										spreadMethod="pad">
+      <stop offset="0%" stop-color="#e0f3f7" stop-opacity="1" />
+      <stop offset="50%" stop-color="#b5e1ec" stop-opacity="1" />
+      <stop offset="100%" stop-color="#96c5d9" stop-opacity="1" />
+    </linearGradient>
+	<linearGradient id="rect_red" x1="0%" y1="0%" x2="0%" y2="100%"
+										spreadMethod="pad">
+      <stop offset="0%" stop-color="#f0b0b0" stop-opacity="1" />
+      <stop offset="50%" stop-color="#eb9393" stop-opacity="1" />
+      <stop offset="100%" stop-color="#e46e6e" stop-opacity="1" />
+    </linearGradient>
+</defs>
+					</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="right_icon">
+				<div class="float_icon">
+					<div onclick="switchInfra();" class="float_icon1"></div>
+					<div onclick="switchMap();" class="float_icon2"></div>
+					<div onclick="swithcInput();" class="float_icon3"></div>
+				</div>
+				<div class="grading">
+					<div class="right_title_icon">
+						<p>頻寬等級</p>
+					</div>
+					<div class="grading_text">
+						<div class="grading_icon white"></div>
+						<p>正常</p>
+					</div>
+					<div class="grading_text">
+						<div class="grading_icon red1"></div>
+						<p>頻寬障礙</p>
+					</div>
+					<div class="grading_text">
+						<div class="grading_icon purple"></div>
+						<p>斷纜</p>
+					</div>
+				</div>
+				<!--
+                <div class="alarm_level">
+                    <div class="right_title_icon">
+                        <p>告警級數</p>
+                    </div>
+                    <div class="grading_text">
+                        <div class="level_box normal"></div>
+                        <p>正常正常</p>
+                    </div>
+                    <div class="grading_text">
+                        <div class="level_box yellow"></div>
+                        <p>中級</p>
+                    </div>
+                    <div class="grading_text">
+                        <div class="level_box red"></div>
+                        <p>高級</p>
+                    </div>
+                    <div class="grading_text">
+                        <div class="level_box purple"></div>
+                        <p>緊急</p>
+                    </div>
+                </div>
+				-->
+			</div>
+		</div>
+		<!-- data input -->
+
+
+
+
+		<!-- data input end -->
+		<div class="bottom_text">
+			<p></p>
+		</div>
+	</div>
+
+	<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/time.js}"></script>
+
+	<script type="text/javascript" th:src="@{/js/map/tgos/json5.js}"></script>
+	<script type="text/javascript" th:src="@{/js/map/tgos/TGAgent_OL.js}"></script>
+
+	<script type="text/javascript" th:src="@{/js/map/my_jquery_utils.js}"></script>
+	<script type="text/javascript" th:src="@{/js/map/my_map_tgos_utils.js}"></script>
+	<script type="text/javascript" th:src="@{/js/map/my_layers_utils.js}"></script>
+	<!-- 圖層資料結構 -->
+	<script type="text/javascript"
+		th:src="@{/js/map/my_map_marker_utils.js}"></script>
+	<!--  標註功能 -->
+	<script type="text/javascript"
+		th:src="@{/js/map/my_map_cable_utils.js}"></script>
+	<!-- 海纜功能 -->
+	<script type="text/javascript" th:src="@{/js/map/my_jquery.js}"></script>
+	<!-- 地圖本身以外的功能 -->
+	<script type="text/javascript"
+		th:src="@{/js/map/my_mutliline_utils.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.colorbox.js}"></script>
+	<script type="text/javascript" th:src="@{/js/myinfra.js}"></script>
+	<script type="text/javascript" th:src="@{/js/extends_enc.js}"></script>
+	<script th:inline="javascript">
+
+var p=1 ;
+var adj = 0 ;
+
+function switchInfra(){
+	$("#shorestpath").hide();
+	$("#infraarea").show();
+	$("#showinput").show();
+	$("#myresult").hide();
+	$("#myinput").hide();
+	$("#map").hide();
+	$("#dataarea").show();
+	$("#maindata").show();
+	$(".grading").show();
+	showDES();
+}
+
+function switchMap(){
+	$("#showinput").show();
+	$("#myresult").hide();
+	$("#myinput").show();
+	$("#map").show();
+	$(".ol-unselectable").show();
+	$("#dataarea").hide();
+	$("#maindata").hide();
+	$(".grading").hide();
+	if(p==1){
+		p=0 ;
+	}else{
+		if($(".ol-viewport")[0]){
+			//console.log("has");
+		}else{
+			location.reload();
+		}
+	}
+}
+
+function swithcInput(){
+	location.replace("/scsi/main");
+}
+
+$(window).click(function(e) {
+    mytimeout = 0;
+});
+
+ $(document).ready(function() {
+	//alert(GetURLParameter('test'));
+    setAreaHeight("dataarea");
+	setAreaWidth("drawarea");
+	setAreaWidth("dataarea");
+	//switchMap();
+	//setTimeout("testLine();",3000);
+});
+ 
+function getApoint(){
+//r:radiu
+x = cx + r * cos(a)
+y = cy + r * sin(a)
+}
+
+function showAllInfra(){
+	$("#shorestpath").hide();
+	$("#infraarea").show();
+	$(".grading").show();
+	switchInfra();
+	$("#abc").css("overflow","hidden");
+}
+
+function showInfra(){
+	$("#shorestpath").hide();
+	$("#infraarea").show();
+	$(".grading").show();
+	showSimResult();
+	$("#abc").css("overflow","hidden");
+}
+
+function showSimuData(){
+	$("#shorestpath").show();
+	$("#infraarea").hide();
+	$(".grading").hide();
+	$("#abc").css("overflow","scroll");
+}
+
+function changeme(x){
+	//$("#"+x.id).css("background-color","blue");
+	$("#"+x.id).css("color","#F17529");
+}
+
+function changemeback(x){
+	$("#"+x.id).css("background-color","transparent");
+}
+
+$("#item1").click(function(){
+ $(".right_text").css("display","block");
+ });
+	</script>
+</body>
+</html>

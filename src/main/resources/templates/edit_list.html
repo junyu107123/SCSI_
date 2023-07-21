@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/input.css}">
+		<link rel="stylesheet" th:href="@{/css/search.css}">
+        <title>input_data</title>
+    </head>
+<body>
+<!--     <div class="main"> -->
+    <style>
+
+    .no_deta{
+    display: block;
+    width: 100%;
+    height: 70%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+.no_deta::-webkit-scrollbar {
+    width: 8px;
+}
+.no_deta::-webkit-scrollbar-button {
+    background: transparent;
+    border-radius: 5px;
+}
+.no_deta::-webkit-scrollbar-track-piece {
+    background: rgba(44, 91, 108, 0.1);
+    border-radius: 5px;
+}
+.no_deta::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+   
+    background-color: #2b4387;
+    border: 1px solid #2b4387;
+}
+.no_deta::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+.right_text{
+    display: none;
+    width: 100%;
+    height: 70%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+.right_text::-webkit-scrollbar {
+    width: 8px;
+}
+.right_text::-webkit-scrollbar-button {
+    background: transparent;
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-track-piece {
+    background: rgba(44, 91, 108, 0.1);
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+   
+    background-color: #2b4387;
+    border: 1px solid #2b4387;
+}
+.right_text::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+.title_search{
+	display: flex;
+    align-items: center;
+	font-size: 1.5rem;
+}
+.title_search img{
+	margin-right: 1rem;
+}
+.right_table_title_right{
+	display: flex;
+    position: absolute;
+	left: 11%;
+	top: 42px;
+	align-items: center;
+	font-size: 2.8rem;
+	letter-spacing: 5px;
+	color: #165f4b;
+}
+.title_add_icon{
+    width: 68px;
+    height: 72px;
+	margin-left: -15px;
+    background-image: url("images/add_data_icon.png");
+    margin-top: .6rem;
+}
+.title_add_icon:hover,.title_add_icon:active{
+    background-image: url("images/add_data_icon_h.png");
+}
+.pagetext{
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif, 微軟正黑體;
+	font-size: 1.5rem;
+	margin-top: 1%;
+	color: #165f4b;
+}
+.pagetext :hover{
+	text-decoration: underline;
+}
+                    </style>
+<!--      <div class="left"> -->
+            <div class="right_main">
+                <div class="tilte">
+				<div class="right_table_title_right">
+                            <div class="title_search">
+								<img src="images/right_table_tilte_icon.png">
+								<font th:text=${gk} size="7"></font>
+							<div class="title_add">
+                                <div  id="newdata" class="title_add_icon" title="新增<%=data%>"></div>
+                            </div>
+                        </div>
+						</div>
+                </div>
+                <div class="text_top_line"></div>
+                <div class="no_deta">
+                    <div class="table">
+                        <div class="table_title">
+                            <div class="title5"> 
+                            	<p>序號</p> 
+                            </div>
+                            <div class="title2">
+                                <p>代碼</p>
+                            </div>
+                            <div class="title2">
+                                <p>名稱</p>
+                            </div>
+                            <div class="title5">
+                                <p>修改</p>
+                            </div>
+                            <div class="title6">
+                                <p>刪除</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_main" th:each="codetab: ${counlist}">
+                        <div class="tablemain" th:if="${codetabStat.odd}">
+                        	<div class="main5">
+                        	<p th:text="${codetabStat.index+1}"></p>
+                            </div>
+                            <div class="main2">
+                                <p th:text="${codetab.name_zh}"></p>
+                            </div>
+                            <div class="main2">
+                                <p th:text="${codetab.name_desc_zh}"></p>
+                            </div>
+                            <div class="main5">
+                                <div class="add-icon" th:onclick="go_modye([[${edit_list}]],[[${codetab.seq}]])"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon" th:onclick="dele_edit([[${codetab.seq}]],[[${codetab.code_id}]])"></div>
+                            </div>
+                        </div>
+                    
+                    <div class="tablemain tw" th:if="${codetabStat.even}">
+                    		<div class="main5">
+                    		<p th:text="${codetabStat.index+1}"></p>
+                            </div>
+                        	<div class="main2">
+                                <p th:text="${codetab.name_zh}"></p>
+                            </div>
+                            <div class="main2">
+                                <p th:text="${codetab.name_desc_zh}"></p>
+                            </div>
+                            <div class="main5">
+                                <div class="add-icon" th:onclick="go_modye([[${edit_list}]],[[${codetab.seq}]])"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon" th:onclick="dele_edit([[${codetab.seq}]],[[${codetab.code_id}]])"></div>
+                            </div>
+                    </div>
+				</div>
+              </div>  
+                <div class="right_text">
+                    <div class="text_flex">
+                        <div class="industry">
+                            <div class="name">
+                                <p></p>
+                            </div>
+                            <div class="name">
+                            <input type="text" class="form-control" id="g1" th:value="${code_id}" placeholder="codeid"  readonly>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="text_flex">
+                    	<div class="industry">
+                            <div class="name">
+                                <p>代碼</p>
+                            </div>
+                            <input type="hidden" class="form-control" id="g0" value="" placeholder="seq" >
+                            <input type="text" class="form-control" id="g2" value="" placeholder="name_zh"  aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>中文名稱</p>
+                            </div>
+                            <div class="name">
+                            <input type="text" class="form-control" id="g3" value="" placeholder="name_desc_zh"  aria-describedby="addon-wrapping">
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="button_group">
+                        <div class="button" onclick="addedit('1')">
+                            <p>確定</p>
+                        </div>
+                        <div class="button mg_l" onclick="clearl()">
+                            <p>清除</p>
+                        </div>
+                        <div class="button mg_l" onclick="goback()">
+                            <p>取消/回上一頁 </p>
+                        </div>
+                    </div>
+                </div>
+            <div class="float_icon">
+                    <div class="float_icon1" onclick="switch1();" ></div>
+                    <div class="float_icon2" onclick="switch2();" ></div>
+                    <div class="float_icon3"></div>
+                </div>
+                </div>
+<!--         </div> -->
+<!--     </div> -->
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/time.js}"></script>
+    <script type="text/javascript">
+    
+    $("#newdata").click(function(){
+    	$(".no_deta").css("display","none");
+        $(".right_text").css("display","block");
+        $(".page").css("display","none");
+		});
+    $("#itema").click(function(){
+//         alert("clicka");
+        $(".right").load("edit.jsp?seq=1");
+        $(".no_deta").css("display","none");
+        $(".right_text").css("display","block");
+    });
+    
+        
+        function go_modye(urlk,xxx){
+        	//alert(urlk+":"+xxx);
+        	$( ".right" ).load("/scsi/mody_edit?seq="+xxx);
+        }
+        function clearl(){
+//       	alert("clear");
+		var b = $("#g2").val("");
+		var c = $("#g3").val("");
+      	}
+        function addedit(xxx){
+        	var seq = $("#g0").val()
+        	if(seq ==''){
+        		seq==9999;
+        	}
+        	var a = $("#g1").val()
+        	var b = $("#g2").val();
+        	var c = $("#g3").val();
+        	
+        	//alert(seq+"/"+a+"/"+b+"/"+c+"/"+xxx);
+
+        	if (b == '' || c == '') {
+        	alert('請填寫全部欄位!');
+        } else {
+        	
+        var yes = confirm('確定執行？');
+        	if (yes) {
+        				$.ajax({
+                            async: false,
+                            type: 'POST',
+                            dataType: "html",
+                            data:{code_id: a, name_zh: b, name_desc_zh: c, seq: seq},
+                            contentType:"application/x-www-form-urlencoded;charset=UTF-8",
+//                             contentType:"application/json",
+                            url: '/scsi/newedit',
+                            cache:false,
+                            success: function (data){
+//                                 alert(data);
+        						if(data=="OK"){
+            					alert('新增完成');
+                                $(".right").load("/scsi/edit_list?gk="+a);
+                            }
+        						if(data=="exist"){
+        	    					alert('新增失敗');
+        	                    }
+                            }
+        						,
+                            error:function (errorMsg){
+                            	console.log(errorMsg);
+                            }
+                        });
+        	}
+        }
+        }
+        function goback() {
+//          alert("click");
+        	$(".right").load("/scsi/edit_list");
+     }
+        function dele_edit(xxx,yyy){
+//             alert(xxx,yyy);
+            var yes = confirm('是否刪除？');
+            if (yes) {
+            $.ajax({
+                async: false,
+                type: 'POST',
+                dataType: "html",
+                data:{seq:xxx},
+                contentType:"application/x-www-form-urlencoded;charset=UTF-8",
+                url: '/scsi/deledit',
+                cache:false,
+                success: function (data){
+//                     alert(data);
+					alert('刪除完成');
+                    $(".right").load("/scsi/edit_list?gk="+yyy);
+                },
+                error:function (errorMsg){
+                	console.log(errorMsg);
+                }
+            });
+            }
+        }
+    </script>
+</body>
+</html> 

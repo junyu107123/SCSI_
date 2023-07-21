@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<meta charset="utf-8" />    
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/input.css}">
+		<link rel="stylesheet" th:href="@{/css/login.css}">
+<title>使用者登入</title>
+</head>
+<body>
+
+    <div class="login">
+        <div class="login_bg">
+		<form action="/scsi/main" method="post">
+            <div class="login_main">
+                <div class="userid">
+                    <div class="input_title">
+                        <p>使用者帳號</p>
+                    </div>
+                    <input type="text" id="userid" name="userid" autocomplete="off" autofocus value="">
+                </div>
+                <div class="password">
+                    <div class="input_title">
+                        <p>密碼</p>
+                    </div>
+                    <input id="password" type="password" autocomplete="off" name="password" value="">
+                </div>
+                <div class="code">
+                    <div class="input_title">
+                        <p>驗證碼</p>
+                    </div>
+                    <div class="img">
+					<img src="/scsi/verify-code" alt="New Image" id="code" onclick="javascript:changeimg();">
+                    </div>
+                    <input name="insrand" value="" autocomplete="off" onkeyup="value=value.replace(/[^\d]/g,'') ">
+                </div>
+            </div>
+            <div class="login_button">
+                <input type="submit" value="">
+            </div>  
+	</form>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/time.js}"></script>    
+	<script type="text/javascript">
+            function changeimg(){            
+                var myimg = document.getElementById("code");
+                now = new Date();
+                myimg.src = "/verify-code?change"+now.getTime();   
+                             
+            }
+        </script>
+    
+</body>
+</html> 

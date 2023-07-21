@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/input.css}">
+		<link rel="stylesheet" th:href="@{/css/search.css}">
+        <link rel="stylesheet" th:href="@{/css/dropzone.min.css}">
+        
+        <title>input_data</title>
+    </head>
+<body>
+<!--     <div class="main"> -->
+    <style>
+    .no_deta::-webkit-scrollbar {
+    width: 8px;
+}
+.no_deta::-webkit-scrollbar-button {
+    background: transparent;
+    border-radius: 5px;
+}
+.no_deta::-webkit-scrollbar-track-piece {
+    background: rgba(44, 91, 108, 0.1);
+    border-radius: 5px;
+}
+.no_deta::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+   
+    background-color: #2b4387;
+    border: 1px solid #2b4387;
+}
+.no_deta::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+.right_text{
+    display: none;
+    width: 100%;
+    height: 70%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+.right_text::-webkit-scrollbar {
+    width: 8px;
+}
+.right_text::-webkit-scrollbar-button {
+    background: transparent;
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-track-piece {
+    background: rgba(44, 91, 108, 0.1);
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+   
+    background-color: #2b4387;
+    border: 1px solid #2b4387;
+}
+.right_text::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+.rightheader{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.rh{
+	width: 95%;
+}
+.rhtittle {
+	display: flex;
+	align-items: center;
+	font-size: 2.8rem;
+	letter-spacing: 5px;
+	color: #165f4b;
+	margin-top: -2.5rem;
+}
+.rhtittle img {
+	margin-right: .8rem;
+	margin-top: -0.8rem;
+}
+.right_table_title_right{
+	display: flex;
+    position: absolute;
+	left: 460px;
+	top: 33px;
+    /*right: 10;*/
+}
+                    </style>
+            <div class="right_main">
+                <div class="tilte">
+                <div class="rightheader">
+    <div class="rh">
+    <div class="rhtittle">
+        <img src="images/right_table_tilte_icon.png">
+        <p>資料匯入</p>
+    </div>
+    </div>
+            <div class="right_table_title_right">
+            </div>
+</div>
+                </div>
+                <div class="text_top_line"></div>
+                <div class="button_group">
+                <div class="button" onclick="dl()">
+                            <p>節點/機房 範例下載</p>
+                        </div>
+                        <div class="button mg_l" onclick="dl2()">
+							 <p>路由 範例下載</p>
+                        </div>
+                        <div class="button mg_l" onclick="dl3()">
+							 <p>電路 範例下載</p>
+                        </div>
+                        <div class="button mg_l" onclick="dl4()">
+							 <p>電路障礙 範例下載</p>
+                        </div>
+<script type="text/javascript">
+function dl(){
+ window.open("${pageContext.request.contextPath}/excel/node.xlsx","_self");
+}
+function dl2(){
+ window.open("${pageContext.request.contextPath}/excel/link.xlsx","_self");
+}
+function dl3(){
+	 window.open("${pageContext.request.contextPath}/excel/conn.xlsx","_self");
+	}
+	function dl4(){
+	 window.open("${pageContext.request.contextPath}/excel/fail.xlsx","_self");
+	}
+ </script>
+ 				</div>
+                <div class="no_deta">
+                <div class="dropz">
+      	<form method="post" action="upload.jsp" class="dropzone" enctype="multipart/form-data"></form>
+        </div>
+        
+		<script type="text/javascript">
+		var fil ;
+		Dropzone.autoDiscover = false;
+		var myDropZone = new Dropzone(".dropzone",{
+			url: "upload.jsp",
+	    	uploadMultiple: true,
+	    	clickable : true,
+	   		dictDefaultMessage:"請將您的檔案移至此處...",
+	    	addRemoveLinks: true,
+	    	dictRemoveFile:"按此可移除檔案",
+	   	 	parallelUploads: 1,
+	    	maxFiles: 1,//最多允許上傳圖片數
+	    	maxFilesize: 15,
+	    	dictFileTooBig: '檔案大小超過15M',
+	    	dictInvalidFileType: '只允許上傳EXCEL',
+	    	acceptedFiles: ".xlsx",
+	    	init: function() {
+	    	
+	    	 this.on("complete", function (file) {
+	    		 if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+	    			 //alert("上傳"); 	
+	    			 fil = file.name;
+	    		 }
+	    		 else
+	    		 {
+	    			 alert("上傳失敗");
+	    		 }	 
+	    	 });
+	    	 this.on("removedfile",function(file){
+	    		 $.post( "deletefile.jsp", {  file_to_be_deleted: file.name })
+	    		  .done(function( data ) {
+	    			  //alert(data);
+	    			  if(data.trim() == 'OK')
+	    			  {
+	    				//alert('檔案已刪除!');
+	    			  } 
+	    		  });
+			});
+    }
+});
+</script>
+<div class="button_group">
+                        <div class="button" onclick="import_excel();">
+                            <p>匯入節點/機房</p>
+                        </div>
+                        <div class="button mg_l" onclick="import_excel2();">
+                            <p>匯入路由</p>
+                        </div>
+                        <div class="button mg_l" onclick="import_excel3();">
+                            <p>匯入電路</p>
+                        </div>
+                        <div class="button mg_l" onclick="import_excel4();">
+                            <p>匯入電路障礙</p>
+                        </div>
+                       
+                    </div>
+              </div>  
+              
+                <div class="right_text">
+                
+                </div>
+                <div class="float_icon">
+                    <div class="float_icon1" onclick="switch1();" ></div>
+                    <div class="float_icon2" onclick="switch2();" ></div>
+                    <div class="float_icon3"></div>
+                </div>
+            </div>
+<!--         </div> -->
+<!--     </div> -->
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/time.js}"></script>
+    <script type="text/javascript" th:src="@{/js/dropzone.min.js}"></script>
+    <script type="text/javascript">
+    function import_excel2(){
+	$("#importresult1").html ("");
+// 	alert(fil);
+	$.post( "importlink.jsp", {  filename:fil })
+	.done(function( data ) {
+		var str1 = data.replace(/(^\s*)|(\s*$)/g, "");
+		 var myArray = str1.split(':');
+		var successfirst = myArray[1].split("/");
+		
+		
+		 if(myArray[0] == 'OK')
+			{
+			   alert("執行完畢");
+			   
+			   $("#importresult1").html (  "Excel 工作頁1 = 成功筆數:"+successfirst[0]+"  "+"失敗或編號重複位置: "+successfirst[1] );
+			}
+			reset();
+		
+	});
+}
+function import_excel3(){
+	$("#importresult1").html ("");
+// 	alert(fil);
+	$.post( "importconn.jsp", {  filename:fil })
+	.done(function( data ) {
+		var str1 = data.replace(/(^\s*)|(\s*$)/g, "");
+		 var myArray = str1.split(':');
+		var successfirst = myArray[1].split("/");
+		
+		
+		 if(myArray[0] == 'OK')
+			{
+			   alert("執行完畢");
+			   
+			   $("#importresult1").html (  "Excel 工作頁1 = 成功筆數:"+successfirst[0]+"  "+"失敗或編號重複位置: "+successfirst[1] );
+			}
+			reset();
+		
+	});
+}
+function import_excel4(){
+	$("#importresult1").html ();
+// 	alert(fil);
+	$.post( "importfail.jsp", {  filename:fil })
+	.done(function( data ) {
+		var str1 = data.replace(/(^\s*)|(\s*$)/g, "");
+		 var myArray = str1.split(':');
+		var successfirst = myArray[1].split("/");
+		
+		
+		 if(myArray[0] == 'OK')
+			{
+			   alert("執行完畢");
+			   
+			   $("#importresult1").html (  "Excel 工作頁1 = 成功筆數:"+successfirst[0]+"  "+"失敗或編號重複位置: "+successfirst[1] );
+			}
+			reset();
+		
+	});
+}
+</script>
+</body>
+</html> 

@@ -1,0 +1,80 @@
+.login{
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background-image: url("../images/login_bg.png");
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+.login_bg{
+    width: 684px;
+    height: 597px;
+}
+.login_main{
+    padding: 0rem 8.5rem;
+    padding-top: 7.5rem;
+    color: #fff;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+.login_main p{
+    margin-bottom: 0rem;
+}
+.input_title{
+    margin-left: 1rem;
+    
+}
+.userid input,.password input,.code input{
+    width: 425px;
+    height: 65px;
+    background-color: transparent;
+    border: 0px;
+    background-position: center;
+    color: #fff;
+    padding-left: 1.3rem;
+}
+.userid input{
+    margin-top: -.4rem;
+    margin-bottom: .3rem;
+}
+.password,.code{
+    margin-top: .6rem;
+}
+.password input{
+    margin-top: -.4rem;
+    margin-bottom: .5rem;
+}
+.code input{
+    width: 335px;
+    height: 65px;
+    margin-top: 0rem;
+}
+.code .img{
+    width: 313px;
+    height: 47px;
+    border-radius: .8rem;
+    background-image: url("../images/code_img.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: .3rem;
+    margin-left: .3rem;
+    margin-bottom: .5rem;
+}
+input:focus-visible{
+    outline: none;
+}
+.login_button input{
+    background-color: transparent;
+    border: none;
+    width: 190px;
+    height: 190px;
+    background-image: url("../images/login_btn_d.png");
+    margin-left: 30rem;
+    margin-top: 0rem;
+}
+.login_button input:hover,.login_button input:active{
+    margin-left: 30rem;
+    background-image: url("../images/login_btn_h.png");
+}

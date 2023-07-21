@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/input.css}">
+		<link rel="stylesheet" th:href="@{/css/search.css}">
+        <title>input_data</title>
+    </head>
+<body>
+<style>
+.no_deta::-webkit-scrollbar {
+    width: 8px;
+}
+.no_deta::-webkit-scrollbar-button {
+    background: transparent;
+    border-radius: 5px;
+}
+.no_deta::-webkit-scrollbar-track-piece {
+    background: rgba(21, 97, 27, 0.1);
+    border-radius: 5px;
+}
+.no_deta::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #165f4b;
+    border: 1px solid #165f4b;
+}
+.no_deta::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+.right_text{
+    display: none;
+    width: 100%;
+    height: 70%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+.right_text::-webkit-scrollbar {
+    width: 8px;
+}
+.right_text::-webkit-scrollbar-button {
+    background: transparent;
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-track-piece {
+    background: rgba(21, 97, 27, 0.1);
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+   
+    background-color: #165f4b;
+    border: 1px solid #165f4b;
+}
+.right_text::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+.pagetext{
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif, 微軟正黑體;
+	font-size: 1.5rem;
+	margin-top: 1%;
+	color: #165f4b;
+}
+.pagetext :hover{
+	text-decoration: underline;
+}
+</style>
+<style>
+.scrolling-content {
+    position: relative;
+}
+.rightheader{
+	width: 100%;
+	height: 15%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.rh{
+	width: 95%;
+}
+.rhtittle {
+	display: flex;
+	align-items: center;
+	font-size: 2.8rem;
+	letter-spacing: 5px;
+	color: #165f4b;
+	margin-top: -2.5rem;
+}
+.rhtittle img {
+	margin-right: .8rem;
+	margin-top: -0.8rem;
+}
+.right_table_title_right{
+	display: flex;
+    position: absolute;
+	right: 10%;
+	top: 50px;
+    /*right: 10;*/
+}
+.title_search{
+	display: flex;
+    align-items: center;
+    margin-right: 1rem;
+	font-size: 1.5rem;
+}
+.search_input input{
+    border: 2px solid #165f4b;
+    background: transparent;
+    color: #165f4b;;
+    width: 20rem;
+    height: 46px;
+    border-radius: .5rem;
+    font-size: 1.3rem;
+    padding: .5rem;
+}
+.search_input input:focus-visible{
+    outline: none;
+}
+.title_search_icon{
+    width: 62px;
+    height: 72px;
+    background-image: url("images/searchicon.png");
+}
+.title_search_icon:hover,.title_search_icon:active{
+    background-image: url("images/searchicon_h.png");
+}
+.title_add_icon{
+    width: 68px;
+    height: 72px;
+	margin-left: -15px;
+    background-image: url("images/add_data_icon.png");
+}
+.title_add_icon:hover,.title_add_icon:active{
+    background-image: url("images/add_data_icon_h.png");
+}
+</style>
+            <div class="right_main">
+                <div class="rightheader">
+	<div class="rh">
+	<div class="rhtittle">
+		<img src="images/right_table_tilte_icon.png">
+		<p>路由管理</p>
+	</div>
+	</div>
+
+					<div class="right_table_title_right">
+						
+                            <div class="title_search">
+                                <div class="search_input">關鍵字
+                                    <input id="gk" autocomplete="off" value=""  type="text">
+                                </div>
+                                <div id="send_search" class="title_search_icon" th:onclick="">
+                                </div>
+                            </div>
+                            <div class="title_add">
+                                <div id="newnode" class="title_add_icon" th:onclick="" ></div>
+                            </div>
+                     </div>
+</div>
+                <div class="text_top_line"></div>
+                
+              <style>
+                    .right_text{
+    display: block;
+    width: 100%;
+    height: 70%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+                    </style>
+                <div class="right_text">
+                    <div class="text_flex">
+                        <div class="industry">
+                            <div class="name">
+                                <p>路由編號</p>
+                            </div>
+                            <div class="name">
+                            <input type="hidden" class="form-control" id="g0" th:value="${sysid}"  readonly/>
+                            <input type="text" class="form-control" id="g1" th:value="${link_id}" placeholder="link_id"  aria-describedby="addon-wrapping">
+                            </div>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>路由名稱</p>
+                            </div>
+                            <div class="name">
+                            <input type="text" class="form-control" id="g2" th:value="${link_name}" placeholder="link_name"  aria-describedby="addon-wrapping">
+                            </div>
+                        </div>
+                        </div>
+                    <div class="text_flex">
+                    	<div class="industry">
+                            <div class="dropdown">
+                                <p>路由類型</p>
+                            <select id="g11" name="g11">
+	<option value="none">請選擇</option>
+	<option th:each="codetab: ${typelist}" th:value="${codetab.name_zh}" th:text="${codetab.name_desc_zh}" th:selected="${link_type==codetab.name_zh}"> </option>
+	</select>
+						 </div>
+                        </div>
+                        <div class="industry">
+                        <div class="dropdown">
+                            <div class="name">
+                                <p>擁有者</p>
+                            </div>
+							<select id="g3" name="g3">
+	<option value="none">請選擇</option>
+	<option th:each="codetab: ${ownerlist}" th:value="${codetab.name_zh}" th:text="${codetab.name_desc_zh}" th:selected="${link_owner==codetab.name_zh}"> </option>
+	</select>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="dropdown">
+                            	<label>路由A端點:</label>
+	<select class="sl sl1" id="g4" name="g4">
+	<option selected value="none">請選擇</option>
+	<option th:each="nodes: ${nodelist}" th:value="${nodes.node_name}" th:text="${nodes.node_name}" th:selected="${link_nodeA==nodes.node_name}"> </option>
+	</select>
+	</div>
+                            </div>
+                                <div class="industry">
+                            <div class="dropdown">
+                                <label>路由B端點:</label>
+	<select class="sl sl2" id="g5" name="g5">
+	<option selected value="none">請選擇</option>
+	<option th:each="nodes: ${nodelist}" th:value="${nodes.node_name}" th:text="${nodes.node_name}" th:selected="${link_nodeB==nodes.node_name}"> </option>
+	</select>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>路由最大頻寬</p>
+                            </div>
+                            <input type="text" class="form-control" id="g6" th:value="${max_bandwidth}" placeholder="max_bandwidth"  aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>路由使用頻寬</p>
+                            </div>
+                            <input type="text" class="form-control" id="g7" th:value="${using_bandwidth}" placeholder="using_bandwidth"  aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>路由剩餘頻寬</p>
+                            </div>
+                            <input type="text" class="form-control" id="g8" th:value="${rest_bandwidth}" placeholder="rest_bandwidth"  aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="industry">
+                            <div class="dropdown">
+                                <p>路由狀態</p>
+                            <select id="g13" name="g13">
+	<option value="0">請選擇</option>
+	<option th:each="codetab: ${faillist}" th:value="${codetab.name_zh}" th:text="${codetab.name_desc_zh}" th:selected="${failure==codetab.name_zh}"> </option>
+	</select>
+						 </div>
+                        </div>
+                        <div class="industry" style="display:none">
+                            <div class="name">
+                                <p>路由路徑檔案</p>
+                            </div>
+                            <input type="text" class="form-control" id="g9" value="none" placeholder="pathfile"  aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t" style="display:none">
+                        <div class="industry" >
+                            <div class="name">
+                                <p>路由路徑資料</p>
+                            </div>
+                            <input type="text" class="form-control" id="g10" value="none" placeholder="pathdata"  aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="dropdown" style="display:none">
+                                <p>路由使用protocol</p>
+                            <select id="g12" name="g12">
+	<option value="none" selected>請選擇</option>
+	</select>
+						 </div>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>故障頻寬</p>
+                            </div>
+                            <input type="text" class="form-control" id="g14" th:value="${failure_bandwidth}" placeholder="0"  aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>權重1-路徑長度KM</p>
+                            </div>
+                            <input type="text" class="form-control" id="g15" th:value="${w_length}" placeholder="w1"  aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>權重2-等待時間ms</p>
+                            </div>
+                            <input type="text" class="form-control" id="g16" th:value="${w_latency}" placeholder="w2"  aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>權重3-路徑權重(0~100)</p>
+                            </div>
+                            <input type="text" class="form-control" id="g17" th:value="${w_weight}" placeholder="w3"  aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <div class="button_group">
+                        <div class="button" onclick="addlink('1')">
+                            <p>確定</p>
+                        </div>
+                        <div class="button mg_l" onclick="clearl()">
+                            <p>清除</p>
+                        </div>
+                        <div class="button mg_l" onclick="goback()">
+                            <p>取消/回上一頁 </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="float_icon">
+                    <div class="float_icon1" onclick="switch1();" ></div>
+                    <div class="float_icon2" onclick="switch2();" ></div>
+                    <div class="float_icon3"></div>
+                </div>
+            </div>
+<!--         </div> -->
+<!--     </div> -->
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/time.js}"></script>
+    <script type="text/javascript">
+    $("#g11").bind("change", function() {
+    	var rt=$("#g11").val();
+    	if(rt=='國際'){rt='FOREIGN'};
+    	if(rt=='國內'){rt='ISLAND'};
+    	if(rt=='陸鏈'){rt='INTR'};
+    	$('#g4 option').not(":first").remove();
+    	$.ajax({
+    		url:'/scsi/nodeA',
+    		data:{
+    			rt:rt,
+    			name_zh: $("#g11").val()
+    		},
+    		success: function(d){
+    			if(d){
+    				var data= d;
+//     				alert(data)
+    				for(var i in data){
+    					//循環添加option
+    					$("#g4:last").append("<option value=" + data[i].node_name + ">" + data[i].node_name +"</option>")
+    				}
+    			}else{
+    				
+    			}
+    		}
+    	})
+    });
+    
+    $("#g4").bind("change", function() {
+    	var rt=$("#g4").val();
+    	var g11=$("#g11").val();
+//     	alert(rt);
+    	if(rt=='國際'){rt='FOREIGN'};
+    	if(rt=='國內'){rt='ISLAND'};
+    	if(rt=='陸鏈'){rt='INTR'};
+    	$('#g5 option').not(":first").remove();
+    	$.ajax({
+    		url:'/scsi/nodeB',
+    		data:{
+    			g11:g11,
+    			rt:rt,
+    			name_zh: $("#g4").val()
+    		},
+    		success: function(d){
+    			if(d){
+    				var data= d;
+//     				alert(data)
+    				for(var i in data){
+    					//循環添加option
+    					$("#g5:last").append("<option value=" + data[i].node_name + ">" + data[i].node_name +"</option>")
+    				}
+    			}else{
+    				
+    			}
+    		}
+    	})
+    });
+        $("#item1").click(function(){
+            $(".no_deta").css("display","none");
+            $(".right_text").css("display","block");
+        });
+        function go_mody(urlk,xxx){
+//         	alert(urlk+":"+xxx);
+        	$( ".right" ).load("/scsi/mody_link?sysid="+xxx);
+        }
+        function goback() {
+//          alert("click1");
+        	$( ".right" ).load("/scsi/link_list");
+     }
+        $("#send_search").click(function(){
+        	var gk = $("#gk").val();
+//          alert("click");
+        	$(".right").load("/scsi/link_list?gk="+encodeURIComponent(gk.trim()));
+     });
+        function clearl() {
+//          var sysid = $("#g0").val()
+         	var a = $("#g1").val("")
+         	var b = $("#g2").val("");
+         	var c = $("#g3").val("");
+         	var d = $("#g4").val("");
+         	var e = $("#g5").val("");
+         	var f = $("#g6").val("");
+         	var g = $("#g7").val("");
+         	var h = $("#g8").val("");
+         	var i = $("#g9").val("");
+         	var j = $("#g10").val("");
+         	var k = $("#g11").val("");
+         	var l = $("#g12").val("");
+         	var m = $("#g13").val("");
+         	var n = $("#g14").val("");
+         	var w = $("#g15").val("");
+         	var y = $("#g16").val("");
+         	var z = $("#g17").val("");
+      }
+        <!-- 頻寬 -->
+        $(document).ready(function(){
+        	  var inputs =document.getElementsByTagName("input");
+        	  for(i=0;i<inputs.length;i++){
+        	    inputs[i].onblur=function(){
+        	    var g6 =document.getElementById("g6").value;
+        	    var g7 =document.getElementById("g7").value;
+        	    document.getElementById("g8").value = g6*1 -g7*1;
+        	  }
+        	}
+        	});
+        
+        function addlink(xxx){
+        	var sysid = $("#g0").val()
+        	var a = $("#g1").val()
+        	const ea = btoa(encodeURI(a));
+        	var b = $("#g2").val();
+        	var c = $("#g3").val();
+        	var d = $("#g4").val();
+        	var e = $("#g5").val();
+        	var f = $("#g6").val();
+        	const ef = btoa(encodeURI(f));
+        	var g = $("#g7").val();
+        	const eg = btoa(encodeURI(g));
+        	var h = $("#g8").val();
+        	const eh = btoa(encodeURI(h));
+        	var i = $("#g9").val();
+        	var j = $("#g10").val();
+        	var k = $("#g11").val();
+        	var l = $("#g12").val();
+        	const el = btoa(encodeURI(l));
+        	var m = $("#g13").val();
+        	const em = btoa(encodeURI(m));
+        	var n = $("#g14").val();
+        	const en = btoa(encodeURI(n));
+        	var w = $("#g15").val();
+        	const ew = btoa(encodeURI(w));
+        	var y = $("#g16").val();
+        	const ey = btoa(encodeURI(y));
+        	var z = $("#g17").val();
+        	const ez = btoa(encodeURI(z));
+        	
+        //	alert(sysid+"/"+a+"/"+b+"/"+c+"/"+d+"/"+e+"/"+f+"/"+g+"/"+h+"/"+i+"/"+j+"/"+k+"/"+l+"/"+m+"/"+n+"/"+xxx);
+
+        	if (a == '' || b == '') {
+        	alert('請填寫編號 名稱!');
+        	
+        } else {
+        var yes = confirm('確定執行？');
+        	
+        	if (yes) {
+        		$.ajax({
+                    async: false,
+                    type: 'POST',
+                    dataType: "html",
+                    data:{link_id: a, link_name: b,link_owner: c,link_nodeA: d,link_nodeB:e,max_bandwidth:f,using_bandwidth:g,rest_bandwidth:h,pathfile:i,pathdata:j,link_type:k,link_protocol:l,failure:m,failure_bandwidth:n,sysid:sysid,ck:xxx,w_length:w,w_latency:y,w_weight:z},
+                    contentType:"application/x-www-form-urlencoded;charset=UTF-8",
+//                     contentType:"application/json",
+                    url: '/scsi/newlink',
+                    cache:false,
+                    success: function (data){
+//                         alert(data);
+						if(data=="OK"){
+    					alert('修改完成');
+                        $(".right").load("/scsi/link_list");
+                    }
+						if(data=="exist"){
+	    					alert('修改失敗(編號或名稱重複)');
+	                    }
+                    }
+						,
+                    error:function (errorMsg){
+                    	console.log(errorMsg);
+                    }
+                });
+          }
+            }
+        } 	
+        	
+        
+    </script>
+</body>
+</html> 
