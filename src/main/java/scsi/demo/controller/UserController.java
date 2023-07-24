@@ -39,11 +39,10 @@ import scsi.demo.model.User;
 import scsi.demo.repository.CodeTabRepository;
 import scsi.demo.repository.LinkRepository;
 import scsi.demo.repository.NodeRepository;
-import scsi.demo.repository.PassRepository;
 import scsi.demo.repository.UserRepository;
 import scsi.demo.scsi.CaseData;
 import scsi.demo.service.UserService;
-import scsi.demo.wisoft.Data;
+import scsi.demo.wisoft.DataProcess;
 
 @Controller
 @RequiredArgsConstructor
@@ -71,8 +70,7 @@ public class UserController {
 	@Autowired
     public PasswordEncoder pwdEncoder;
 	
-	@Autowired
-	public PassRepository passrepository;
+	
 	
 	@GetMapping("/register")
 	public String viewRegisterPage(Model model) {
@@ -81,23 +79,23 @@ public class UserController {
 		return "register";
 	}
 
-	@GetMapping(value = {"/allo", "/scsi/allo"})
-	public @ResponseBody List<Nodes> flist() {
-		
-		return nodeRepository.findAll();
+	@GetMapping(value= {"/allo","/scsi/allo"})
+	public @ResponseBody List<CodeTab> flist(@ModelAttribute("userid") String userid) {
+		String gr="";
+		gr=userRepository.getgr(userid);
+		return codetabRepository.findAllOwnergr(gr);
 	}
 
-	@PostMapping(value = {"/newuser", "/scsi/newuser"})
+	@PostMapping(value= {"/newuser","/scsi/newuser"})
 	public @ResponseBody String create(User user, @RequestParam(value = "sysid", defaultValue = "0000") String sysid,
 			@Param(value = "user_id") String user_id, @Param(value = "password") String password,
-			@Param(value = "user_name") String user_name, @Param(value = "user_gr") String user_gr,CaseData cst) throws IOException, SQLException {
+			@Param(value = "user_name") String user_name, @Param(value = "user_gr") String user_gr) {
 		int nid = userRepository.existsUser_id(user_id);
 //			System.out.println("nid="+nid+"/nam="+nam);
 		if (sysid.equals("0000")) {
 			if (nid < 1) {
 				String pass=pwdEncoder.encode(password);
 				userRepository.newuser(user_id, pass, user_name, user_gr);
-//				passrepository.savepass(user_id, pass, cst.todaytime());
 				return "OK";
 			} else {
 				return "exist";
@@ -108,13 +106,13 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(path = "/login?error")
+	@RequestMapping(value= {"/login?error","/scsi/login?error"})
 	public String login(CaseData cst,@ModelAttribute("userid") String userid) throws IOException, SQLException {
 		userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"login","登入失敗");
 		return "/";
 	}
 
-	@RequestMapping(value = {"/main", "/scsi/main"})
+	@RequestMapping(value= {"/main","/scsi/main"})
 	public ModelAndView main(@ModelAttribute("userid") String userid,CaseData cst) throws SQLException, IOException {
 		ModelAndView model = new ModelAndView("main");
 		String gr="";
@@ -126,19 +124,19 @@ public class UserController {
 		return model;
 	}
 
-	@RequestMapping(value = {"/upfile", "/scsi/upfile"})
-	public ModelAndView upfile(@ModelAttribute("userid") String userid) {
+	@RequestMapping(value= {"/upfile","/scsi/upfile"})
+	public ModelAndView upfile() {
 		ModelAndView model = new ModelAndView("upfile");
-		model.addObject("userid", userid);
+		model.addObject("userid", "");
 		return model;
 	}
 
-	@RequestMapping(value = {"/", "/login"})
+	@RequestMapping(value= {"/","/scsi/login","/scsi/","/login"})
 	public String welcome() {
 		return "login";
 	}
 
-	@RequestMapping(value = {"/user_list", "/scsi/user_list"})
+	@RequestMapping(value= {"/user_list","/scsi/user_list"})
 	public ModelAndView userlist(@ModelAttribute("userid")String user_id) {
 		ModelAndView model = new ModelAndView("user_list");
 		String gr="";
@@ -161,7 +159,7 @@ public class UserController {
 	/**
 	 * 生成验证码
 	 */
-	@GetMapping(value = {"/verify-code", "/scsi/verify-code"})
+	@GetMapping(value= {"/verify-code","/scsi/verify-code"})
 	public void getVerifyCode(HttpServletResponse resp, HttpSession session) throws IOException {
 		resp.setContentType("image/jpeg");
 		// 生成图形校验码内容
@@ -177,7 +175,7 @@ public class UserController {
 		}
 	}
 
-	@GetMapping(value = {"/mody_user", "/scsi/mody_user"})
+	@GetMapping(value= {"/mody_user","/scsi/mody_user"})
 	public ModelAndView modynode(@ModelAttribute("sysid") Integer sysid, @ModelAttribute("userid") String userid) {
 //		System.out.println("modynode="+sysid);
 		ModelAndView model = new ModelAndView("mody_user");
@@ -209,7 +207,7 @@ public class UserController {
 		}
 	}
 
-	@GetMapping(value = {"/passwords", "/scsi/passwords"})
+	@GetMapping(value= {"/passwords","/scsi/passwords"})
 	public ModelAndView passwords(@ModelAttribute("sysid") Integer sysid, @ModelAttribute("user_id") String userid) {
 //		System.out.println("modynode="+sysid);
 		ModelAndView model = new ModelAndView("passwords");
@@ -224,7 +222,7 @@ public class UserController {
 		return model;
 	}
 
-	@PostMapping(value = {"/deluser", "/scsi/deluser"})
+	@PostMapping(value= {"/deluser","/scsi/deluser"})
 	public @ResponseBody String delnode(@ModelAttribute("sysid") Integer sysid) {
 		ModelAndView model = new ModelAndView("user_list");
 //		System.out.println("delnode="+sysid);
@@ -232,43 +230,28 @@ public class UserController {
 		return "OK";
 	}
 	
-	@PostMapping(value = {"/resetf", "/scsi/resetf"})
-	public @ResponseBody String resetf(@ModelAttribute("userid") String userid) {
-		ModelAndView model = new ModelAndView("node_list");
-		System.out.println("resetf="+userid);
-		nodeRepository.resetN();
-		linkRepository.resetL();
-		return "OK";
-	}
-	
-	@PostMapping(value = {"/uppass", "/scsi/uppass"})
-	public @ResponseBody String uppass(@ModelAttribute("sysid") Integer sysid, @ModelAttribute("userid") String userid,@ModelAttribute("password") String password,@ModelAttribute("old")String old,CaseData cst) throws IOException, SQLException {
+	@PostMapping(value= {"/uppass","/scsi/uppass"})
+	public @ResponseBody String uppass(@ModelAttribute("sysid") Integer sysid, @ModelAttribute("userid") String userid,@ModelAttribute("password") String password,@ModelAttribute("old")String old) {
 		ModelAndView model = new ModelAndView("user_list");
 		boolean pc =pwdEncoder.matches(old, userRepository.findByUsersysid(sysid).getPassword());
 //		System.out.println("password="+old+"/old="+userRepository.findByUsersysid(sysid).getPassword()+"/PC="+pc);
 		if(pc==true) {
 		String pass=pwdEncoder.encode(password);
-//		Integer up=passrepository.check3pass(pass);
-//		if(up<1) {
 		userRepository.uppass(sysid,pass);
-//		passrepository.savepass(userid, pass, cst.todaytime());
 		return "OK";
-//		}else {
-//			return "exist";
-//		}
 		}else {
 			return "wrong";
 		}
 	}
 	
-	@RequestMapping(value = {"/logout", "/scsi/logout"})
+	@RequestMapping(value= {"/logout","/scsi/logout"})
 	public @ResponseBody String logout(@ModelAttribute("sysid") Integer sysid, @ModelAttribute("userid") String userid,@ModelAttribute("password") String password,HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("user_list");
 		request.getSession().removeAttribute(userid);
 		return "redirect:/";
 	}
 	
-	@GetMapping(value = {"/index1", "/scsi/index1"})
+	@GetMapping(value= {"/index1","/scsi/index1"})
 	public ModelAndView index1(@ModelAttribute("id") Integer id) {
 //		System.out.println("modynode="+sysid);
 		ModelAndView model = new ModelAndView("index1");
@@ -276,7 +259,7 @@ public class UserController {
 		return model;
 	}
 	
-	@PostMapping(value = {"/test2", "/scsi/test2"})
+	@PostMapping(value= {"/test2","/scsi/test2"})
 	public @ResponseBody String test2(HttpSession session) {
 		ModelAndView model = new ModelAndView("test2");
 		String getSessionID = session.getId();
@@ -292,5 +275,25 @@ public class UserController {
 			//dpc.closeall();
 		}
 		return(thisCode);
+	}
+	
+	@PostMapping(value= {"/test6","/scsi/test6"})
+	public @ResponseBody String test6(HttpSession session,DataProcess dpr,HttpServletRequest request) throws IOException, SQLException {
+		ModelAndView model = new ModelAndView("test6");
+		
+		String getP1 = (String)request.getParameter("p1");
+		String getP2 = (String)request.getParameter("p2");
+		String getP3 = (String)request.getParameter("p3");
+		System.out.println("test6 :p3="+getP3+"/p1="+getP1+"/p2="+getP2);
+		dpr.updateStatus(getP3, getP1, getP2);
+		
+		return "NOT";
+	}	
+	
+	@PostMapping(value= {"/cdd1","/scsi/cdd1"})
+	public @ResponseBody String cdd1() {
+		ModelAndView model = new ModelAndView("cdd1");
+		
+		return("[Internal1, PERM-2, 東亞交匯海纜一號EAC1, 淡水-Backhaul-1]");
 	}
 }

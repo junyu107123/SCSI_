@@ -43,7 +43,7 @@ public class LinkController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@RequestMapping(value = {"/link_list", "/scsi/link_list"})
+	@RequestMapping(value= {"/link_list","/scsi/link_list"})
 	public ModelAndView linklist(@ModelAttribute("userid") String userid,@ModelAttribute("gk") String gk ) {
 		ModelAndView model = new ModelAndView("link_list");
 //		System.out.println("userid_link="+userid+"/gk="+gk);
@@ -85,7 +85,7 @@ public class LinkController {
 		}
 	}
 	
-	@PostMapping(value = {"/newlink", "/scsi/newlink"})
+	@PostMapping(value= {"/newlink","/scsi/newlink"})
 	public @ResponseBody String create(@ModelAttribute("userid") String user_id,Link link,@RequestParam(value="sysid",defaultValue="0000") String sysid,@Param(value = "link_id")String link_id,@Param(value = "link_name")String link_name,@Param(value = "link_type")String link_type,@Param(value = "link_owner")String link_owner,@Param(value = "link_nodeA")String link_nodeA,@Param(value = "link_nodeB")String link_nodeB,@Param(value = "max_bandwidth")String max_bandwidth,@Param(value = "using_bandwidth")String using_bandwidth,@Param(value = "rest_bandwidth")String rest_bandwidth,@Param(value = "failure")String failure,@Param(value = "failure_bandwidth")String failure_bandwidth,@Param(value = "w_length")Float w_length,@Param(value = "w_latency")Float w_latency,@Param(value = "w_weight")Float w_weight,CaseData cst) throws IOException, SQLException {
 		int lid= linkRepository.existsLink_id(link_id);
 		int lam =linkRepository.existsLink_name(link_name);
@@ -105,7 +105,7 @@ public class LinkController {
 		}
     }
 	
-	@GetMapping(value = {"/mody_link", "/scsi/mody_link"})
+	@GetMapping(value= {"/mody_link","/scsi/mody_link"})
 	public ModelAndView modylink(@ModelAttribute("userid") String user_id,@ModelAttribute("sysid")String sysid)
 	{
 //		System.out.println("modylink="+sysid);
@@ -145,7 +145,7 @@ public class LinkController {
 		return model;
 	}
 	
-	@PostMapping(value = {"/dellink", "/scsi/dellink"})
+	@PostMapping(value= {"/dellink","/scsi/dellink"})
 	public @ResponseBody String dellink(@ModelAttribute("userid") String user_id,@ModelAttribute("sysid") String sysid,CaseData cst) throws IOException, SQLException {
 		ModelAndView model = new ModelAndView("link_list");
 //		System.out.println("dellink="+sysid);

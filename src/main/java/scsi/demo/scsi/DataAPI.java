@@ -5,8 +5,16 @@ import javax.servlet.http.*;
 
 import scsi.demo.wisoft.Data;
 import scsi.demo.wisoft.DataProcess;
+import scsi.demo.wisoft.WiNet;
+import scsi.demo.wisoft.WiNetHttps;
 
 import java.sql.SQLException;
+import java.net.URLEncoder;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
 
 // Extend HttpServlet class
 public class DataAPI extends HttpServlet {
@@ -31,12 +39,13 @@ public class DataAPI extends HttpServlet {
   }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        session = request.getSession();
+        session = request.getSession();
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 		
 		Data dta = new Data();
+
 		String referrer = request.getHeader("referer");
 		String feedback = "no";
 		try{
@@ -53,7 +62,7 @@ public class DataAPI extends HttpServlet {
 		String[] para={} ;
 		int goNext = 0 ;
 		if(get_scable != null){
-			if(myfunc.equals("6") || myfunc.equals("7") || myfunc.equals("8")|| myfunc.equals("13")){
+			if(myfunc.equals("6") || myfunc.equals("7") || myfunc.equals("8")|| myfunc.equals("13")|| myfunc.equals("17")){
 				goNext++;
 			}else{
 				get_scable = get_scable.matches("[A-Za-z0-9,-_%]+") ? get_scable : "";
@@ -149,12 +158,25 @@ public class DataAPI extends HttpServlet {
 			typevalue = typevaluex;
 			para = parax;
 		}
-		if(myfunc.equals("13")){
+		if(myfunc.equals("13") || myfunc.equals("14") || myfunc.equals("15")){
 			String[] typevaluex = {};
 			String[] parax = {};
 			typevalue = typevaluex;
 			para = parax;
 		}
+		if(myfunc.equals("17")){
+			String[] typevaluex = {"s"};
+			String[] parax = {get_scable};
+			typevalue = typevaluex;
+			para = parax;
+		}
+		if(myfunc.equals("18")){
+			String[] typevaluex = {"s"};
+			String[] parax = {get_scable};
+			typevalue = typevaluex;
+			para = parax;
+		}
+		
 	}
         
 		feedback = getNewData(myfunc,typevalue,para).trim();
@@ -165,10 +187,10 @@ public class DataAPI extends HttpServlet {
 			try{
 				dta.closeall();
 			}catch(SQLException e){
-				System.out.println(e.toString());
 			}
 		}
 	  if(referrer.indexOf("final") >=0){
+		response.getWriter().write( URLEncoder.encode(feedback, "UTF-8") );
 	  }
     }
 	
@@ -176,9 +198,7 @@ public class DataAPI extends HttpServlet {
   {
 	  try{
 			
-	}catch (Exception e){
-		System.out.println(e.toString());
-	}
+	}catch (Exception e){}
       // do nothing.
   }
   
@@ -227,8 +247,39 @@ public class DataAPI extends HttpServlet {
 			if(st.equals("13")){
 				retval =  dta1.getNodeSEQ(typevalue1,para1,"").toString();
 			}
+			if(st.equals("14")){
+				String[] fieldname = {"sysid","connection_id","connection_A","connection_B","nidA_lon","nidB_lon","nidA_lat","nidB_lat","notes","nidA_failure","nidB_failure","level","linecolor","InterVoice","Internet","InterLeasing"};
+				retval =  dta1.getConnectionSEQ(typevalue1,para1,fieldname,para1,para1).toString();
+			}
+			if(st.equals("15")){
+				try (InputStream input = new FileInputStream("config.properties")) {
+					Properties prop = new Properties();
+					prop.load(input);
+					String u1= prop.getProperty("urltype")+"://";
+					u1 += prop.getProperty("url")+"/";
+					u1 += prop.getProperty("runpath");
+					u1 += prop.getProperty("runfile");
+					WiNet win = new WiNet();
+					retval = win.sentHttpPostRequest(u1,"");
+
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+			if(st.equals("16")){
+				String[] fieldname = {"sysid","connection_id","connection_A","connection_B","nidA_lon","nidB_lon","nidA_lat","nidB_lat","notes","nidA_failure","nidB_failure","level","linecolor","InterVoice","Internet","InterLeasing","Leasing_circuit_line","Leasing_circuit_bw","Leasing_ethernet_line","Leasing_ethernet_bw","Leasing_vpn_line","Leasing_vpn_bw","failvoice","failinternet","failleasing","faildatetime","failid","faildesc","failleasing_circuit_line","failleasing_circuit_bw","failleasing_ethernet_line","failleasing_ethernet_bw","failleasing_vpn_line","failleasing_vpn_bw"};
+				retval =  dta1.getConnectionFailSEQ(typevalue1,para1,fieldname,para1,para1).toString();
+			}
+			if(st.equals("17")){
+				retval =  dta1.updateFailStatus(para1);
+			}
+			if(st.equals("18")){
+					WiNetHttps wt = new WiNetHttps();
+					String url = "http://211.22.193.189:9443/cnocapi/rooms";
+					retval = wt.HttpClientGET(url);
+			}
+			
 		}catch (Exception e){
-			System.out.println(e.toString());
 			retval += e.toString();
 		}finally{
 			dta1.closeall();

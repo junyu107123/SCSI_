@@ -6,6 +6,9 @@ var showFlashTimer ;
 var debugMode = true;
 var mytimeout = 0 ;
 var t ;
+var resetTime = 180 ;
+var changetime = resetTime ;
+
 function CurentTime(){
 	clearTimeout(t);
     // const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -26,6 +29,7 @@ function CurentTime(){
     d = checkTime(d);
     //s = checkTime(s) + " "+mytimeout;
 	s = checkTime(s);
+	try{
     document.getElementById('time').innerText =  h + ":" + m + ":" + s ;
     document.getElementById('date').innerText = y + "/" + mm + "/" + d ;
     //document.getElementById('day').innerText = "/ " + w  + " / " ;
@@ -33,8 +37,19 @@ function CurentTime(){
     document.getElementById('date1').innerText = y + "/" + mm + "/" + d ;
 	document.getElementById('time2').innerText = h + ":" + m + ":" + s ;
     document.getElementById('date2').innerText = y + "/" + mm + "/" + d ;
+
+	}catch{}
 	mytimeout = mytimeout + 1 ;
 	if(mytimeout > 1000) location.reload();
+	if(document.getElementById("runtime") != null){
+		changetime-- ;
+		document.getElementById("runtime").style="font-size:0.3rem;";
+		document.getElementById("runtime").innerHTML = "&nbsp;&nbsp;自動更換:"+ changetime +"/"+ resetTime;
+		if(changetime == 0){
+			changetime = resetTime ;
+			changeimg();
+		}
+	}
     t = setTimeout(CurentTime, 1000);
 }
 
@@ -95,12 +110,12 @@ function getScableList(){
 	fail_loc = "";
 	checknum = 0 ;
 	//getPostData("DataAPI/scableList.jsp","scablealllist");
-	getPostData("../DataAPI","scablealllist");
+	getPostData("/scsi/DataAPI","scablealllist");
 }
 
 function getScableNations(x){
 	//getScableNation("DataAPI/scableNations.jsp",x,"faillocation");
-	getScableNation("../DataAPI",x,"faillocation");
+	getScableNation("/scsi/DataAPI",x,"faillocation");
 }
 
 function getScableNation(x,y,z){
@@ -119,7 +134,7 @@ function getFailLoacation(x){
 	fail_locname = $("#faillocation").find("option:selected").text();
 	//alert(fail_sc + ";"+fail_loc);
 //	$.post( "DataAPI/scableBackup.jsp", {id:fail_sc, loc : fail_loc, func:"3"})
-	$.post( "../DataAPI", {scable:fail_sc, loc : fail_loc, func:"3"})	
+	$.post( "/scsi/DataAPI", {scable:fail_sc, loc : fail_loc, func:"3"})	
 	.done(function( data ) {
 		//console.log("3:"+TrimMe(data));
 		$("#scablelist").html("");
@@ -155,7 +170,13 @@ function showSelect(x,showid){
 }
 
 function TrimMe(x){
-	return decodeURI(x).replace(new RegExp("%2F","gm"),"/").replace(new RegExp("%2C","gm"),",").replace(new RegExp("%3B","gm"),";").replace(/(^[\s]*)|([\s]*$)/g, "");
+
+	var trim1 = decodeURI(x).replace(new RegExp("%2F","gm"),"/").replace(new RegExp("%2C","gm"),",").replace(new RegExp("%3B","gm"),";") ;
+	if(/(^[\s]*)|([\s]*$)/g.test(trim1)){
+		trim1 = trim1.replace(/(^[\s]*)|([\s]*$)/g,"") ;
+	}
+	return trim1 ;
+	//return decodeURI(x).replace(new RegExp("%2F","gm"),"/").replace(new RegExp("%2C","gm"),",").replace(new RegExp("%3B","gm"),";").replace(/(^[\s]*)|([\s]*$)/g, "");
 }
 
 var route_cnt = 0 ;
@@ -187,7 +208,7 @@ var FlashList = "";
 var thisFlash = "";
 function getRoute(x,y,z,a){
 	//$.post( "DataAPI/scableroute.jsp", {id:x, loc : y, func:"4"})
-	$.post( "../DataAPI", {scable:x, loc : y, func:"4"})
+	$.post( "/scsi/DataAPI", {scable:x, loc : y, func:"4"})
 	.done(function( data ) {
 		//console.log("4:"+TrimMe(data));
 		var tmpData = TrimMe(data);
@@ -231,7 +252,7 @@ function showUp(){
 
 function showInfoWindows(x){
 	$.colorbox({
-				href:'world/myiframe.jsp?name='+clickScable.split("-")[0]+'&zoom=4',
+				href:'/scsi/myiframe?name='+clickScable.split("-")[0]+'&zoom=4',
                 width:window.innerWidth*0.9,
                 height:window.innerHeight,
                 iframe:true
@@ -269,9 +290,9 @@ function goCase(x)
 	}
 	*/
 	//$.post( "DataAPI/scableScenario.jsp", {id:x,func:"5"})
-	$.post( "../DataAPI", {scable:x,func:"5"})
+	$.post( "/scsi/DataAPI", {scable:x,func:"5"})
 	.done(function( data ) {
-		//console.log("5:"+TrimMe(data));
+		console.log("5:"+TrimMe(data));
 		var tmpdata = TrimMe(data).split("<w>");
 		 $("#failbw").val(tmpdata[3]);
 		$("#faildesc").val(tmpdata[4]);
@@ -303,6 +324,13 @@ function goCase(x)
 	preparePlugin_Color(1);
 	getScableList();
 	switchScreen(x);
+	if(x=='2') showDES();
+	//setTimeout("initCurveLayer();",500);
+	$(".ol-zoom").css("left","95%");
+	$(".ol-zoom").css("top","90%");
+	$(".ol-scale-line").css("left","5%");
+	initCurveLayer();
+	//showLineSwitch(1);
 	}
 
 function switchScreen(x){
@@ -360,10 +388,10 @@ function showThisCable(){
 	}
 }
 
-//`var checkS = setTimeout("checkSession();",5000);
+//var checkS = setTimeout("checkSession();",5000);
 function checkSession(){
 	 clearTimeout(checkS);
-	 $.post("../DataAPI", {func:"1"})
+	 $.post("/scsi/DataAPI", {func:"1"})
 		.done(function( data ) {
 		//console.log("0:"+TrimMe(data));
 		checkS = setTimeout("checkSession();",5000);
@@ -389,3 +417,34 @@ function doNextFunc(a,b,c){
 	console.log(c.values_.id);
 	console.log(ol.proj.transform([parseFloat(a.split(",")[0]), parseFloat(a.split(",")[1])], 'EPSG:4326','EPSG:3857'));
 }
+
+            function changeimg(){            
+                var myimg = document.getElementById("code");
+				try{
+                now = new Date();
+                myimg.src = "/scsi/verify-code?change"+now.getTime();   
+				}catch{}
+                changetime = resetTime ;
+            }
+
+var showCableToggleFlag = false;
+function showLineSwitch(x,y){
+	//alert('x :'+x+'/y :'+y);
+	if(x==0) showMarkerNow1(y);
+	if(x==1) showCableToggle(y);
+	if(x==2) curveToggle1(y);
+}
+
+function showLineSwitch_OLD(x){
+	if(x==0) showMarkerNow();
+	if(x==1) {
+		showCableToggle(showCableToggleFlag);
+		showCableToggleFlag = !showCableToggleFlag ;
+	}
+	if(x==2) curveToggle();
+	$("#showline").prop("selectedIndex", 0);
+	//$("#showline option")[0].attr('selected', 'selected');
+}
+window.addEventListener('mouseup', function(event) {
+    event.preventDefault();
+}, true);

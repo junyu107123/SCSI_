@@ -189,6 +189,7 @@ function preCreateCableLandInfoBoxDiv(mId,tId,tLon,tLat){
 }
 
 function preCreateCableLandInfoBoxDiv1(mId,tId,tLon,tLat){
+	//console.log(tId);
     $('#map').append(getCableLandOverlayDivObject(tId));
     $('#' + tId + '-popup').click(function(){
         cableMoveTopDiv(0,tId);
@@ -253,8 +254,9 @@ function getCableVectorLayer(jsonFile,dataarrayindex,vStyle,idPosition){
         }),
         style: function(feature, resolution) {
         //vStyle.getText().setText(resolution < 5000 ? feature.get('countyname') : '');  //放大到1:5000
-        //vStyle.getText().setText("高鐵軌道");
-        return [vStyle];
+		//VStyle.getText().setText("高鐵軌道");
+		vStyle.getText().setText((feature.get('name')!=null?feature.get('name'):feature.get('Name').replaceAll("<br>","").replaceAll("<BR>","")));
+		return [vStyle];
         }
     });
 
@@ -331,7 +333,7 @@ var displayCableFeatureInfo = function(pixel,tIndex,mCoordinate) {
     if(getCableVectorLayerPosition(mylayer) !== -1){
         myFeaturePosition = getCableVectorLayerPosition(mylayer);
     }
-
+	
     if (myfeature) {
         if(myFeaturePosition != -1){
             try{
@@ -355,7 +357,11 @@ var displayCableFeatureInfo = function(pixel,tIndex,mCoordinate) {
                 if(nowCableInfoBox.length > 0){
                     document.getElementById(nowCableInfoBox).style.display = 'none';
                     nowCableInfoBox = '';
-                }
+                }else{
+					mapArray[0].getOverlayById(myfeature.id_+'-popup').setPosition(mCoordinate);
+					document.getElementById(myfeature.id_+'-popup').style.display = 'block';
+					nowCableInfoBox = myfeature.id_ + '-popup';
+				}
             } catch (error) {
                 //alert(error);
             }
@@ -462,11 +468,13 @@ function showLandingContents(x,y,z,colors){
 	//var my_infoContents = "<div style='margin-top:-8px;margin-left:-8px;border-color:#aaaaee;border-width:3px;border-style:solid;font-size:"+pic_font+"px;'>";
 	var my_infoContents = "<div id='area_"+x+"' style='margin-top:-18px;margin-left:-18px;font-size:"+pic_font+"px;'>";
 	my_infoContents += "<span style='"+showTextColor(colors)+"'";
-	my_infoContents += "onclick=\"showIbox_full('station/info.jsp?id="+x+"','','');\"";
+	my_infoContents += " onclick=\"mapPointClick('"+x.replace("marker_","")+"');\"";
+	//my_infoContents += "onclick=\"showIbox_full('station/info.jsp?id="+x+"','','');\"";
 	//my_infoContents += "><img src='images/"+y+".png' width='"+pic_size+"px;' height='"+pic_size+"px;' style='margin-left:-18px;margin-top:-30px;'>"+adjust_location(x,z);
 	//my_infoContents += "><img src='images/"+y+"' width='"+pic_size+"px;' height='"+pic_size+"px;'>"+adjust_location(x,z);
 	//my_infoContents += ">"+adjust_location(x,z);
-	my_infoContents += "><img id='img_"+x+"' src='images/"+y+".png' onclick=\"showIbox_full('station/info.jsp?port="+port+"&item="+item+"&station="+z+"','',''); \">"+adjust_location(x,z);
+	//my_infoContents += "><img id='img_"+x+"' class='mapicon' src='images/"+y+".png' onclick=\"showIbox_full('station/info.jsp?port="+port+"&item="+item+"&station="+z+"','',''); \">"+adjust_location(x,z);
+	my_infoContents += "><img id='img_"+x+"' class='mapicon' src='images/"+y+".png' onclick=\"mapPointClick('"+x.replace("marker_","")+"'); \">"+adjust_location(x,z);
 	my_infoContents += "</span></div>";
 	return my_infoContents ;
 }
@@ -528,8 +536,8 @@ function show_Marker(){
 		var stationlist = [];
 		var getLandingNOw = [];
 		var showLandingInfo = [];
-		// var getLandingNOw = showLandingStation.split("<w>");
-        var getLandingNOw = showLandingStation;
+		var getLandingNOw = showLandingStation.split("<w>");
+        //var getLandingNOw = showLandingStation;
 		cableLandShowIdTag = [];
 		//alert(getLandingNOw.length);
 		for (var i=0;i < getLandingNOw.length ; i++){
@@ -537,6 +545,7 @@ function show_Marker(){
         cableLandShowIdTag[i] = getLandingNOw[i].split(",")[0];
         //setInfoBox(getLandingNOw[i].split(",")[0],getLandingNOw[i].split(",")[0]);
 		stationlist[i]=getLandingNOw[i].split(",")[0];
+		//console.log(getLandingNOw[i].split(",")[5]);
 		showLandingInfo[i]=showLandingContents(getLandingNOw[i].split(",")[0],getLandingNOw[i].split(",")[1],getLandingNOw[i].split(",")[2],getLandingNOw[i].split(",")[5]);
 		setInfoBox_popup(stationlist[i],showLandingInfo[i]);
 		// console.log(stationlist[i]);
@@ -558,7 +567,9 @@ function clear_Marker(){
 		for (var i=0;i < getLandingNOw.length ; i++){
 			stationlist[i]=getLandingNOw[i].split(",")[0];
 			showOrHideInfoBox(-1,stationlist[i],false);
-			$("#"+stationlist[i]).remove();
+			if(document.getElementById(stationlist[i]) != null){
+				$("#"+stationlist[i]).remove();
+			}
 			//console.log(stationlist[i]);
 		}
 		//showCableLandByArray(stationlist);
@@ -600,5 +611,11 @@ function adjust_position(a){
 	var aw = "-"+w.toString()+"px";
 	$("#area_"+a).css('margin-top',ah);
 	$("#area_"+a).css('margin-left',aw);
+}
+
+function showCableToggle(x){
+	for(var i = 0;i < cableVectorLayers.length;i++) {
+		cableVectorLayers[i].setVisible(x);
+	}
 }
 

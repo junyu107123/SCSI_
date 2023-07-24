@@ -34,15 +34,10 @@ public class Link {
 	private String pathdata;
 	private String link_type;
 	private String link_protocol;
-	@Column(columnDefinition = "INT(11) default '0'")
 	private String failure;
 	private String failure_bandwidth;
-	@Column(columnDefinition = "FLOAT default '1'")
 	private Float w_length;
-	@Column(columnDefinition = "FLOAT default '1'")
 	private Float w_latency;
-	@Column(columnDefinition = "FLOAT default '1'")
 	private Float w_weight;
-	private String del_mark;
 	
 }

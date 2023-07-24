@@ -114,7 +114,7 @@ OtherVectorLayers[c] = vectorLayer;
 OtherVectorLayersId[c] = line_id ;
 // Add the vector layer to the map.
 mapArray[0].addLayer(vectorLayer);
-
+console.log(vectorLayer);
 }
 
 function oneJson2(_id,x,_color,_width){
@@ -245,4 +245,4 @@ function findOthersLayers(targetLayer){
     return -1;
 }
 
-console.log(OtherVectorLayers);
+//console.log(OtherVectorLayers);

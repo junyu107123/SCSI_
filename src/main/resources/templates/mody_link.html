@@ -148,6 +148,8 @@
 		<img src="images/right_table_tilte_icon.png">
 		<p>路由管理</p>
 	</div>
+<!-- 		<p th:text="'Hello, ' + ${userid} + '!'" /> -->
+	
 	</div>
 
 					<div class="right_table_title_right">
@@ -345,6 +347,7 @@
     <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/time.js}"></script>
     <script type="text/javascript">
+   
     $("#g11").bind("change", function() {
     	var rt=$("#g11").val();
     	if(rt=='國際'){rt='FOREIGN'};
@@ -401,6 +404,7 @@
     		}
     	})
     });
+    
         $("#item1").click(function(){
             $(".no_deta").css("display","none");
             $(".right_text").css("display","block");

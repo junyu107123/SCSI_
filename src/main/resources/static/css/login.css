@@ -54,7 +54,7 @@
     width: 313px;
     height: 47px;
     border-radius: .8rem;
-    background-image: url("../images/code_img.png");
+    /*background-image: url("../images/code_img.png");*/
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

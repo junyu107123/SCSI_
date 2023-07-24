@@ -38,7 +38,7 @@ public class NodeController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@RequestMapping(value = {"/node_list", "/scsi/node_list"})
+	@RequestMapping(value= {"/node_list","/scsi/node_list"})
 	public ModelAndView nodelist(@ModelAttribute("userid") String userid,@ModelAttribute("gk") String gk ) {
 		
 		ModelAndView model = new ModelAndView("node_list");
@@ -83,7 +83,7 @@ public class NodeController {
 		
 	}
 	
-	@PostMapping(value = {"/newnode", "/scsi/newnode"})
+	@PostMapping(value= {"/newnode","/scsi/newnode"})
 	public @ResponseBody String create(@ModelAttribute("userid") String user_id,CaseData cst,Nodes nodes,@RequestParam(value="sysid",defaultValue="0000") String sysid,@Param(value = "node_id")String node_id,@Param(value = "node_name")String node_name,@Param(value = "owner")String owner,@Param(value = "address")String address,@Param(value = "lon")String lon,@Param(value = "lat")String lat,@Param(value = "node_type")String node_type,@Param(value = "node_country")String node_country,@Param(value = "pos")String pos,@Param(value = "node_failure")String node_failure) throws IOException, SQLException {
 		int nid= nodeRepository.existsNode_id(node_id);
 		int nam =nodeRepository.existsNode_name(node_name);
@@ -106,7 +106,7 @@ public class NodeController {
 		}
     }
 	
-	@GetMapping(value = {"/mody_node", "/scsi/mody_node"})
+	@GetMapping(value= {"/mody_node","/scsi/mody_node"})
 	public ModelAndView modynode(@ModelAttribute("userid") String user_id,@ModelAttribute("sysid")String sysid)
 	{
 //		System.out.println("modynode="+sysid);
@@ -143,7 +143,7 @@ public class NodeController {
 		return model;
 	}
 	
-	@PostMapping(value = {"/delnode", "/scsi/delnode"})
+	@PostMapping(value= {"/delnode","/scsi/delnode"})
 	public @ResponseBody String delnode(@ModelAttribute("userid") String user_id,@ModelAttribute("sysid") String sysid,CaseData cst) throws IOException, SQLException {
 		ModelAndView model = new ModelAndView("node_list");
 //		System.out.println("delnode="+sysid);
@@ -153,7 +153,7 @@ public class NodeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = {"/nodeA", "/scsi/nodeA"})
+	@RequestMapping(value= {"/nodeA","/scsi/nodeA"})
 	public List<Nodes> nodeA(@ModelAttribute("userid")String user_id,@ModelAttribute("rt") String rt){
 		System.out.println("RT ="+rt);
 		String gr="";
@@ -184,7 +184,7 @@ public class NodeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = {"/nodeB", "/scsi/nodeB"})
+	@RequestMapping(value= {"/nodeB","/scsi/nodeB"})
 	public List<Nodes> nodeB(@ModelAttribute("userid") String user_id,String rt,String g11,String name_zh){
 //		System.out.println("RT ="+rt+"/g11="+g11);
 		String gr="";

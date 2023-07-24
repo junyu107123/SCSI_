@@ -121,8 +121,10 @@ function loadLayerDef(url) {
 	}
 }
 	  
-loadLayerDef(url_ +  '/GetCacheConfig?FORMAT=JSON');
+//loadLayerDef(url_ +  '/GetCacheConfig?FORMAT=JSON');
 //TGOS==End
+
+createMap();
 
 //取得圖層樣式..線條...
 function getVectorStyle(rColor,gColor,bColor,aColor,sColor){
@@ -231,37 +233,106 @@ function getVectorStyle3(rColor,gColor,bColor,aColor,sColor,bdColor,bdwidth){
   return vectorStyle;
 }
 
+function changeLayers(){
+	var xq = mapArray[0].getLayers().item(0);
+	xq.setSource(xyz1);
+	setTimeout("changeLayers1();",5000);
+}
 
-function createMap(tileGrid) {
+function changeLayers1(){
+	var xq = mapArray[0].getLayers().item(0);
+	xq.setSource(xyz0);
+	setTimeout("changeLayers2();",5000);
+}
+
+
+var maptile = ["https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png",
+"https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg",
+"http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}",
+"http://services.arcgisonline.com/arcgis/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}",
+"http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+"http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+"http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+"http://services.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}",
+"http://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}",
+"http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png"
+];
+//http://alexurquhart.github.io/free-tiles/
+var maptile_no = 0 ;
+
+
+function changeLayers2(){
+	var xq = mapArray[0].getLayers().item(0);
+	var xyz2 = new ol.source.XYZ({
+		url:maptile[maptile_no]
+    });
+	xq.setSource(xyz2);
+	maptile_no++ ;
+	if(maptile_no >= maptile.length ){
+		maptile_no = 0 ;
+		setTimeout("changeLayers();",5000);
+	}else{
+		setTimeout("changeLayers2();",5000);
+	}
+}
+
+//var xyz2 = new ol.source.XYZ({
+//		url:"https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png"
+//    });
+ //https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg
+ //https://tile.thunderforest.com/transport/${z}/${x}/${y}.png
+ //https://tile.thunderforest.com/landscape/${z}/${x}/${y}.png
+ //https://tile.thunderforest.com/outdoors/${z}/${x}/${y}.png
+ //https://maptiles.p.rapidapi.com/en/map/v1/{z}/{x}/{y}.png
+	
+var xyz1 = new ol.source.XYZ({
+       url:"https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+    });
+	
+var xyz0 = 	new ol.source.OSM();
+
+var layerx = new ol.layer.Tile({
+        source: xyz0
+    });
+
+function createMap() {
+//function createMap(tileGrid) {
 	mapArray[0] = new ol.Map({
 		layers: [
+			
 			/*
 			new ol.layer.Tile({
 				source: ,
 				opacity: 1
             }),
 			*/
+			
             new ol.layer.Tile({
-				//source: new ol.source.OSM(),
-				
+			source: new ol.source.OSM(),
+			opacity: 1
+			}),
+			/*
 				source : new ol.source.XYZ({
 					url:"https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
 				}),
-				opacity: 1
-            }),
+				
+			opacity: 0.9
+			*/
+            //}),
+			
 			/*
 			http://tiles.wmflabs.org/hillshading/${z}/${x}/${y}.png
-			
-			new ol.layer.Tile({
-				//extent: extent_,
-				source: new ol.source.XYZ({
-					tileGrid: tileGrid,
-					tileUrl : "http://tiles.wmflabs.org/hillshading/${z}/${x}/${y}.png",
-					//tileUrlFunction: createTileUrl
-				}),
-				opacity: 0.7
-            })
 			*/
+			//new ol.layer.Tile({
+				//extent: extent_,
+			//	source: new ol.source.XYZ({
+					//tileGrid: tileGrid,
+			//		tileUrl : "http://tiles.wmflabs.org/hillshading/${z}/${x}/${y}.png",
+					//tileUrlFunction: createTileUrl
+			//	}),
+			//	opacity: 0.7
+            //}),
+			
 			//,clipLayer
 		],
 		logo: false,
@@ -269,14 +340,16 @@ function createMap(tileGrid) {
 		view: new ol.View({
 			center: ol.proj.fromLonLat([120.70, 23.58]),
 		zoom: 7,
-		extent:ol.proj.transformExtent([ 0, 0, 180, 26], 'EPSG:4326', 'EPSG:3857'),
-		minZoom:3,
+		//extent:ol.proj.transformExtent([ 0, 0, 180, 26], 'EPSG:4326', 'EPSG:3857'),
+		minZoom:2.5,
 		//maxZoom:10
 		}),
-		controls: []
+		controls: [new ol.control.Zoom(),
+        new ol.control.ScaleLine()]
 	});
-	
+
 	mapArray[1] = new ol.Map({
+		/*
 		layers: [
 			new ol.layer.Tile({
 				extent: extent_,
@@ -288,6 +361,16 @@ function createMap(tileGrid) {
 			})
 			//,clipLayer
 		],
+		*/
+		layers: [
+
+            new ol.layer.Tile({
+				source: new ol.source.OSM(),
+
+				opacity: 1
+            }),
+		
+		],
 		logo: false,
 		target: 'map1',
 		view: new ol.View({
@@ -297,7 +380,7 @@ function createMap(tileGrid) {
 		}),
 		controls: []
 	});
-	
+
 	prepareMapFunction();
 }
 
@@ -430,6 +513,7 @@ function prepareMapFunction(){
 	  //設定移動上去的樣式
 	  displayCableFeatureInfo(pixel,0,mapArray[0].getEventCoordinate(event));
 	  displayFeatureInfo(pixel,0,mapArray[0].getEventCoordinate(event));
+	  changeCSSCurve(Number(mapArray[0].getView().getZoom()));
 	});
 /*
 mapArray[0].on('pointermove', function(evt) {
@@ -441,6 +525,7 @@ mapArray[0].on('pointermove', function(evt) {
         });
 });
 */
+
 	mapArray[0].on('singleclick', function(evt) {
 	  var getFeatures = "";
 	  var coordinate = evt.coordinate;
@@ -450,20 +535,25 @@ mapArray[0].on('pointermove', function(evt) {
 	  var getThisFeature = null ;
 	  mapArray[0].forEachFeatureAtPixel(pixel, function(feature) {
 		 //console.log(feature);
+		 if(feature.id_ != undefined){
+			mapCurveClick(feature.id_);
+		 }else{
 		  if(getFeatures != "") getFeatures += "<w>";
 		  var xxx = feature.get('name') ;
 		  if(xxx == undefined) xxx = feature.get('Name') ;
           getFeatures += xxx ;
 //		  + feature.get('feature_id')+feature.get('id') ;
 		  getThisFeature = feature ;
+		  if(getFeatures != "") showInfoWindows(getFeatures+"/"+hdms+"/");
+		 }
         });
 		//if(getFeatures != ""){
 		//	doNextFunc(hdms,getFeatures,getThisFeature);
 		//}
-		if(getFeatures != "") showInfoWindows(getFeatures+"/"+hdms+"/");
+		
 	});
 
-	mapArray[1].on('singleclick', function(evt) {
+	mapArray[1].on('Xsingleclick', function(evt) {
 	  var pixel = mapArray[1].getEventPixel(evt.originalEvent);
 	  var myfeature;
 	  var mylayer;
@@ -588,3 +678,21 @@ function setDoubleClickZoomActive(mIndex,activeFlag){
     }
   });
 }
+/*
+var currZoom = map.getView().getZoom();
+mapArray[0].on('moveend', function(e) {
+  var newZoom = mapArray[0].getView().getZoom();
+  if (currZoom != newZoom) {
+    console.log('zoom end, new zoom: ' + newZoom);
+    currZoom = newZoom;
+  }
+});
+
+mapArray[0].on('singleclick', function(evt) {
+	  mapArray[0].forEachFeatureAtPixel(evt.pixel, function(feature) {
+		  console.log(feature.id_);
+        });
+	});
+*/
+
+changeLayers();

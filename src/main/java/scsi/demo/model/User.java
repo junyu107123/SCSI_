@@ -61,8 +61,6 @@ public class User implements Serializable{
 	@Column(name = "user_gr")
 	private String user_gr;
 	
-	private String del_mark;
-	
 	@ManyToMany(cascade = CascadeType.DETACH)
 	@JsonIgnore
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_sysid",referencedColumnName = "user_sysid"), inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "role_id"))

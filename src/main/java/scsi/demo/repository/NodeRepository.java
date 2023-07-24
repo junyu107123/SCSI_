@@ -95,11 +95,5 @@ public interface NodeRepository extends CrudRepository<Nodes,String>{
     
     @Query(value="select * from sc_nodes where (node_type ='INTL' or node_type='ISLAND') and node_name != ?1 and owner = ?2 and del_mark is null order by sysid",nativeQuery = true)
     List<Nodes> getIntlgr(String rt,String gr);
-    
-    @Modifying
-    @Transactional
-    @Query(value = "update sc_nodes set node_failure ='0' where sysid >0 and del_mark is null" ,nativeQuery = true)
-    void resetN();
-    
 
 }

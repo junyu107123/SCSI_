@@ -1,12 +1,19 @@
 .main{
-    background-image: url("../images/bg-2.jpg");
+    background-image: url("../images/bg1.jpg");
 }
 .left_main{
-    background-image: url("../images/left_bg2.png");
+    background-image: url("../images/bg-2.png");
 }
 .left_text{
     height: auto;
-    width: 60%;
+    width: 100%;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif, "Microsoft JhengHei", "微軟正黑體";
+    font-weight: 700;
+    color: #165f4b;
+    font-size: 1.3em;
 }
 .icon_group{
     width: 70%;
@@ -18,41 +25,127 @@
     align-items: center;
     justify-content: space-around;
 }
+.icon_text{
+    color: #165f4b;
+    width: 147px;
+    height: 20px;
+    padding-top: 140px;
+    font-size: 1.2em;
+    font-weight: bolder;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: space-around;
+}
 .icons > div{
-    width: 126px;
-    height: 126px;
+    width: 147px;
+    height: 147px;
     background-position: center;
     background-repeat: no-repeat;
     margin-bottom: 2.5%;
 }
 .icon1{
     background-image: url("../images/left_icon1.png");
-    opacity: 40%;
+    opacity: 80%;
 }
 .icon2{
     background-image: url("../images/left_icon2.png");
-    opacity: 40%;
+    opacity: 80%;
 }
 .icon3{
     background-image: url("../images/left_icon3.png");
-    opacity: 40%;
+    opacity: 80%;
 }
 .icon4{
     background-image: url("../images/left_icon4.png");
-    opacity: 40%;
+    opacity: 80%;
 }
 .icon5{
     background-image: url("../images/left_icon5.png");
-    opacity: 40%;
+    opacity: 80%;
 }
 .icon6{
     background-image: url("../images/left_icon6.png");
-    opacity: 40%;
+    opacity: 80%;
 }
-.icon1:hover,.icon2:hover,.icon3:hover,.icon4:hover,.icon5:hover,.icon6:hover{
+.icon7{
+    background-image: url("../images/left_icon7.png");
+    opacity: 80%;
+}
+.icon8{
+    background-image: url("../images/left_icon8.png");
+    opacity: 80%;
+}
+.icon9{
+    background-image: url("../images/left_icon9.png");
+    opacity: 80%;
+}
+.icon10{
+   /* background-image: url("../images/left_icon10.png"); */
+    background-image: url("../images/left_icon10.png");
+    opacity: 80%;
+}
+.icon11{
+    background-image: url("../images/left_icon11.png");
+    opacity: 80%;
+}
+.icon12{
+    background-image: url("../images/left_icon12.png");
+    opacity: 80%;
+}
+.icon1:hover{
+    background-image: url("../images/left_icon1_h.png");
     opacity: 100%;
 }
-.icons > div.hover{
+.icon2:hover{
+    background-image: url("../images/left_icon2_h.png");
+    opacity: 100%;
+}
+.icon3:hover{
+    background-image: url("../images/left_icon3_h.png");
+    opacity: 100%;
+}
+.icon4:hover{
+    background-image: url("../images/left_icon4_h.png");
+    opacity: 100%;
+}
+.icon5:hover{
+    background-image: url("../images/left_icon5_h.png");
+    opacity: 100%;
+}
+.icon6:hover{
+    background-image: url("../images/left_icon6_h.png");
+    opacity: 100%;
+}
+.icon7:hover{
+    background-image: url("../images/left_icon7_h.png");
+    opacity: 100%;
+}
+.icon8:hover{
+    background-image: url("../images/left_icon8_h.png");
+    opacity: 100%;
+}
+.icon9:hover{
+    background-image: url("../images/left_icon9_h.png");
+    opacity: 100%;
+}
+.icon10:hover{
+   /* background-image: url("../images/left_icon10_h.png"); */
+	background-image: url("../images/left_icon10_h.png");
+    opacity: 100%;
+}
+.icon11:hover{
+    background-image: url("../images/left_icon11_h.png");
+    opacity: 100%;
+}
+.icon12:hover{
+    background-image: url("../images/left_icon12_h.png");
+    opacity: 100%;
+}
+.icon1:active,.icon2:active,.icon3:active,.icon4:active,.icon5:active,.icon6:active,.icon7:active,.icon8:active,.icon9:active,.icon10:active,.icon11:active,.icon12:active{
+    opacity: 100%;
+}
+.icons > div.active{
     opacity: 100%;
 }
 
@@ -61,27 +154,40 @@
 }
 .right_main{
     width: 90%;
-    padding-left: 10%;
+    padding-left: 7%;
     padding-top: 3%;
-    color: #666666;
-    height: 100%;
-    font-size: 1.2rem;
-    
+    color: #165f4b;
+    height: 80%;
+    font-size: 1.3rem;
 }
 .tilte{
     width: 100%;
-    height: 20%;
+    height: 15%;
+}
+.tilte .dropdown{
+    width: 50%;
 }
 .dropdown{
     width: 100%;
+}
+.dropdown select{
+    display:block;
+    font-size: 1.5rem;
+    width: 90%;
+    color: #165f4b;
+    background-color: rgba(111, 168, 179, 0.2);
+    border-color:rgba(111, 168, 179, 0.2);
+}
+.dropdown select option{
+    display: block;
 }
 .btn{
     font-size: 1.5rem;
     text-align: left;
 }
 .btn-secondary{
-    width: 45%;
-    color: #151a4e;
+    width: 90%;
+    color: #165f4b;
     background-color: rgba(111, 168, 179, 0.2);
     border-color:rgba(111, 168, 179, 0.2);
 }
@@ -89,19 +195,47 @@
     margin-left: 80%;
 }
 
+.text_top_line{
+    width: 83%;
+    height: 2px;
+    background-color: #165f4b;
+    position: absolute;
+    top: 14%;
+}
+
 .right_text{
     display: none;
     width: 100%;
-    height: 75%;
-    border-top: 1px solid #666666;
-    padding-top: 3%;
+    height: 70%;
     overflow-x: hidden;
     overflow-y: scroll;
+    position: relative;
 }
+
+.right_text::-webkit-scrollbar {
+    width: 8px;
+}
+.right_text::-webkit-scrollbar-button {
+    background: transparent;
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-track-piece {
+    background: rgba(44, 91, 108, 0.1);
+    border-radius: 5px;
+}
+.right_text::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+   
+    background-color: #165f4b;
+    border: 1px solid #2b4387;
+}
+.right_text::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+
 .text_flex{
     width: 100%;
     display: flex;
-
 }
 .text_flex>div{
     width: 100%;
@@ -208,9 +342,63 @@ input:checked + .rdobutton_label{
     background-image: url("../images/float_icon2_h.png");
 }
 .float_icon3{
-    background-image: url("../images/float_icon2.png");
+    background-image: url("../images/float_icon3.png");
     margin-top: -2rem;
 }
 .float_icon3:hover,.float_icon3:active,.float_icon3:focus{
-    background-image: url("../images/float_icon2_h.png");
+    background-image: url("../images/float_icon3_h.png");
+}
+
+.table,.table_main{
+    width: 100%;  
+}
+.table_title,.tablemain{
+    width: 100%;
+    display: flex;
+}
+.title1,.title2,.main1,.main2{
+    width: 15%;
+}
+.title3,.main3{
+    width: 30%;
+}
+.title4,.main4{
+    width: 15%;
+}
+.title5,.title6,.main5,.main6{
+    width: 10%;
+}
+.tablemain>div{
+    padding: 1.5% 1.5%;
+}
+.tablemain{
+    background-color: #165f4c17;
+}
+.tw{
+    background-color:rgba(129, 219, 170, 0);
+}
+.table_title>div{
+    padding: 0% 1.5%;
+}
+.tablemain>div>p{
+    margin-bottom: 0;
+    color: #242e59;
+}
+.add-icon{
+    width: 41px;
+    height: 41px;
+    background-image: url("../images/title5_icon2.png");
+}
+.add-icon:hover,.add-icon:active{
+    background-image: url("../images/title5_icon2_h.png");
+}
+.del-icon{
+    width: 41px;
+    height: 41px;
+    background-image: url("../images/del_icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.del-icon:hover,.del-icon:active{
+    background-image: url("../images/del_icon_h.png");
 }

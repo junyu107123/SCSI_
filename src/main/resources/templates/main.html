@@ -65,7 +65,7 @@
                         <div class="icon9" id="newdata6"><div class="icon_text">路由狀態</div></div>
                     </div>
                     <div class="icons">
-                        <div class="icon10" id="resetf"><div class="icon_text">重置</div></div>
+                        <div class="icon10" onclick="resetf();" id="newdata7"><div class="icon_text">重置</div></div>
                         <div class="icon11" id="upload"><div class="icon_text">資料匯入</div></div>
                         <div class="icon12" id="logout"><div class="icon_text">登出</div></div>
                     </div>
@@ -178,34 +178,31 @@
     		});
 
         $("#logout").click(function(){
-            location.replace("/scsi/logout");
+            top.location.replace("/scsi/logout");
     		});
-		
-        $("#resetf").click(function(){
-        	var yes = confirm('是否重置？');
-            if (yes) {
-            $.ajax({
-                async: false,
-                type: 'POST',
-                dataType: "html",
-                data:{},
-                contentType:"application/x-www-form-urlencoded;charset=UTF-8",
-                url: '/scsi/resetf',
-                cache:false,
-                success: function (data){
-//                     alert(data);
-   					alert('重置完成');
-                    $(".right").load("/scsi/main");
-                },
-            });
-            }
-    		});
-        
+
+		 function resetf() {
+    		var yes = confirm('是否重置？');
+
+    		if (yes) {
+    		 
+    		$.post("/scsi/resetf").done(
+    				function(data) {
+    					//alert(data);
+    					var str1 = data.replace(/(^\s*)|(\s*$)/g, "");
+    					//var myArray = str1.split(':');
+    					if (str1 == 'OK') {
+    						alert('重置完成');
+    					}
+
+    				});
+    		}
+    	}
 		 $("#upload").click(function(){
         	reset();
             $("#upload").attr("class","icon11 active");
 			//alert("暫不提供服務");
-            $(".right").load("/scsi/upfile");
+            $(".right").load("/scsi/upfile?gr="+gr);
     		$(".no_deta").css("display","block");
             $(".right_text").css("display","none");
     		});

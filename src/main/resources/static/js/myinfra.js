@@ -12,8 +12,8 @@ var corridor_x = [0,0,0,0,0,0] ;
 var noderec =[];
 var color_cnt = 0 ;
 var passKey = "I love this Key";
-var squarewidth = "120" ;
-var squareheight = "90" ; //120
+var squarewidth = "138" ;
+var squareheight = "110" ; //120
 var IDList = "";
 var moveList =["201,103,002,301","101,005,301"];
 var move_h = 0 ;
@@ -21,11 +21,14 @@ var findpathresult=[];
 var showfindpathresult=[];
 var alterPath = 0 ;
 var altertick = null ;
-var x_point = 10 ;
-var x_gap = 320 ;
+var x_point = 1 ;
+var x_gap = 322 ;
 var y_point = 10 ;
-var y_gap = 120 ; //200
+var y_gap = 150 ; //200
 var mouseoverobj = null ;
+var crosstop = 0 ;
+var crosstopstep = 6 ;
+// showLandingStation = "marker_103,gn,內湖是方,121.5753482,25.0735218,#000000<w>marker_107,gn,內湖基信,121.5674727,25.040751,#000000<w>marker_108,gn,內湖瑞光,121.5677598,25.0783484,#000000<w>marker_106,gn,台固內湖,121.5663422,25.0787615,#000000<w>marker_101,gn,台北信義,121.5213459,25.0361939,#000000<w>marker_102,gn,臺北愛國,121.5225539,25.032209,#000000<w>marker_104,gn,新北板橋,121.4560743,24.9948708,#000000<w>marker_105,gn,高雄七賢,120.3136097,22.6338311,#000000<w>marker_111,gn,大甲日南,120.6504949,24.4025582,#000000<w>marker_116,gn,屏東林邊,120.51511748465698,22.433763727208063,#000000<w>marker_001,gn,新北八里,121.4104222,25.1605761,red<w>marker_002,gn,淡水淡福,121.4240591,25.1891537,#000000<w>marker_003,gn,淡水沙崙,121.417374,25.1834285,#000000<w>marker_004,gn,頭城吉祥,121.8095097,24.8617629,#000000<w>marker_005,gn,頭城協天,121.8271052,24.8540523,#000000<w>marker_006,gn,金門金中,118.3625097,24.446,#000000<w>marker_008,gn,枋山獅子,120.6549408,22.2744088,#000000";
 
 window.addEventListener('resize', function(event) {
     //console.log("Changed:"+window.innerWidth);
@@ -113,13 +116,15 @@ AppendElement.addEventListener("dblclick", function( event ) {
 		window.scrollTop = 0 ;
 		AllElement.scrollTop = 0 ;
 		//showLineDetail(event.target.id);
-		colorBoxON(event.target.id);
+		//colorBoxON(event.target.id);
+		rightMenu(event.target.id);
 	}else{
 		if (!event.target.matches("svg")){
 			 window.scrollTop = 0 ;
 			 AllElement.scrollTop = 0 ;
-			 colorBoxNodeON(event.target.id);
+			 //colorBoxNodeON(event.target.id);
 			//showNodeDetail(event.target.id);
+			rightMenu(event.target.id);
 		}
 	}
 
@@ -132,6 +137,27 @@ AppendElement.addEventListener('mouseout', function( event ) {
 	clearMouseOverBox();
 },false);
 
+/*
+document.addEventListener('contextmenu', function(event) {
+
+    event.preventDefault();
+	
+	var gonext = false ;
+	for(var u=0 ; u<checkElements.length ; u++){
+		if(event.target.matches(checkElements[u])){
+			gonext = true ;
+			break;
+		}
+	}
+	if(gonext){
+		rightMenu(event.target.id);
+	}
+	
+	
+    
+    return false;
+}, false);
+*/
 function setAreaHeight(ids){
 	var mappingArea = document.getElementsByClassName("right");
 	document.getElementById(ids).style.height = (Number(mappingArea[0].offsetHeight)-10) +"px";
@@ -147,6 +173,7 @@ function pushArr(x,ids,el1, el2,css,desc,others,myObj){
 }
 
 function drawSquare(ids,x,y,w,h,c,txt,c1,myObj){
+	if(ids.indexOf("right")>=0){ x = x+30 ; }
 	var tmpStr = '<rect id="'+ids+'" x="'+x+'" y="'+y+'" rx="20" ry="20" width="'+w+'" height="'+h+'" class="'+c+'" />';
 	pushArr("rect",ids,null,null,c,txt,w+";"+h+";"+c1,myObj);
 	AppendElement.insertAdjacentHTML('beforeend', tmpStr);
@@ -154,6 +181,7 @@ function drawSquare(ids,x,y,w,h,c,txt,c1,myObj){
 		addText(ids,txt,c1);
 	}
 }
+
 
 function drawCircle(ids,x,y,r,c,txt,c1,myObj){
 	var tmpStr = '<circle id="'+ids+'" cx="'+x+'" cy="'+y+'" r="'+r+'" class="'+c+'" />';
@@ -389,9 +417,13 @@ function drawLine1(x,y,c,g,desc,rec,myObj){
 	var top_y = _b_ele.y ;
 	var numOfLine = 0 ;
 	var numOfElement_left , numOfElement_right;
-	var final_left , final_right ;
-	var poss = document.getElementById(x).getBoundingClientRect();
-	var poss1 = document.getElementById(y).getBoundingClientRect();
+	var final_left , final_right , poss , poss1 ;
+	try{
+		poss = document.getElementById(x).getBoundingClientRect();
+		poss1 = document.getElementById(y).getBoundingClientRect();
+	}catch{
+		return ;
+	}
 	var leftobj , rightobj;
 	if(Math.abs(poss.x-poss1.x) < poss.width){
 		drawLine2(x,y,c,Number(g),Number(g),3,1,desc,rec,myObj);
@@ -464,15 +496,23 @@ function drawLine1(x,y,c,g,desc,rec,myObj){
 		
 		var middle_x = leftstart_x + (numOfLine*corridor_linegapx) + corridor_linegapx;
 		var middle_y = leftstart_y + ((rightend_y - leftstart_y)/2);
-
-		var tmpText = '<polyline id="poline_'+x+'_'+y+'_'+numLine_left+''+'" points="'+leftstart_x+','+leftstart_y+' '+middle_x+','+leftstart_y+' '+middle_x+','+rightend_y+' '+rightend_x+','+rightend_y+'" class="'+c+'" />';
+		
+		var tmpText = '';
+		if((x.indexOf("left") >= 0 && y.indexOf("middle2")>=0) || (y.indexOf("left") >= 0 && x.indexOf("middle2")>=0)){
+			crosstop++;
+			tmpText = '<polyline id="poline_'+x+'_'+y+'_'+numLine_left+''+'" points="'+leftstart_x+','+leftstart_y+' '+(middle_x+corridor_linegapx)+','+leftstart_y+' '+(middle_x+corridor_linegapx)+','+(leftstart_y < rightend_y ? (rightend_y-(y_gap/2)) : (leftstart_y-(y_gap/2)))+' '+(rightend_x-((crosstop*crosstopstep)))+','+(leftstart_y < rightend_y ? (rightend_y-(y_gap/2)) :(leftstart_y-(y_gap/2)))+' '+(rightend_x-((crosstop*crosstopstep)))+','+rightend_y+' '+rightend_x+','+rightend_y+'" class="'+c+'" />';
+		}else{
+			tmpText = '<polyline id="poline_'+x+'_'+y+'_'+numLine_left+''+'" points="'+leftstart_x+','+leftstart_y+' '+middle_x+','+leftstart_y+' '+middle_x+','+rightend_y+' '+rightend_x+','+rightend_y+'" class="'+c+'" />';
+		}
 		if(rec){
-			
-			pushArr("polyline","poline_"+x+"_"+y+"_"+numLine_left,final_left,final_right,c,desc,"1;"+g,myObj);
+
+				pushArr("polyline","poline_"+x+"_"+y+"_"+numLine_left,final_left,final_right,c,desc,"1;"+g,myObj);
+
 		}
 	
 		AppendElement.insertAdjacentHTML('beforeend', tmpText);
 	}
+
 }
 
 function drawLine2(x,y,c,g1,g2,l,lr,desc,rec,myObj){
@@ -789,15 +829,32 @@ function showInfo(x)
 function showInfoPoint(ids,x,y){
 	if(document.getElementById("testpoint") != null) clearMouseOverBox();
 	var showData = getOneElementDesc(ids,5);
+	var thisInfo = getOneElementDesc(ids,7);
+	var gotype = "";
+	if(getOneElementDesc(ids,0).indexOf("rect") == 0){
+		gotype = "nodes";
+	}else if(getOneElementDesc(ids,0).indexOf("polyline") == 0){
+		gotype = "links";
+		showData += "("+thisInfo.link_nodeA +"~"+thisInfo.link_nodeB+")";
+	}else if(getOneElementDesc(ids,0).indexOf("text") == 0){
+		ids = getOneElementDesc(ids,1).replace("txt_","");
+		thisInfo = getOneElementDesc(ids,7);
+		gotype = "nodes";
+	}
 	if(showData != null){
 		var _b_ele = AppendElement.getBoundingClientRect();
 		var top_x = _b_ele.x ;
 		var top_y = _b_ele.y ;
 		var gox = x-top_x + 5 ;
 		var goy = y-top_y - 50 - 5;
-		var tmpStr = '<rect id="testpoint" x="'+gox+'" y="'+goy+'" rx="10" ry="10" width="200" height="50" class="rect_white" />';
+		var tmpStr = '';
+		if (gotype == "links"){
+			tmpStr = '<rect id="testpoint" x="'+gox+'" y="'+goy+'" rx="10" ry="10" width="350" height="80" class="rect_white" />';
+		}else{
+			tmpStr = '<rect id="testpoint" x="'+gox+'" y="'+goy+'" rx="10" ry="10" width="250" height="80" class="rect_white" />';
+		}
 		AppendElement.insertAdjacentHTML('beforeend', tmpStr);
-		addText("testpoint",showData,"word16_white");
+		addText("testpoint",showData,"word16_hovers");
 		/*
 		if(getOneElementDesc(ids,0) == "polyline"){
 			setElementClass(ids,"mylinex_8");
@@ -953,18 +1010,34 @@ document.getElementById(x).addEventListener("mouseover", function( event ) {
 	}
 }, false);
 }
-
+var myspendtime = 0 ;
 function fetchBoxMessage(){
 	var testjson ={"person":"a","box":"b","checks":"c"};
 	$.colorbox.settings.opacity = 0.5;
 	$.colorbox({
 		onLoad: function() {
+			myspendtime = 0 ;
 			$('#cboxClose').remove();
 			$('#cboxContent').css("background","transparent");
+			setTimeout("getSpendTime();",2000);
 		},
-		html:"<h1 style='padding:30px;border-radius: 10px 10px 10px 10px;background:#a87132;line-height:50px;'>資料處理中, 請稍待...</h1>",
+		html:"<h1 style='padding:30px;border-radius: 10px 10px 10px 10px;background:#a87132;line-height:50px;width:510px;'>資料處理中, 請稍待..<span id='spendtime'>....</span>..</h1>",
 		overlayClose: false
 		});
+}
+var st_tick ;
+function getSpendTime(){
+	//console.log(myspendtime);
+	if(myspendtime > 0){
+		clearTimeout(st_tick);
+	}
+	//console.log(document.getElementById("spendtime"));
+	if(document.getElementById("spendtime") == null){
+	}else{
+		myspendtime++;
+		document.getElementById("spendtime").innerHTML = myspendtime;
+		st_tick = setTimeout("getSpendTime();",1000);
+	}
 }
 
 function getCountry(){
@@ -974,8 +1047,8 @@ $.post( "/scsi/test2", {})
 		//console.log(passKey);
 		//test3.jsp is a sample for encrypt & decrypt
 		var encrypted = CryptoJS.AES.encrypt("thisisatestforencryptedfiles this is a test...", "thisisakeyforencry");
-		$.post("test3.jsp", {scable:encrypted.toString(),func:"11",loc:"111"})
-		//$.post("/scsi/DataAPI", {scable:encrypted,func:"11",loc:"111"})
+		$.post("/scsi/test3", {scable:encrypted.toString(),func:"11",loc:"111"})
+		//$.post("../DataAPI", {scable:encrypted,func:"11",loc:"111"})
 		.done(function( data ) {
 		//console.log(decodeURIComponent(data));
 		//var bytes1  = CryptoJS.AES.decrypt(decodeURIComponent(data).replace(/(^[\s]*)|([\s]*$)/g, ""), "thisisakeyforencry");
@@ -986,6 +1059,7 @@ $.post( "/scsi/test2", {})
 }
 
 function showDES(){
+	showLandingStation = "";
 	clearTimeout(altertick);
 	FailelementArr=[];
 	fetchBoxMessage();
@@ -994,36 +1068,33 @@ $.post( "/scsi/test2", {})
 	.done(function( data ) {
 		passKey = data.replace(/(^[\s]*)|([\s]*$)/g, "");
 		$.post("/scsi/DataAPI", {scable:"INTR",func:"7",loc:"111"})
-		//$.post("/scsi/DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
+		//$.post("../DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
 			.done(function( data ) {
-				//console.log(decodeURIComponent(data));
-				//console.log(getDataDes(decodeURIComponent(data),passKey));
-				//var bytes1  = CryptoJS.AES.decrypt(data.replace(/(^[\s]*)|([\s]*$)/g, ""), 'Secret Passphrase');
-				//var decryptedData1 = JSON.parse(bytes1.toString(CryptoJS.enc.Utf8));
+				
+				crosstop = 0 ;
 				clearSVG();
-				//console.log(switchme);
+				
 				readFeedBackJson(decodeURIComponent(data),1);
 				$.post("/scsi/DataAPI", {scable:"INTL",func:"7",loc:"111"})
-				//$.post("/scsi/DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
+				//$.post("../DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
 				.done(function( data ) {
 					readFeedBackJson(decodeURIComponent(data),2);
 					$.post("/scsi/DataAPI", {scable:"ISLAND",func:"7",loc:"111"})
 					.done(function( data ) {
 							readFeedBackJson(decodeURIComponent(data),0);
-							//$.post("/scsi/DataAPI", {scable:"",func:"11",loc:"111"})
+							//$.post("../DataAPI", {scable:"",func:"11",loc:"111"})
 							$.post("/scsi/DataAPI", {scable:"FOREIGN",func:"7",loc:"111"})
 							.done(function( data ) {
 								readFeedBackJson(decodeURIComponent(data),3);
 								//readFeedBackCountryJson(decodeURIComponent(data));
 								$.post("/scsi/DataAPI", {scable:"",func:"8",loc:"111"})
-									//$.post("/scsi/DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
+									//$.post("../DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
 								.done(function( data ) {
 									//console.log(decodeURIComponent(data));
 									readLineJson(decodeURIComponent(data),1);
 									move_h = 0 ;
-									//showMoveNow();
-									//testMoveLine();
-									console.log(elementArr);
+									if(fromCNOC == 0) compareNode();
+
 								})
 							})
 							.fail(function(xhr, status, error){
@@ -1274,7 +1345,18 @@ function ActiveMove(){
 	AddMultiNodeMoveCircle(IDList,ballColor,10,15,true);
 }
 
-
+function makeMarkers(c){
+	var newJson = JSON.parse(c).node_info ;
+	for (var u=0 ; u < newJson.length  ; u++){
+		if((newJson[u].node_lat != "") && (newJson[u].node_lon != "")){
+			var wordcolor = (newJson[u].node_failure == "0"?"#000000":(newJson[u].node_failure == "1"?"gray":"red"));
+			showLandingStation += (showLandingStation==""?"":"<w>")+"marker_"+newJson[u].node_id+",gn,"+newJson[u].node_name+","+newJson[u].node_lon+","+newJson[u].node_lat+","+wordcolor;
+		}
+	}
+	//console.log("Landing Station");
+	//console.log(showLandingStation);
+	//console.log("Landing Station END");
+}
 
 function readFeedBackJson(c,j){
 	if(c!="{}"){
@@ -1303,7 +1385,22 @@ function readFeedBackJson(c,j){
 			//console.log(tag_id+newJson[u].node_id+"-"+newJson[u].sysid);
 			PutIntoFail(tag_id+newJson[u].node_id+"-"+newJson[u].sysid,"mylinex_purple");
 		}
+		//console.log(newJson[u]);
+		//console.log("*"+newJson[u].node_lat+"*");
+		//console.log("*"+newJson[u].node_lon+"*");
+		
+		//marker ...
+		//if(j==3){
+			if((newJson[u].node_lat != "") && (newJson[u].node_lon != "")){
+				var wordcolor = (newJson[u].node_failure == "0"?"#000000":(newJson[u].node_failure == "1"?"gray":"red"));
+				showLandingStation += (showLandingStation==""?"":"<w>")+"marker_"+newJson[u].node_id+",gn,"+newJson[u].node_name+","+newJson[u].node_lon+","+newJson[u].node_lat+","+wordcolor;
+			}
+		//}
+		//console.log("Station"+j);
+		//console.log(showLandingStation);
+		//console.log("Station_END"+j);
 	}
+	
 	}
 	//console.log(FailelementArr);
 }
@@ -1483,6 +1580,176 @@ function colorBoxNodeON(x){
 		});
 }
 
+function getOneElementName(x){
+	var retval="";
+	for(var u=0 ; u<elementArr.length ; u++){
+		if(elementArr[u][5][0] == x.trim()){
+			retval = elementArr[u][1];
+			break;
+		}
+	}
+	return retval ;
+}
+
+function getOneElementID(x,y){
+	var retval="";
+	for(var u=0 ; u<elementArr.length ; u++){
+		if((elementArr[u][0] == y) && (elementArr[u][7].node_id == x)){
+			retval = elementArr[u][1];
+			break;
+		}
+	}
+	return retval ;
+}
+
+function getOneLineID(x){
+	var retval="";
+	for(var u=0 ; u<elementArr.length ; u++){
+		if((elementArr[u][0] == "polyline") && (elementArr[u][7].link_id == x)){
+			//console.log(u);
+			retval = elementArr[u][1];
+			//console.log(retval);
+		}
+		
+	}
+	return retval ;
+}
+
+function mapPointClick(x){
+	rightMenu1(getOneElementID(x,"rect"));
+}
+
+function mapCurveClick(x){
+	var contents = "";
+	//contents +=  x + "<BR>";
+	for(var i=0 ; i<curveIDArray.length ; i++){
+		if(x == curveIDArray[i]){
+			contents += curveDesc[i]+"<BR>";
+			contents = "<div class='"+(curvelevel[i]=='0'?"colorbox_normal":curvelevel[i]=='1'?"colorbox_part":"colorbox_all")+"'>"+contents ;
+			break;
+		}			
+	}
+	contents += "<BR><div>";
+	contents += (fromCNOC==0?"<button onclick='getFailInput(\""+x+"\");' style='border:0;background-color:#037bfc;color:#fff;border-radius:10px;margin-bottom:1.5rem;margin-left:0.5rem;position: fixed;bottom: 0;left: 0;'>模擬CNOC障礙通報</button>":"");
+	contents += "<button onclick='getBoxBack();' style='border:0;background-color:#037bfc;color:#fff;border-radius:10px;margin-bottom:1.5rem;margin-right:0.5rem;position: fixed;bottom: 0;right: 0;'>關閉</button></div></div>";
+	$.colorbox({
+		top: "10%",
+		left: "28%",
+		onLoad: function() {
+			$('#cboxClose').remove();
+			$('#cboxOverlay').css("opacity","0.0");
+			
+			//$('#cboxContent').css("background","transparent");
+		},
+		html:contents,
+		overlayClose: true,
+		onComplete: function(){
+			$('#cboxOverlay').css("width","10%");
+			$('#cboxOverlay').css("height","10%");
+			//$('#colorbox').css("top","100px");
+			//$('#colorbox').css("left","500px");
+		}
+		
+	});
+}
+
+function getBoxBack(){
+	$('#cboxOverlay').css('width','100%');
+	$('#cboxOverlay').css('height','100%');
+	$.colorbox.close();
+}
+
+function getFailInput(x){
+	$('#cboxOverlay').css('width','100%');
+	$('#cboxOverlay').css('height','100%');
+	//$.colorbox.close();
+	showdetail(x);
+}
+
+function rightMenu1(x){
+	var thisInfo = getOneElementDesc(x,7);
+	var gotype = "";
+	if(getOneElementDesc(x,0).indexOf("rect") == 0){
+		gotype = "nodes";
+	//$.colorbox.settings.opacity = 0.5;
+	}else if(getOneElementDesc(x,0).indexOf("polyline") == 0){
+		gotype = "links";
+	}else if(getOneElementDesc(x,0).indexOf("text") == 0){
+		x = getOneElementDesc(x,1).replace("txt_","");
+		thisInfo = getOneElementDesc(x,7);
+		gotype = "nodes";
+	}
+	
+	if(gotype=="links" || gotype=="nodes"){
+		var currentstatus = (gotype=="links"? thisInfo.failure : thisInfo.node_failure);
+		var contents = "<div class='"+(currentstatus=="0"?"colorbox_normal":currentstatus=="1"?"colorbox_part":"colorbox_all")+"'>";	
+		//var contents = "<h1 style='padding:30px;border-radius: 10px 10px 10px 10px;line-height:50px; background:#a87132;'>"; //background:#a87132;
+		contents +=  (gotype=="nodes"?"節點/機房 ":"鏈路 ") +":"+ getOneElementDesc(x,5)+"<BR>";
+		contents += (gotype=="links"? thisInfo.link_nodeA +"~"+thisInfo.link_nodeB +"<BR>" :"");
+		//contents += (gotype=="links"? "最大頻寬 : <input id='maxbw' type='text' value ='"+ (thisInfo.max_bandwidth==""?"0":thisInfo.max_bandwidth) +"' maxlength='8' size='6'>GB /" : "");
+		//contents += (gotype=="links"? "使用頻寬 :<input id='usebw' type='text' value ='"+(thisInfo.using_bandwidth==""?"0":thisInfo.using_bandwidth) +"' maxlength='8' size='6'>GB<BR>" :"");
+		contents += (gotype=="links"? "最大頻寬 :"+ (thisInfo.max_bandwidth==""?"0":thisInfo.max_bandwidth) +"GB / 可用頻寬 :"+(thisInfo.using_bandwidth==""?"0":thisInfo.using_bandwidth) +"GB<BR>" :"");
+		contents += (gotype=="links"? "餘用頻寬 :"+ (thisInfo.rest_bandwidth==""?"0":thisInfo.rest_bandwidth) +"GB / 障礙頻寬 :"+(thisInfo.failure_bandwidth==""?"0":thisInfo.failure_bandwidth) +"GB<BR>" :"");
+		contents += "目前狀態 : "+(currentstatus=="0"?"正常":(currentstatus=="1"?(gotype=="nodes"?"部份損毁":"部份中斷"):(gotype=="nodes"?"全部損毁":"全中斷")));
+		$.colorbox({
+			onLoad: function() {
+				$('#cboxClose').remove();
+				//$('#cboxContent').css("background","transparent");
+			},
+			html:contents,
+			overlayClose: true
+			});
+	
+	}
+}
+
+function rightMenu(x){
+	var thisInfo = getOneElementDesc(x,7);
+	var gotype = "";
+	if(getOneElementDesc(x,0).indexOf("rect") == 0){
+		gotype = "nodes";
+	//$.colorbox.settings.opacity = 0.5;
+	}else if(getOneElementDesc(x,0).indexOf("polyline") == 0){
+		gotype = "links";
+	}else if(getOneElementDesc(x,0).indexOf("text") == 0){
+		x = getOneElementDesc(x,1).replace("txt_","");
+		thisInfo = getOneElementDesc(x,7);
+		gotype = "nodes";
+	}
+	
+	if(gotype=="links" || gotype=="nodes"){
+		var currentstatus = (gotype=="links"? thisInfo.failure : thisInfo.node_failure);
+		var contents = "<div class='"+(currentstatus=="0"?"colorbox_normal":currentstatus=="1"?"colorbox_part":"colorbox_all")+"'>";	
+		//var contents = "<h1 style='padding:30px;border-radius: 10px 10px 10px 10px;line-height:50px; background:#a87132;'>"; //background:#a87132;
+		contents +=  (gotype=="nodes"?"節點/機房 ":"鏈路 ") +":"+ getOneElementDesc(x,5)+"<BR>";
+		contents += (gotype=="links"? thisInfo.link_nodeA +"~"+thisInfo.link_nodeB +"<BR>" :"");
+		//contents += (gotype=="links"? "最大頻寬 : <input id='maxbw' type='text' value ='"+ (thisInfo.max_bandwidth==""?"0":thisInfo.max_bandwidth) +"' maxlength='8' size='6'>GB /" : "");
+		//contents += (gotype=="links"? "使用頻寬 :<input id='usebw' type='text' value ='"+(thisInfo.using_bandwidth==""?"0":thisInfo.using_bandwidth) +"' maxlength='8' size='6'>GB<BR>" :"");
+		contents += (gotype=="links"? "最大頻寬 :"+ (thisInfo.max_bandwidth==""?"0":thisInfo.max_bandwidth) +"GB / 可用頻寬 :"+(thisInfo.using_bandwidth==""?"0":thisInfo.using_bandwidth) +"GB<BR>" :"");
+		contents += (gotype=="links"? "餘用頻寬 :"+ (thisInfo.rest_bandwidth==""?"0":thisInfo.rest_bandwidth) +"GB / 障礙頻寬 :"+(thisInfo.failure_bandwidth==""?"0":thisInfo.failure_bandwidth) +"GB<BR>" :"");
+		//contents += "<select onchange='passdata(this.value,\""+thisInfo.sysid+"\",\""+gotype+"\");'><option value='0' "+(currentstatus=="0"?"selected":"")+">Normal</option><option value='1' "+(currentstatus=="1"?"selected":"")+">Partial</option><option value='9' "+(currentstatus=="9"?"selected":"")+">Disconnected</option></select></h1>"
+		contents += "<input type='radio' value = '0' onclick='passdata(this.value,\""+thisInfo.sysid+"\",\""+gotype+"\");' style='width: 1em; height: 1em;' "+(currentstatus=="0"?"checked":"")+">&nbsp;正常運作 <BR>";
+		contents += "<input type='radio' value = '1' onclick='passdata(this.value,\""+thisInfo.sysid+"\",\""+gotype+"\");' style='width: 1em; height: 1em;' "+(currentstatus=="1"?"checked":"")+">&nbsp;部份損毁 <BR>";
+		contents += "<input type='radio' value = '9' onclick='passdata(this.value,\""+thisInfo.sysid+"\",\""+gotype+"\");' style='width: 1em; height: 1em;' "+(currentstatus=="9"?"checked":"")+">&nbsp;全部損毁</h1>";
+		$.colorbox({
+			onLoad: function() {
+				$('#cboxClose').remove();
+				//$('#cboxContent').css("background","transparent");
+			},
+			html:contents,
+			overlayClose: true
+			});
+	}
+}
+
+function passdata(x,y,z){
+	$.colorbox.close();
+	$.post("/scsi/test6", {p1:x,p2:y,p3:z})
+	.done(function( data ) {
+		showDES();
+	});
+}
+
 function getFailMessage(x){
 	var retval = "無障礙";
 	if(x==1) retval = "部份障礙";
@@ -1506,7 +1773,7 @@ function showdetail(x){
 			$('#cboxClose').remove();
 			$('#cboxContent').css("background","transparent");
 		},
-		href:"jerry.jsp",
+		href:"/scsi/jerry?id="+x,
 		//html:"<h1 style='padding:30px;border-radius: 10px 10px 10px 10px;background:#a87132;line-height:50px;'>"+x+"</h1>",
 		overlayClose: true
 		});
@@ -1601,7 +1868,7 @@ function clearMoveBall(){
 
 function getNodeInfo(x){
 	$.post("/scsi/DataAPI", {scable:"",func:"13",loc:"111"})
-	//$.post("/scsi/DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
+	//$.post("../DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
 	.done(function( data ) {
 		//console.log(decodeURIComponent(data));
 		var newJson = JSON.parse(decodeURIComponent(data)).node_info ;
@@ -1639,8 +1906,8 @@ function findPath(){
 	var weight1 = $("#g1").find("option:selected").val();
 	//console.log(node1+"/"+node2);
 	//$.post("findPath2_adv.jsp", {start:node1,end:node2,r:weight1})
-	$.post("findPath2.jsp", {start:node1,end:node2,r:weight1})
-	//$.post("/scsi/DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
+	$.post("/scsi/findPath2", {start:node1,end:node2,r:weight1})
+	//$.post("../DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
 	.done(function( data ) {
 		//console.log(decodeURIComponent(data));
 		var data1 = data.replace(/(^[\s]*)|([\s]*$)/g, "");
@@ -1664,9 +1931,9 @@ function findPath1(){
 	findstart = $("#node_left").find("option:selected").text();
 	findend = $("#nodemiddle1").find("option:selected").text();
 	var weight1 = $("#g1").find("option:selected").val();
-	$.post("findPath2_adv.jsp", {start:node1,end:node2,r:weight1})
+	$.post("/scsi/findPath2_adv", {start:node1,end:node2,r:weight1})
 	//$.post("findPath2.jsp", {start:node1,end:node2,r:weight1})
-	//$.post("/scsi/DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
+	//$.post("../DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
 	.done(function( data ) {
 		//console.log(decodeURIComponent(data));
 		var data1 = data.replace(/(^[\s]*)|([\s]*$)/g, "");
@@ -1682,19 +1949,23 @@ function findPath1(){
 		}
 	});
 }
-
+var disablelist = "";
 function findPath2(){
+	
 	runPathinit();
+	disablelist = "";
 	var node1 = $("#node_left").find("option:selected").val();
 	var node2 = $("#nodemiddle1").find("option:selected").val();
 	if(node1 != 0 && node2 != 0 ){
+	fetchBoxMessage();
 	findstart = $("#node_left").find("option:selected").text();
 	findend = $("#nodemiddle1").find("option:selected").text();
 	var weight1 = $("#g1").find("option:selected").val();
 	var bwneeds = $("#bw_needs").val();
-	$.post("findPath2_adv1.jsp", {start:node1,end:node2,r:weight1})
+	//console.log(node1+"/"+node2);
+	$.post("/scsi/findPath2_adv1", {start:node1,end:node2,r:weight1})
 	//$.post("findPath2.jsp", {start:node1,end:node2,r:weight1})
-	//$.post("/scsi/DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
+	//$.post("../DataAPI", {scable:PostDataEnc(testjson,passKey),func:"6",loc:"111"})
 	.done(function( data2 ) {
 		var datac = data2.replace(/(^[\s]*)|([\s]*$)/g, "");
 		var dataarray = decodeURIComponent(datac).split("<WI>");
@@ -1714,7 +1985,22 @@ function findPath2(){
 			//console.log(data1);
 			findLineID1(decodeURIComponent(data1),decodeURIComponent(datashow),bwneeds);
 			showPathDetail(simFeedBack);
+			$.post("/scsi/cdd1", {start:node1,end:node2,r:weight1})
+			.done(function( xresp ) {
+				var getarray = xresp.replace(/(^[\s]*)|([\s]*$)/g, "");
+				var getarrdata = getarray.replace("[","").replace("]","").split(",");
+				for(var m=0 ; m< getarrdata.length ; m++){
+					//console.log(getarrdata[m].trim());
+					//console.log(getOneElementName(getarrdata[m].trim()));
+					try{
+						//setElementClass(getOneElementName(getarrdata[m].trim()),"mylinex_8");
+						//replaceElementClass(getOneElementName(getarrdata[m].trim()),"mylinex_8");
+						//document.getElementById(getOneElementName(getarrdata[m].trim())).style.color="green";
+					}catch{}
+				}
+			});
 		}
+		$.colorbox.close();
 	});
 	}else{
 		colorMessage("   起迄站點資料請選擇   ");
@@ -1725,6 +2011,8 @@ var min_bw_path = "";
 var resource_path = "";
 var resource_bw = "";
 var resource_eachpath = "";
+var showResultLink = "";
+var allpathLenght = 0 ;
 function findLineID1(x,y,z){
 	min_bw = "";
 	min_bw_path = "";
@@ -1733,20 +2021,20 @@ function findLineID1(x,y,z){
 	resource_eachpath = "";
 	document.getElementById("startname1").innerHTML = findstart;
 	document.getElementById("endname1").innerHTML = findend;
-	
+	allpathLenght = 0 ;
 	document.getElementById("abc").innerHTML = "";
 	var thisPathContent = "";
 	//try{
 		var tmpfrom = x.split("*");
-
+		allpathLenght = tmpfrom.length;
 		thisPathContent+= "<div class='data_group'>"
 		thisPathContent+= "<div class='start'><p>"+findstart+"</p></div>";
 		thisPathContent+= "<div class='end'><p>"+findend+"</p></div>";
 		thisPathContent+= "<div class='routing'>";
 		for(var u=1 ; u< tmpfrom.length ; u++){
 			var tmpx = tmpfrom[u].split(",")[1];
-			thisPathContent+= "<div id='rowline_"+u+"' class='routing_data'>";
-			thisPathContent+= "<div id='circle_"+u+"' class='circle'>"+u+"</div>";
+			thisPathContent+= "<div id='rowline_"+u+"' onclick='selectPath("+(u-1)+");' class='routing_data'>";
+			thisPathContent+= "<div id='circle_"+u+"'  class='circle'>"+u+"</div>";
 			var tmpnode = tmpx.split("->");
 			for(var v=0 ; v < tmpnode.length ; v++){ 
 				if(v>0) thisPathContent+= "<div id='"+u+"_"+tmpnode[v-1].split("/")[0]+"_"+tmpnode[v].split("/")[0]+"_triangle' class='data_triangle'></div>";			
@@ -1755,7 +2043,7 @@ function findLineID1(x,y,z){
 			thisPathContent+="<span id='"+u+"_bw'></span></div>";
 		}
 		thisPathContent+= "</div>";
-		thisPathContent+= "<div id='showareason' class='illustrate'></div><div id='showaresult' class='result'></div></div>";
+		thisPathContent+= "<div id='showareasony' class='illustrate'><div id='showareason'></div></div><div id='showaresult' class='result'></div></div>";
 	//}catch {}
 	document.getElementById("abc").innerHTML += thisPathContent +"<BR><BR><BR>";
 	var searchid = "begin";
@@ -1764,6 +2052,8 @@ function findLineID1(x,y,z){
 	//console.log(searchLine.length);
 	var areason = "";
 	var aresult = "";
+
+	showResultLink = "";
 	for(var u=1 ; u< tmpfrom.length ; u++){
 		var myRestBW = 99999999 ;
 		var myRestBWPath = "";
@@ -1788,9 +2078,11 @@ function findLineID1(x,y,z){
 				if(document.getElementById(link_angleid) == null){
 					link_angleid = u+"_node"+searchLine[searchcount].nidB[0]+"_node"+searchLine[searchcount].nidA[0]+"_triangle";
 				}
-				var linkinfo = searchLine[searchcount].link_id[0]+":"+searchLine[searchcount].link_name[0]+" "+statusMap(searchLine[searchcount].failure[0])+"("+(searchLine[searchcount].rest_bandwidth[0] == ""?"0":searchLine[searchcount].rest_bandwidth[0])+")";
+				//var linkinfo = searchLine[searchcount].link_id[0]+":"+searchLine[searchcount].link_name[0]+" "+statusMap(searchLine[searchcount].failure[0])+"("+(searchLine[searchcount].rest_bandwidth[0] == ""?"0":searchLine[searchcount].rest_bandwidth[0])+")";
+				
+				var linkinfo = searchLine[searchcount].link_name[0]+" : "+statusMap(searchLine[searchcount].failure[0])+" ("+(searchLine[searchcount].rest_bandwidth[0] == ""?"0":searchLine[searchcount].rest_bandwidth[0])+")";
 				var addbw = 0 ;
-
+				showResultLink += searchLine[searchcount].link_id[0] ;
 				if(searchLine[searchcount].failure[0] != 0){
 					if(searchLine[searchcount].failure[0] != 9){
 						addbw = 1 ;
@@ -1807,7 +2099,7 @@ function findLineID1(x,y,z){
 				}
 				if(searchLine[searchcount].nidA_failure[0] == '9'){
 					var tmpNodereason = searchLine[searchcount].link_nodeA[0] +"毁損";
-					//console.log(nodeareason.indexOf(tmpNodereason));
+					//s(nodeareason.indexOf(tmpNodereason));
 					if(nodeareason.indexOf(tmpNodereason) < 0){
 						nodeareason += (nodeareason == ""?"":"") + searchLine[searchcount].link_nodeA[0] +"毁損<BR>";
 					}
@@ -1876,14 +2168,17 @@ function findLineID1(x,y,z){
 					resource_eachpath += link_angleid.split("_")[1]+"_"+link_angleid.split("_")[2]+":" ;
 					break;
 				}
+				showResultLink += (showResultLink==""?"":",");
 			}
+			showResultLink += (showResultLink==""?"":",");
 			if(tmpRestBW < myRestBW){
 				myRestBW = tmpRestBW ;
 				myRestBWPath = CanUseBWPath ;
 			}
 		}
+		showResultLink += "<w>";
 		areason += (nodeareason==""?"":(pathfail == 1?"":"<font color='red'>路徑 "+u+" : </font><BR>")+nodeareason) ;
-		document.getElementById(u+"_bw").innerHTML = "( 可使用剩餘頻寬 "+myRestBW +"GB )";
+		document.getElementById(u+"_bw").innerHTML = "( 可使用剩餘頻寬 "+Number(myRestBW).toFixed(2) +"GB )";
 		min_bw += (min_bw==""?myRestBW:"_"+myRestBW) ;
 		min_bw_path += (min_bw_path==""?myRestBWPath:"**"+myRestBWPath) ;
 		if(resource_path.indexOf(":"+link_angleid.split("_")[1]+"_"+link_angleid.split("_")[2]+":") < 0){
@@ -1893,13 +2188,15 @@ function findLineID1(x,y,z){
 		//resource_eachpath += link_angleid.split("_")[1]+"_"+link_angleid.split("_")[2]+"C:" ;
 	}
 	if(document.getElementById(u+"_bw") != null){
-		document.getElementById(u+"_bw").innerHTML = "( 可使用剩餘頻寬 "+myRestBW +"GB )";
+		document.getElementById(u+"_bw").innerHTML = "( 可使用剩餘頻寬 "+Number(myRestBW).toFixed(2) +"GB )";
 		min_bw += (min_bw==""?myRestBW:"_"+myRestBW) ;
 		min_bw_path += (min_bw_path==""?myRestBWPath:"**"+myRestBWPath) ;
 	}
+	//console.log(showResultLink);
 	var rpath_array = resource_path.split("*");
 	var rbw_array = resource_bw.split("*");
 	var samegroup = "";
+
 	if(z == ""){
 		aresult = "無替代路由頻寬需求";
 	}else{
@@ -1908,6 +2205,7 @@ function findLineID1(x,y,z){
 			var calBW = min_bw.split("_");
 			var calBWPath = min_bw_path.split("**");
 			var totalbw = Number(z);
+			var resttotalbw = 0 ;
 			for (var w=0 ; w < calBW.length ; w++){
 				if(Number(calBW[w]) > 0){
 					var tmppath = checkconnection[w].split(":");
@@ -1915,18 +2213,31 @@ function findLineID1(x,y,z){
 					var tmpnum = "";
 					for (var k=0 ; k<tmppath.length -1 ; k++){
 						for(var p=0 ; p < rpath_array.length ; p++){
+							//console.log("P"+p+"/"+rbw_array[p]);
 							if((":"+tmppath[k]+":") == rpath_array[p]){
+								//console.log("W"+w+"/"+totalbw+"/"+Number(calBW[w]));
 								if(totalbw > Number(calBW[w])){
 									if((rbw_array[p] - calBW[w]) >= 0){
 										tmpnum += (tmpnum==""?"":",")+p+":"+(rbw_array[p] - calBW[w]);
 									}else{
-										enoughflag = 0 ;
+										if(rbw_array[p]>0 && calBW[w]>0){
+											tmpnum += (tmpnum==""?"":",")+p+":0";
+											resttotalbw = rbw_array[p];
+										}else{
+											enoughflag = 0 ;
+										}
 									}										
 								}else{
+									//console.log("P"+p+"/"+totalbw+"/"+Number(calBW[w])+"/"+rbw_array[p]);
 									if((rbw_array[p] - totalbw) >= 0){
 										tmpnum += (tmpnum==""?"":",")+p+":"+(rbw_array[p] - totalbw);
 									}else{
-										enoughflag = 0 ;
+										if(rbw_array[p]>0 && totalbw>0){
+											tmpnum += (tmpnum==""?"":",")+p+":0";
+											resttotalbw = rbw_array[p];
+										}else{
+											enoughflag = 0 ;
+										}
 									}
 								}
 								 
@@ -1938,13 +2249,29 @@ function findLineID1(x,y,z){
 						for(var p=0 ; p<numback.length ; p++){
 							rbw_array[numback[p].split(":")[0]] = numback[p].split(":")[1];
 						}
-						if(totalbw > Number(calBW[w])){
-							aresult += "路由 "+(w+1)+" :<BR> 可分散頻寬需求 "+calBW[w]+" GB<BR>";
+						if(resttotalbw > 0){
+							disablelist += (w+1) +"_";
+							aresult += "路由 "+(w+1)+" :<BR> 可分散頻寬需求 "+Number(resttotalbw).toFixed(2)+" GB<BR>";
+							totalbw = totalbw - resttotalbw;
+							resttotalbw = 0 ;
 						}else{
-							aresult += "路由 "+(w+1)+" :<BR> 可分散頻寬需求 "+totalbw+" GB<BR>";
+							if(totalbw > Number(calBW[w])){
+								disablelist += (w+1) +"_";
+								aresult += "路由 "+(w+1)+" :<BR> 可分散頻寬需求 "+Number(calBW[w]).toFixed(2)+" GB<BR>";
+							}else{
+								if(totalbw > 0){
+									disablelist += (w+1) +"_";
+									aresult += "路由 "+(w+1)+" :<BR> 可分散頻寬需求 "+Number(totalbw).toFixed(2)+" GB<BR>";
+								}
+							}
+							
+							totalbw = totalbw - Number(calBW[w]);
 						}
-						totalbw = totalbw - Number(calBW[w]);
-						if(totalbw < 0) break ;	
+						if(totalbw < 0){
+							break ;	
+						}
+					}else{
+					
 					}
 					
 				}
@@ -1958,13 +2285,59 @@ function findLineID1(x,y,z){
 				}
 				aresult += "</font>";
 			}
-			if (aresult == "") aresult = "因<font color='red'>無足夠頻寬</font>，故無任何路由可調度給頻寬需求 "+totalbw+ "GB<BR>"; 
+			//alert(disablelist);
+			if (aresult == "") aresult = "因<font color='red'>無足夠頻寬</font>，故無任何路由可調度給頻寬需求 "+Number(totalbw).toFixed(2)+ "GB<BR>"; 
 		}else{
 			aresult = "訊務需求頻寬, 請填入數字";
 		}
 	}	
 	$("#showareason").html(areason);
 	$("#showaresult").html(aresult);
+	//console.log(document.getElementById('showpathcheck').checked);
+	showAllPath(document.getElementById('showpathcheck0').checked);
+}
+
+
+function showAllPath(x){
+	
+	var dpath = disablelist.split("_");
+	if(x){
+		for (var i=1 ; i< allpathLenght ; i++){
+			$("#rowline_"+i).show();
+		}
+		//for (var i=0 ; i<dpath.length -1 ; i++){
+		//	$("#rowline_"+dpath[i]).show();
+		//}
+		$("#showareason").show();
+	}else{
+		var samerow = 0 ;
+		for (var i=1 ; i < allpathLenght ; i++){
+			if(i == dpath[samerow]){
+				samerow++;
+			}else{
+				$("#rowline_"+i).hide();
+			}
+		}
+		/*
+		for (var i=0 ; i<dpath.length -1 ; i++){
+			$("#rowline_"+dpath[i]).hide();
+		}
+		*/
+		$("#showareason").hide();
+	}
+}
+
+function selectPath(x){
+	showInfra();
+	resetElements();
+	var qq = showResultLink.split("<w>");
+	var tt = qq[x].split(",");
+	for (var u=0 ; u< tt.length -1 ; u++){
+		var getElementID = getOneLineID(tt[u].trim());
+		//console.log(u+":"+tt[u].trim());
+		//console.log(document.getElementById(getElementID));
+		document.getElementById(getElementID).setAttribute("class","mylinex_yellow");
+	}
 }
 
 function node_red(x){
@@ -2145,7 +2518,88 @@ function runPathinit(){
 			replaceElementClass(elementArr[u][1],elementArr[u][4]);
 		}
 	}
+}
+
+function getFailInfoData(){
 	
+	var aaa = "{";
+	for(var dd=8 ; dd <= 16 ;dd++){
+		aaa += (aaa=="{"?"":",")+"\"f"+dd+"\":\""+$("#f"+dd).val()+"\"";
+	}
+	aaa += "}";
+	console.log("this is aaa");
+	console.log(aaa);
+	console.log("end of aaa");
+	$.post("/scsi/DataAPI", {scable:aaa,func:"17",loc:"111"})
+	.done(function( data ) {
+		getBoxBack();
+		//console.log("*"+decodeURIComponent(data)+"*");
+		reLoadCurve();
+	});
+	
+}
+
+function checkBetween(a,x,y,z){
+	if(x < y || x > z){
+		alert("輸入資料超出範圍了,最多只能為"+z);
+		$("#"+a).val("0");
+		$("#"+a).focus();
+		return false ;
+	}
+	return true;
+}
+
+function getDownload(){
+	var createFileName = new Date().valueOf();
+	createFileName = "CDD"+createFileName;
+	$.post("/scsi/cdd", {fn:createFileName})
+	.done(function( data2 ) {
+		var datac = data2.replace(/(^[\s]*)|([\s]*$)/g, "");
+		if(datac == "none"){
+			alert("Exporting Error..");
+		}else{
+			window.open('dl1?fn='+datac+".CDD");
+		}
+	});
+}
+
+var makepointer = 0 ;
+
+function showMarkerNow1(x){
+	if(!x){
+		var tmpStation = showLandingStation.split("<w>");
+		for(var i=0 ; i< tmpStation.length ; i++){
+			Toggle_OneMarker(tmpStation[i].split(",")[0]);
+			//ShowHide_OneMarker(tmpStation[i].split(",")[0],true);
+		}
+	}else{
+		show_Marker();
+		$( "#sw1" ).prop( "checked", true );
+	}
+}
+
+function showMarkerNow(){
+	if(makepointer == 1){
+		var tmpStation = showLandingStation.split("<w>");
+		for(var i=0 ; i< tmpStation.length ; i++){
+			Toggle_OneMarker(tmpStation[i].split(",")[0]);
+			//ShowHide_OneMarker(tmpStation[i].split(",")[0],true);
+		}
+	}else{
+		show_Marker();
+		//$( "#sw1" ).prop( "checked", true );
+		//document.getElementById("sw1").checked;
+	}
+	makepointer = 1;
+}
+
+function HideMarkerNow(){
+	//console.log(showLandingStation);
+	var tmpStation = showLandingStation.split("<w>");
+	for(var i=0 ; i< tmpStation.length ; i++){
+		ShowHide_OneMarker(tmpStation[i].split(",")[0],false);
+	}
+	//ShowHide_OneMarker()
 }
 
 function nextrunAlterPath(){
@@ -2165,6 +2619,142 @@ function getDataDes(st,key){
 	return decryptedData;
 }
 
+function showCT(){
+		$.colorbox({
+		onLoad: function() {
+			$('#cboxClose').remove();
+			$('#cboxContent').css("background","transparent");
+		},
+		href:"/scsi/cruite_input?id=x",
+		//html:"<h1 style='padding:30px;border-radius: 10px 10px 10px 10px;background:#a87132;line-height:50px;'>"+x+"</h1>",
+		overlayClose: true,
+		onComplete: function(){
+			getNodeInfo4box();
+		}
+		});
+}
+
+function getNodeInfo4box(){
+	getNodeInfoOne("nodeAInput","INTR");
+	getNodeInfoOne("nodeBInput","FOREIGN");
+}
+
+function getNodeInfoOne(x,y){
+	$.post("/scsi/DataAPI", {scable:y,func:"7",loc:"111"})
+	.done(function( data ) {
+		console.log(decodeURIComponent(data));
+		var newJson = JSON.parse(decodeURIComponent(data)).node_info ;
+		var mylist = "";
+		//console.log(newJson.length);
+		for(var v=0 ; v<newJson.length ; v++){
+			if(mylist.length>0) mylist += "<w>";
+			mylist += newJson[v].node_name+"<i>"+newJson[v].node_name;
+		}
+		console.log(mylist);
+		showSelect(mylist+"<w>",x);
+	});
+}
+
+function getNewCTInfo(){
+	var a = $("#nodeAInput").find("option:selected").val();
+	var b = $("#nodeBInput").find("option:selected").val();
+	var c = $("#ct1").val();
+	var d = $("#ct2").val();
+	var e = $("#ct3").val();
+	var f = $("#ct4").val();
+	var g = $("#ct5").val();
+	$.post("/scsi/cruite_write", {CA:a,CB:b,CT1:c,CT2:d,CT3:e,CT4:f,CT5:g})
+	.done(function( data ) {
+		var feedback = data.replace(/(^[\s]*)|([\s]*$)/g, "");
+		if(feedback=="OK"){
+			window.location.replace("/scsi/index1?id=2");
+		}else{
+			alert(feedback);
+		}
+	});
+}
+
+function CNOCAPI(){
+	$.post("/scsi/DataAPI", {scable:"h",func:"18",loc:"111"})
+	.done(function( data ) {
+		console.log(decodeURIComponent(data));
+		drawTest();
+	});
+}
+
+//var testsource =[[121.572092,25.045545],[121.572391,25.045539],[121.572687,25.045532],[121.573245,25.045520],[121.573887,25.045507],[121.574184,25.045500],[121.575471,25.045472],[121.575462,25.045149],[121.575455,25.044923],[121.575453,25.044838],[121.575444,25.044527],[121.575439,25.044361],[121.575431,25.044089],[121.575425,25.043893],[121.575408,25.043304],[121.574760,25.043327],[121.574120,25.043349],[121.573480,25.043372],[121.573430,25.043374],[121.572606,25.043403],[121.572336,25.043413],[121.572007,25.043424],[121.572008,25.043442],[121.572036,25.044279],[121.572048,25.044626],[121.572069,25.045249],[121.572079,25.045546],[121.572092,25.045545]];
+
+var testsource =[[120.971323,24.831316],[120.971444,24.831250],[120.971613,24.831181],[120.971747,24.831129],[120.971907,24.831060],[120.972132,24.830960],[120.972229,24.830918],[120.972369,24.830852],[120.972523,24.830780],[120.972706,24.830687],[120.972826,24.830628],[120.972936,24.830565],[120.973046,24.830494],[120.973173,24.830410],[120.973267,24.830364],[120.973386,24.830320],[120.973515,24.830278],[120.973703,24.830211],[120.973858,24.830160],[120.974067,24.830084],[120.974184,24.830058],[120.974464,24.830001],[120.974646,24.829955],[120.974823,24.829951],[120.975034,24.829915],[120.975216,24.829909],[120.975439,24.829871],[120.975697,24.829838],[120.975924,24.829827],[120.976162,24.829814],[120.976398,24.829774],[120.976547,24.829768],[120.976707,24.829753],[120.976913,24.829746],[120.977138,24.829714],[120.977306,24.829710],[120.977477,24.829707],[120.977582,24.829689],[120.977762,24.829694],[120.977973,24.829706],[120.978125,24.829730],[120.978275,24.829742],[120.978394,24.829773],[120.978527,24.829796],[120.978639,24.829818],[120.978761,24.829856],[120.978873,24.829886],[120.979034,24.829938],[120.979126,24.829958],[120.979234,24.829993],[120.979393,24.830056],[120.979585,24.830160],[120.979720,24.830224],[120.979808,24.830275],[120.979878,24.830318],[120.980134,24.830467],[120.980221,24.830516],[120.980292,24.830560],[120.980361,24.830602],[120.980534,24.830707],[120.980629,24.830759],[120.980706,24.830802],[120.980770,24.830833],[120.980863,24.830914],[120.981073,24.831022],[120.981169,24.831088],[120.981250,24.831156],[120.981299,24.831184],[120.981374,24.831219],[120.981458,24.831230],[120.981614,24.831181],[120.981717,24.831155],[120.981903,24.831102],[120.982057,24.831111],[120.982179,24.831109],[120.982310,24.831073],[120.982378,24.831047],[120.982502,24.831002],[120.982623,24.830950],[120.982730,24.830923],[120.982857,24.830912],[120.982926,24.830928],[120.982996,24.830940],[120.983067,24.830931],[120.983091,24.830929],[120.983174,24.830900],[120.983213,24.830883],[120.983250,24.830868],[120.983409,24.830801],[120.983530,24.830754],[120.983614,24.830714],[120.983733,24.830656],[120.983896,24.830573],[120.984070,24.830457],[120.984214,24.830362],[120.984309,24.830289],[120.984454,24.830178],[120.984621,24.830061],[120.984749,24.829966],[120.984756,24.829955],[120.984920,24.829839],[120.985074,24.829721],[120.985252,24.829575],[120.985432,24.829392],[120.985601,24.829144],[120.985706,24.828999],[120.985798,24.828867],[120.985887,24.828741],[120.985932,24.828667],[120.986076,24.828436],[120.986164,24.828301],[120.986252,24.828162],[120.986490,24.827675],[120.986544,24.827551],[120.986612,24.827406],[120.986700,24.827192],[120.986745,24.827074],[120.986807,24.826935],[120.986850,24.826833],[120.986897,24.826690],[120.986943,24.826594],[120.987029,24.826429],[120.987154,24.826224],[120.987244,24.826079],[120.987311,24.825995],[120.987420,24.825857],[120.987486,24.825767],[120.987555,24.825698],[120.987623,24.825640],[120.987692,24.825563],[120.987802,24.825480],[120.987911,24.825416],[120.988021,24.825376],[120.988107,24.825363],[120.988204,24.825347],[120.988335,24.825329],[120.988454,24.825325],[120.988528,24.825306],[120.988616,24.825304],[120.988680,24.825290],[120.988717,24.825278],[120.988815,24.825249],[120.988919,24.825211],[120.989051,24.825151],[120.989212,24.825059],[120.989376,24.824962],[120.989520,24.824892],[120.989596,24.824846],[120.989673,24.824797],[120.989777,24.824732],[120.989914,24.824648],[120.989976,24.824604],[120.990053,24.824546],[120.990110,24.824509],[120.990260,24.824405],[120.990354,24.824331],[120.990411,24.824300],[120.990520,24.824248],[120.990604,24.824204],[120.990640,24.824188],[120.990663,24.824178],[120.990794,24.824119],[120.990872,24.824092],[120.990983,24.824043],[120.991046,24.824018],[120.990330,24.823988],[120.990099,24.823839],[120.990050,24.823808],[120.989657,24.823609],[120.989377,24.823447],[120.989123,24.823338],[120.988821,24.823240],[120.988791,24.823230],[120.988326,24.823094],[120.988027,24.822932],[120.987992,24.822921],[120.987782,24.822855],[120.987740,24.822841],[120.987539,24.822733],[120.987293,24.822607],[120.987118,24.822510],[120.986965,24.822426],[120.986778,24.822236],[120.986773,24.822226],[120.986754,24.822188],[120.978849,24.824296],[120.978712,24.824022],[120.978569,24.823766],[120.978660,24.823617],[120.978654,24.822847],[120.978464,24.822334],[120.978569,24.822192],[120.978647,24.821889],[120.978699,24.821622],[120.978726,24.821484],[120.978765,24.821377],[120.978967,24.821216],[120.979052,24.821091],[120.979059,24.820865],[120.979046,24.820616],[120.979052,24.820502],[120.979105,24.820365],[120.979137,24.820252],[120.979255,24.820032],[120.979379,24.819775],[120.979534,24.819313],[120.979424,24.819312],[120.979314,24.819311],[120.979114,24.819331],[120.979144,24.818983],[120.979149,24.818919],[120.979063,24.818925],[120.979015,24.818887],[120.978885,24.818925],[120.978834,24.818936],[120.978673,24.819026],[120.978564,24.819087],[120.978478,24.819154],[120.978392,24.819177],[120.978297,24.819232],[120.978205,24.819258],[120.978081,24.819325],[120.978017,24.819371],[120.977919,24.819365],[120.977687,24.819444],[120.977362,24.819528],[120.977044,24.819615],[120.976965,24.819618],[120.976803,24.819655],[120.976170,24.819850],[120.976168,24.819854],[120.975975,24.820196],[120.975889,24.820156],[120.975775,24.820011],[120.975668,24.820054],[120.975748,24.820152],[120.975259,24.820507],[120.974924,24.820130],[120.974734,24.819916],[120.974154,24.820302],[120.973846,24.820506],[120.974194,24.820797],[120.974008,24.820955],[120.973598,24.821157],[120.973531,24.821049],[120.973415,24.820812],[120.973148,24.820966],[120.972689,24.821271],[120.973030,24.821691],[120.973503,24.821379],[120.973734,24.821646],[120.973936,24.821473],[120.974560,24.822073],[120.974784,24.822329],[120.974497,24.822536],[120.974489,24.822541],[120.974516,24.822572],[120.974556,24.822609],[120.974568,24.822613],[120.974592,24.822622],[120.974604,24.822633],[120.974622,24.822660],[120.974655,24.822699],[120.974742,24.822805],[120.974807,24.822865],[120.974890,24.822941],[120.974942,24.822989],[120.975045,24.823085],[120.975001,24.823155],[120.974928,24.823203],[120.974877,24.823262],[120.974873,24.823267],[120.974857,24.823294],[120.974855,24.823296],[120.974856,24.823296],[120.974850,24.823305],[120.974884,24.823359],[120.974900,24.823467],[120.974906,24.823503],[120.974890,24.823585],[120.974867,24.823707],[120.974892,24.823822],[120.974847,24.823831],[120.974841,24.823833],[120.974805,24.823840],[120.974808,24.823864],[120.974809,24.823873],[120.974817,24.823948],[120.974743,24.824017],[120.974521,24.824223],[120.974477,24.824265],[120.974497,24.824375],[120.974601,24.824568],[120.974662,24.824781],[120.974795,24.824772],[120.974802,24.824772],[120.974805,24.824772],[120.974808,24.824824],[120.974831,24.825243],[120.974654,24.825273],[120.974171,24.825390],[120.974164,24.825392],[120.973261,24.825610],[120.968837,24.826681],[120.968879,24.826789],[120.968897,24.826834],[120.968914,24.826877],[120.968938,24.826938],[120.969369,24.828026],[120.970015,24.829742],[120.971177,24.831371],[120.971177,24.831372],[120.971323,24.831316]];
+function drawTest(){
+	//draw_region("testregion1",testsource,"#C14242B0");
+	drawMultiLine("testline1",testsource,"yellow");
+}
 
 
+//setTimeout("first_ready('2');",2000);
+/*
+function giveAKey(){
+	passKey = makeid(20);
+	$.post( "test2.jsp", {key:passKey})
+  .done(function( data ) {
+  });
+}
+
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+*/
 //console.log(elementArr);
+/*
+var testbase = "姜";
+var base16 = CryptoJS.enc.Utf8.parse(encodeURI(testbase)).toString(CryptoJS.enc.Base16);
+var base32 = CryptoJS.enc.Utf8.parse(testbase).toString(CryptoJS.enc.Base32);
+var base64 = CryptoJS.enc.Utf8.parse(testbase).toString(CryptoJS.enc.Base64);
+var hash = CryptoJS.MD5(testbase);
+var base16_MD5 = CryptoJS.enc.Utf8.parse(hash).toString(CryptoJS.enc.Base64);
+var base64_MD5 = CryptoJS.enc.Utf8.parse(base16).toString(CryptoJS.enc.Base64);
+console.log("******----------------***********");
+console.log(base16);
+console.log(base32);
+console.log(base64.toString(16));
+console.log(hash);
+console.log(base64_MD5);
+console.log(CryptoJS.HmacSHA1(testbase, "1550524b5ba07e29").toString(CryptoJS.enc.Base64));
+console.log(CryptoJS.MD5(CryptoJS.enc.Hex.stringify(testbase)).toString(CryptoJS.enc.Base64));
+console.log("******----------------***********");
+
+var testbase = "劉彥廷";
+var hash = CryptoJS.MD5(testbase);
+var hash2 = CryptoJS.enc.Utf8.parse(testbase);
+console.log("##"+hash2.toString(CryptoJS.enc.Base64)+"##");
+console.log(CryptoJS.MD5(hash2).toString(CryptoJS.enc.Base64));
+console.log(CryptoJS.SHA1(testbase).toString(CryptoJS.enc.Base64));
+console.log(CryptoJS.SHA256(testbase).toString(CryptoJS.enc.Base64));
+console.log(CryptoJS.SHA512(testbase).toString(CryptoJS.enc.Base64));
+console.log(CryptoJS.SHA3(testbase).toString(CryptoJS.enc.Base64));
+console.log(CryptoJS.RIPEMD160(testbase).toString(CryptoJS.enc.Base64));
+var testcode = "H/Ui6PdrICgKKZW92gvMpw==";
+var hash1 = CryptoJS.enc.Base64.parse(testcode);
+var hash1_utf8 = CryptoJS.enc.Utf8.parse(hash1);
+console.log("-------------");
+console.log(testcode);
+console.log(hash1);
+console.log(hash1_utf8);
+console.log(CryptoJS.enc.Utf8.stringify(hash1_utf8));
+var aaa=CryptoJS.enc.Utf8.stringify(hash1_utf8);
+console.log("***"+CryptoJS.enc.Hex.stringify(aaa)+"***");
+console.log("***"+CryptoJS.enc.Hex.stringify("48656c6c6f2c20576f726c6421")+"***");
+*/
+//var hash = CryptoJS.SHA256("Message",{out);
+//var hash1 = hash.toString(CryptoJS.enc.Base64);
+//console.log(hash1);
+// "L3dmip37+NWEi57rSnFFypTG7ZI25Kdz9tyvpRMrL5E=";
+//console.log(hash.toString(CryptoJS.enc.Hex));
+// "2f77668a9dfbf8d5848b9eeb4a7145ca94c6ed9236e4a773f6dcafa5132b2f91";
+//console.log("-------------");

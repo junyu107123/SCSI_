@@ -32,7 +32,7 @@ public class CodeController {
 	@Autowired
 	UserRepository userRepository;
 
-	@RequestMapping(value = {"/edit_list", "/scsi/edit_list"})
+	@RequestMapping(value= {"/edit_list","/scsi/edit_list"})
 	public ModelAndView edit(@ModelAttribute("userid") String userid, @ModelAttribute("gk") String gk,
 			@ModelAttribute("ck") String ck) {
 		if (gk.equals("2")) {
@@ -82,7 +82,7 @@ public class CodeController {
 		}
 	}
 
-	@RequestMapping(value = {"/newedit", "/scsi/newedit"})
+	@RequestMapping(value= {"/newedit","/scsi/newedit"})
 	public @ResponseBody String editf(@RequestParam(value = "seq", defaultValue = "0000") String seq,
 			@Param(value = "code_id") Integer code_id, @Param(value = "name_zh") String name_zh,
 			@Param(value = "name_desc_zh") String name_desc_zh,CaseData cst,
@@ -98,7 +98,7 @@ public class CodeController {
 		}
 	}
 
-	@GetMapping(value = {"/mody_edit", "/scsi/mody_edit"})
+	@GetMapping(value= {"/mody_edit","/scsi/mody_edit"})
 	public ModelAndView modyedit(@ModelAttribute("seq") String seq, @Param(value = "code_id") Integer code_id) {
 //		System.out.println("modynode="+sysid);
 		ModelAndView model = new ModelAndView("mody_edit");
@@ -113,7 +113,7 @@ public class CodeController {
 		return model;
 	}
 
-	@PostMapping(value = {"/deledit", "/scsi/deledit"})
+	@PostMapping(value= {"/deledit","/scsi/deledit"})
 	public @ResponseBody String deledit(@ModelAttribute("seq") String seq) {
 		ModelAndView model = new ModelAndView("del_edit");
 //		System.out.println("delnode="+sysid);

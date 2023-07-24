@@ -27,5 +27,4 @@ public class CodeTab {
 	private String name_desc_en;
 	private String sort;
 	private String small_icon;
-	private String del_mark;
 }

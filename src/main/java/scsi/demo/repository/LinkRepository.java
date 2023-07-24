@@ -59,9 +59,4 @@ public interface LinkRepository extends CrudRepository<Link,String>{
     
     @Query(value="select count(*) from sc_links where link_name =?1 and del_mark is null",nativeQuery = true)
     Integer existsLink_name(@Param("link_name") String link_name);
-    
-    @Modifying
-    @Transactional
-    @Query(value = "update sc_links set failure ='0',failure_bandwidth ='0' where sysid >0 and del_mark is null" ,nativeQuery = true)
-    void resetL();
 }

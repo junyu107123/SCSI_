@@ -10,8 +10,8 @@ import java.util.Calendar;
 
 public class QueryDB extends DBConnect
 {
-	static final String MYSQL_DB_TYPE_NAME = "MySQL";
-    static final String SQL_ORDER_BY = " order by ";
+//	static final String MYSQL_DB_TYPE_NAME = "MySQL";
+//    static final String SQL_ORDER_BY = " order by ";
 	Connection conn = null;
 	Statement stmt = null ;
 	ResultSet rs = null;
@@ -91,7 +91,7 @@ public void closeall() throws IOException, SQLException
 //             System.out.println("pst ="+pst);
          }
      } catch (SQLException e) {
-         e.printStackTrace();
+         System.out.println("QDB_94="+e.toString());
      }
      
      try {

@@ -29,9 +29,7 @@ public class Nodes {
 	private String lat;
 	private String node_type;
 	private String node_country;
-	@Column(columnDefinition = "INT(11) default '0'")
 	private String pos;
-	@Column(columnDefinition = "INT(11) default '0'")
 	private String node_failure;
-	private String del_mark;
+	
 }

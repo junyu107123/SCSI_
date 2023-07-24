@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests() // 开启配置
 				// 验证码接口放行
 				.antMatchers("/verify-code", "/","/allo").permitAll()
-				.antMatchers("/scsi_spring2/verify-code", "/scsi_spring2/allo").permitAll()
+				.antMatchers("/scsi/verify-code", "/","/scsi/allo").permitAll()
 				.anyRequest() // 其他请求
 				.authenticated()// 验证 表示其他请求需要登录才能访问
 				.and()
@@ -97,9 +97,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.permitAll()
 				;
 	}
-	
 	@Override
 	public void configure(WebSecurity web) throws Exception{
-		web.ignoring().antMatchers("/js/**","/css/**","/images/**");
+		web.ignoring().antMatchers("/js/**","/css/**","/images/**","/used_scable/**");
 	}
 }
