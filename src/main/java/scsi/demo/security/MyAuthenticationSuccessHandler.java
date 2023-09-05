@@ -57,7 +57,8 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 //        response.getWriter().write(JSONUtil.toJsonStr(username));
 //        response.getWriter().write(JSONUtil.toJsonStr(jwtToken));
         request.getSession().setAttribute("userid", username);
-        response.sendRedirect("main");
+//      response.sendRedirect("main");
+        response.sendRedirect("index1?id=2");
 //        response.sendRedirect("main");
      }
 }

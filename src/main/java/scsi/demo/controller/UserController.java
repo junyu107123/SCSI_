@@ -296,4 +296,14 @@ public class UserController {
 		
 		return("[Internal1, PERM-2, 東亞交匯海纜一號EAC1, 淡水-Backhaul-1]");
 	}
+	
+	@PostMapping(value= {"/resetf","/scsi/resetf"})
+	public @ResponseBody String resetf(CaseData cst) throws SQLException {
+			ModelAndView model = new ModelAndView("resetf");
+			
+				cst.resetnodef();
+				cst.resetlinkf();
+		return "OK";
+	}
+	
 }
