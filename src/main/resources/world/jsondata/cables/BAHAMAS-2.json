@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "BAHAMAS-2", "Capacity_G": 2.5, "URL1": "http://www.iscpc.org/cabledb/Caribbean_Cable_db.htm", "Distance_K": 470.0, "OverLand": 0, "NotLive": 0, "InService": 1997, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -80.391111, 27.641944 ], [ -79.186241529033069, 26.673667214652919 ], [ -78.882427600149043, 26.597713732431917 ], [ -78.882427600149043, 26.412049664780568 ], [ -77.219890267089255, 25.416215120105164 ], [ -77.341614104383993, 25.071719434672588 ] ] ] } }
+]
+}

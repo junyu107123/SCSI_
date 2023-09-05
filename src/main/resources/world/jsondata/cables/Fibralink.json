@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Fibralink", "Capacity_G": 320.0, "URL1": "http://www.home.alcatel.com/vpr/vpr.nsf/DateKey/05042006_4uk", "Distance_K": 1000.0, "OverLand": 0, "NotLive": 0, "InService": 2004 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -70.692879919356514, 19.797265732683243 ], [ -70.997629626693922, 20.185958297893851 ], [ -73.199064080512031, 20.208307886257487 ], [ -74.495340205602901, 19.090828468075703 ], [ -74.797059648511976, 18.532088758984813 ], [ -74.852933619421066, 17.716328783712111 ], [ -75.51224647614832, 17.4593085175303 ], [ -76.596201511784656, 17.738678372075746 ], [ -76.8, 17.983333 ] ] ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Fibralink", "Capacity_G": 320.0, "URL1": "http://www.home.alcatel.com/vpr/vpr.nsf/DateKey/05042006_4uk", "Distance_K": 1000.0, "OverLand": 1, "NotLive": 0, "InService": 2004, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -76.8, 17.983333 ], [ -77.116667, 18.416667 ], [ -77.266689162693723, 18.263893698621185 ], [ -77.791904489239158, 18.275068492803001 ], [ -77.916667, 18.466667 ] ] ] } }
+]
+}

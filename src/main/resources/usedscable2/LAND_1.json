@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": "scable", "Name": "LAND_1<BR><BR>內陸海纜_TEST<BR>", "Capacity_G": 6400.0, "URL1": "http://en.wikipedia.org/wiki/TSE-1", "Distance_K": 270.0, "OverLand": 0, "NotLive": 0, "InService": 2013, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [[ 121.502040,25.191373],[ 121.825760637889147,24.859920695879087]],[[ 121.502040,25.191373],[120.588351,24.391314],[120.118777,23.344094],[120.64681561027794,22.256900238715026]] ] } }
+]
+}

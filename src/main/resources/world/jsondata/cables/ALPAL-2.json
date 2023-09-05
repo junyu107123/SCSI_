@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "ALPAL-2", "Capacity_G": 160.0, "URL1": "http://en.wikipedia.org/wiki/ALPAL-2_(cable_system)", "Distance_K": 312.0, "OverLand": 0, "NotLive": 0, "InService": 2002, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 2.907591224526196, 36.801750967997116 ], [ 3.115000813465644, 39.291615278240471 ] ] ] } }
+]
+}

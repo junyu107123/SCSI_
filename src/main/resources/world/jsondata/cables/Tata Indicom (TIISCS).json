@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Tata Indicom (TIISCS)", "Capacity_G": 5120.0, "URL1": "http://en.wikipedia.org/wiki/TIISCS_%28cable_system%29", "Distance_K": 3175.0, "OverLand": 0, "NotLive": 0, "InService": 2004, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 80.287140836482365, 13.060484880600265 ], [ 80.569072579921041, 12.749353840416148 ], [ 95.849824350784644, 8.290324142969975 ], [ 99.897251306928098, 3.814144331302858 ], [ 101.080609188173426, 2.5107356505109 ], [ 103.618826092873562, 0.984375484846634 ], [ 103.97077622883927, 1.253873803924374 ], [ 103.97, 1.346361810840154 ] ] ] } }
+]
+}

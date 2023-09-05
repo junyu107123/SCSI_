@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "VMSCS", "Capacity_G": 60.0, "URL1": "http://www.iscpc.org/cabledb/Mediterranean_and_Red_Sea_Cable_db.htm", "Distance_K": 250.0, "OverLand": 0, "NotLive": 0, "InService": 2004 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 14.49417, 35.91528 ], [ 15.191664036536384, 36.112345503574183 ], [ 15.41895988228031, 36.58099673191218 ], [ 15.489257566531009, 37.344898234103105 ], [ 15.098586681478738, 37.498720528434362 ] ] ] } }
+]
+}

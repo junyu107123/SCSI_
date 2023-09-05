@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "APHRODITE-2", "Capacity_G": 1.13, "URL1": "http://en.wikipedia.org/wiki/APHRODITE-2_(cable_system)", "Distance_K": 868.0, "OverLand": 0, "NotLive": 0, "InService": 1994, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 24.006144643749145, 35.521324005092303 ], [ 24.104223178189493, 35.884102639648702 ], [ 24.616959495303149, 35.887263835036165 ], [ 28.823281886989893, 34.826515937233069 ], [ 30.559253649843651, 34.710763988341334 ], [ 32.349206796031211, 34.851640287642539 ] ] ] } }
+]
+}

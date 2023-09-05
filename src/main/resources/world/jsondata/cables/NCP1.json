@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "NCP1", "Capacity_G": 2200.0, "URL1": "http://en.wikipedia.org/wiki/CUCN_(cable_system)", "Distance_K": 13618.0, "OverLand": 0, "NotLive": 0, "InService": 1999, "precise": 0 },"geometry": { "type": "MultiLineString", "coordinates": [ 
+[ [ 121.896091, 30.935664 ], [ 139.816956, 35.037517],[ 128.999310, 35.170147], [ 121.801462, 24.863596] ],
+[[ 121.395212, 31.619880 ],[124.829253,29.630893]],
+[[124.829253,29.630893], [180.829253,29.630893]],
+[[-180.829253,29.630893], [-123.962630, 45.201929]]
+] } }]}

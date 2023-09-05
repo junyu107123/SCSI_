@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Italy-Greece", "Capacity_G": 1.695, "URL1": "http://www.iscpc.org/cabledb/Mediterranean_and_Red_Sea_Cable_db.htm", "Distance_K": 163.0, "OverLand": 0, "NotLive": 0, "InService": 1997 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 18.483333, 40.15 ], [ 19.232999830893444, 39.625402121698144 ], [ 19.75, 39.666667 ] ] ] } }
+]
+}

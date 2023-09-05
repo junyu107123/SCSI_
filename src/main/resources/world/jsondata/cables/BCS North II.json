@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "BCS North II", "Capacity_G": 240.0, "URL1": "http://www.iscpc.org/cabledb/Baltic_Cable_db.htm", "URL2": "http://atlantic-cable.com/Cables/CableTimeLine/index1951.htm", "Distance_K": 550.0, "OverLand": 0, "NotLive": 0, "InService": 2000, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 24.9375, 60.170833 ], [ 25.288091895124069, 60.026818907009044 ], [ 26.723173405156274, 60.276800847466291 ], [ 26.941667000000109, 60.466667000000143 ], [ 27.843786847696435, 60.248714604715587 ], [ 28.725667915970121, 60.086262828980978 ], [ 29.085556, 59.889722 ] ], [ [ 21.906944000000124, 60.193056 ], [ 22.088352507383661, 59.947018449779762 ], [ 22.796178101656153, 59.680133389644482 ], [ 23.457588902861289, 59.656925993110917 ], [ 24.699184617404683, 59.830981467112338 ], [ 24.9375, 60.170833 ] ] ] } }
+]
+}

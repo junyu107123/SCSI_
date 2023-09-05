@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Caucasus Cable System", "Capacity_G": 1920.0, "Distance_K": 0.0, "OverLand": 0, "NotLive": 0, "InService": 2008, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 28.167, 43.416667 ], [ 28.437083128238985, 43.351754981456388 ], [ 41.676389, 42.141944 ] ] ] } }
+]
+}

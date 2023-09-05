@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": "scable", "Name": "TM3-A<BR><BR>台馬第3海纜A段<BR>", "Capacity_G": 6400.0, "URL1": "http://en.wikipedia.org/wiki/TSE-1", "Distance_K": 270.0, "OverLand": 0, "NotLive": 0, "InService": 2013, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [119.935844, 26.145690], [ 121.1952828, 25.0795588 ] ] ] } }
+]
+}

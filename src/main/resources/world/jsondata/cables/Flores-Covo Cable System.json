@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Flores-Covo Cable System", "Capacity_G": 960.0, "URL1": "http://www.huaweimarine.com/marine/marine/commonWeb.do?method=showContent&webId=440", "Distance_K": 685.0, "OverLand": 0, "NotLive": 1, "InService": 2016, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -28.014167, 39.051 ], [ -28.681056304722055, 39.276027676869241 ], [ -29.566215798890919, 39.433072103254041 ], [ -30.651250017549525, 39.604393295673823 ], [ -31.101667, 39.702 ], [ -31.227222, 39.467 ], [ -30.851124742039271, 39.26888929385175 ], [ -30.180116738395132, 38.840586312802301 ], [ -29.409171372506123, 38.597881290207617 ], [ -28.7125, 38.576 ] ] ] } }
+]
+}

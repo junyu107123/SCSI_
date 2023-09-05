@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "MCT Cable System", "Capacity_G": 30000.0, "URL1": "http://www.rcrwireless.com/20150527/carriers/telekom-malaysia-partners-for-apac-submarine-cables", "Distance_K": 1300.0, "OverLand": 0, "NotLive": 1, "InService": 2016, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 102.442369341760582, 10.116791563760785 ], [ 103.360532710297093, 8.434562175253404 ], [ 103.631791264961748, 6.136002843621327 ], [ 103.631791264961748, 4.365683855283578 ], [ 103.392902400000025, 4.127 ] ], [ [ 103.500000000000114, 10.633333000000107 ], [ 102.442369341760582, 10.116791563760785 ] ], [ [ 101.278, 12.6816485 ], [ 101.318955167294689, 12.175074876418648 ], [ 102.442369341760582, 10.116791563760785 ] ] ] } }
+]
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Pishgaman Oman Iran (POI)", "Capacity_G": 1.28, "URL1": "http://www.internet-datacenters.com/cables/pishgaman-poi/", "Distance_K": 1761.0, "OverLand": 0, "NotLive": 0, "InService": 2012, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 57.746942206723709, 23.733556475309758 ], [ 57.824237708510495, 24.220197195496759 ], [ 60.235621680757511, 24.924575145284706 ], [ 60.616667, 25.283333 ] ] ] } }
+]
+}

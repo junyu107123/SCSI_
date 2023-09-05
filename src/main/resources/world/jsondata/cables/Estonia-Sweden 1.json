@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Estonia-Sweden 1", "Capacity_G": 40.0, "URL1": "http://www.iscpc.org/cabledb/Baltic_Cable_db.htm", "Distance_K": 240.0, "OverLand": 0, "NotLive": 0, "InService": 1995 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 18.683333, 59.283333 ], [ 22.654106015525869, 59.188606910822593 ], [ 22.75, 59.0 ], [ 23.299517466475809, 59.538973127052557 ], [ 24.596487144099019, 59.569707005669223 ], [ 24.745278, 59.437222 ] ] ] } }
+]
+}

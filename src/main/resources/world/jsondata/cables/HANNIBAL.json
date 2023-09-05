@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "HANNIBAL", "Capacity_G": 3200.0, "URL1": "http://www.eetasia.com/ART_8800565895_590626_NT_3d3f9031.HTM", "Distance_K": 170.0, "OverLand": 0, "NotLive": 0, "InService": 2009 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 11.1, 36.85 ], [ 11.989715264048264, 36.920074190326716 ], [ 12.545711049515948, 37.635948124471135 ] ] ] } }
+]
+}

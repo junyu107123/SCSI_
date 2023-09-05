@@ -1,0 +1,6 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": "scable", "Name": "TM1-D<br><br>南竿至北竿海纜<br>", "Capacity_G": 2200.0, "URL1": "http://en.wikipedia.org/wiki/CUCN_(cable_system)", "Distance_K": 13618.0, "OverLand": 0, "NotLive": 0, "InService": 1999, "precise": 0 },"geometry": { "type": "MultiLineString", "coordinates": [ [[ 119.967947, 26.168421 ], [ 119.997686, 26.222409 ]]] } }]}

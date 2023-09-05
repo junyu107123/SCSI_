@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "BCS East-West Interlink", "Capacity_G": 160.0, "URL1": "http://www.iscpc.org/cabledb/Baltic_Cable_db.htm", "Distance_K": 218.0, "OverLand": 0, "NotLive": 0, "InService": 1997, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 18.848033, 57.434 ], [ 20.52917643604961, 56.326468948882997 ], [ 20.973588774640216, 55.983901104552743 ], [ 21.081667, 56.025278 ] ] ] } }
+]
+}

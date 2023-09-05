@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Islalink", "Capacity_G": 60.0, "URL1": "http://www.islalink.es/", "Distance_K": 300.0, "OverLand": 0, "NotLive": 0, "InService": 2011, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -0.383333, 39.467 ], [ 0.627821166287558, 39.412357396196896 ], [ 1.574846646608009, 39.376665481109441 ], [ 2.172091359071409, 39.374286020103611 ], [ 2.486180211841006, 39.405219013179405 ], [ 2.621809489173332, 39.464705538325163 ], [ 2.650363021243296, 39.514674219447599 ], [ 2.65, 39.566667 ] ] ] } }
+]
+}

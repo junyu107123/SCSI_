@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "SEAS", "Capacity_G": 300.0, "URL1": "http://www.subtelforum.com/articles/?p=3049", "Distance_K": 1900.0, "OverLand": 0, "NotLive": 0, "InService": 2012, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 39.296724335379288, -6.801617623583287 ], [ 39.618003956512347, -6.636131696030246 ], [ 42.373419801263815, -6.664685228100209 ], [ 55.193955700677357, -4.608830919062848 ], [ 55.45, -4.6167 ] ] ] } }
+]
+}

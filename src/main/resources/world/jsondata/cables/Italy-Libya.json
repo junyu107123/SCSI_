@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Italy-Libya", "Capacity_G": 120.0, "URL1": "http://www.iscpc.org/cabledb/Mediterranean_and_Red_Sea_Cable_db.htm", "Distance_K": 1170.0, "OverLand": 0, "NotLive": 0, "InService": 2000, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 12.545711049515948, 37.635948124471135 ], [ 12.525162394841852, 37.373429402948794 ], [ 13.180598772560295, 35.480972256015264 ], [ 13.4682333333333, 32.847849999998516 ] ] ] } }
+]
+}

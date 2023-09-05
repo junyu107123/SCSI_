@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": "scable", "Name": "TL2<BR><BR>台灣至小琉球海纜2<BR>", "Capacity_G": 6400.0, "URL1": "http://en.wikipedia.org/wiki/TSE-1", "Distance_K": 270.0, "OverLand": 0, "NotLive": 0, "InService": 2013, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [[ 120.5197355,22.432114 ],[120.3856505,22.3478583]] ] } }
+]
+}

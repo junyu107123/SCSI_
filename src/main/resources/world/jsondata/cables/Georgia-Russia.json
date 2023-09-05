@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Georgia-Russia", "Capacity_G": 640.0, "URL1": "http://www.georgia-russia.dk", "Distance_K": 433.0, "OverLand": 0, "NotLive": 0, "InService": 1999, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 37.786096789046013, 44.632479505985046 ], [ 37.961579320662757, 44.388742328570117 ], [ 39.447155015379934, 43.534536304107739 ], [ 39.720278, 43.585278 ], [ 39.7257004581394, 43.395263582728006 ], [ 41.20199130476459, 42.364645444517961 ], [ 41.676389, 42.141944 ] ] ] } }
+]
+}

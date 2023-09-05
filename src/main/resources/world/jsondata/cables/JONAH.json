@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "JONAH", "Capacity_G": 12800.0, "URL1": "https://www.bezeqint.net/english/carrier-wholesale-services/jonah-cable-system", "Distance_K": 2297.0, "OverLand": 0, "NotLive": 0, "InService": 2012, "precise": 0, "Notes": "Backhaul to Europe via terrestrial route" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 16.866667, 41.125278 ], [ 18.002672141677103, 41.09864080516229 ], [ 18.488082186866482, 40.855935782567606 ], [ 18.845001337741024, 40.313418673238296 ], [ 20.172740578994318, 37.972029043501301 ], [ 23.427843234970144, 34.602712259245628 ], [ 24.884073370538275, 34.445667832860828 ], [ 27.853640705814463, 33.931704255601488 ], [ 29.195656713102743, 33.517678040587022 ], [ 29.895218248816846, 33.046544761432621 ], [ 30.537672720391022, 32.5183044181383 ], [ 31.008805999545419, 32.132831735193797 ], [ 34.221078357416296, 32.132831735193797 ], [ 34.740941754640161, 32.0560664539939 ] ] ] } }
+]
+}

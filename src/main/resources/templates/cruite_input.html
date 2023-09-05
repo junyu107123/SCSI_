@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="colorbox_normal">
+<table width="800px">
+<tr><td><font color='red'>CNOC國際電路服務基本資料填寫模擬</font><BR><BR></td></tr>
+<tr><td>國內機房：
+<select id="nodeAInput" name="nodeAInput"></select>
+</td></tr>
+<tr><td>國外地點：
+<select id="nodeBInput" name="nodeBInput"></select>
+</td></tr>
+<tr><td>電路編號：
+<input id="ct1" name="ct1" value="0" type="text"><span style="color:red" id="ct1msg"></span>
+</td></tr>
+<tr><td>國際語音：
+<input id="ct2" name="ct2" value="0" type="text"> 路
+</td></tr>
+<tr><td>國際網際網路：
+<input id="ct3" name="ct3" value="0" type="text"> Gbps
+</td></tr>
+<tr><td>國際出租電路：
+<input id="ct4" name="ct4" value="0" type="text"> 路
+</td></tr>
+<tr><td>國際出租電路(頻寬)：
+<input id="ct5" name="ct5" value="0" type="text"> Gbps
+</td></tr>
+<tr><td>&nbsp;</td></tr>
+
+<tr><td><button th:onclick="getNewCTInfo();" style='border:0;background-color:#037bfc;color:#fff;border-radius:10px;margin-bottom:1.5rem;margin-right:0.5rem;position: fixed;bottom: 0;left:0; margin-left:5px;'>儲存新增電路資料</button><button onclick='CNOCAPI();' style='border:0;background-color:#037bfc;color:#fff;border-radius:10px;margin-bottom:1.5rem;margin-right:0.5rem;position: fixed;bottom: 0;left:330px;'>CNOC 串接測試</button><button onclick='getBoxBack();' style='border:0;background-color:#037bfc;color:#fff;border-radius:10px;margin-bottom:1.5rem;margin-right:0.5rem;position: fixed;bottom: 0;right: 0;'>關閉</button></td></tr>
+</table>
+</div>
+</body>
+</html>

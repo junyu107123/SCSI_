@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/main.css}">
+        <link rel="stylesheet" th:href="@{/css/input.css}">
+        <link rel="stylesheet" th:href="@{/css/search.css}">
+        <title>input_data</title>
+    </head>
+<body>
+    <div class="main">
+        <div class="left">
+            <div class="left_main">
+                <div class="left_text">
+                    <div class="text1">
+                        <p>現在日期/時間</p>
+                        <ul id="time-wrap">
+                            <li id="date"></li>
+                            <li id="time"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="icon_group">
+                    <div class="icons">
+                        <div class="icon1 active"></div>
+                        <div class="icon2"></div>
+                        <div class="icon3"></div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon4"></div>
+                        <div class="icon5"></div>
+                        <div class="icon6"></div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon4"></div>
+                        <div class="icon5"></div>
+                        <div class="icon6"></div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon4"></div>
+                        <div class="icon5"></div>
+                        <div class="icon6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="right_main">
+                <div class="tilte">
+                    <div class="name">
+                        <p>機房名稱</p>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          請選擇
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#" id="item1">Action</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text_top_line"></div>
+                <div class="no_deta">
+                    <div class="table">
+                        <div class="table_title">
+                            <div class="title1">
+                                <p>業者</p>
+                            </div>
+                            <div class="title2">
+                                <p>座標</p>
+                            </div>
+
+                            <div class="title3">
+                                <p>地址</p>
+                            </div>
+                            <div class="title4">
+                                <p>類型</p>
+                            </div>
+                            <div class="title5">
+                                <p>修改</p>
+                            </div>
+                            <div class="title6">
+                                <p>刪除</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_main">
+                        <div class="tablemain">
+                            <div class="main1">
+                                <p>台灣大哥大</p>
+                            </div>
+                            <div class="main2">
+                                <p>123°N , 123°E</p>
+                            </div>
+                            <div class="main3">
+                                <p>台北市信義區東榮里松仁路三段101號12樓之1</p>
+                            </div>
+                            <div class="main4">
+                                <p>國內</p>
+                            </div>
+                            <div class="main5">
+                                <div class="add-icon"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon"></div>
+                            </div>
+                        </div>
+                        <div class="tablemain tw">
+                            <div class="main1">
+                                <p>台灣大哥大</p>
+                            </div>
+                            <div class="main2">
+                                <p>123°N , 123°E</p>
+                            </div>
+                            <div class="main3">
+                                <p>台北市信義區東榮里松仁路三段101號12樓之1</p>
+                            </div>
+                            <div class="main4">
+                                <p>國內</p>
+                            </div>
+                            <div class="main5">
+                                <div class="add-icon"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon"></div>
+                            </div>
+                        </div>
+                        <div class="tablemain">
+                            <div class="main1">
+                                <p>台灣大哥大</p>
+                            </div>
+                            <div class="main2">
+                                <p>123°N , 123°E</p>
+                            </div>
+                            <div class="main3">
+                                <p>台北市信義區東榮里松仁路三段101號12樓之1</p>
+                            </div>
+                            <div class="main4">
+                                <p>國內</p>
+                            </div>
+                            <div class="main5">
+                                <div class="add-icon"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_text">
+                    <div class="text_flex">
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者4</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>AAAA</option>
+                                    <option>AnotheActionr action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="coordinate">
+                            <div class="name">
+                                <p>座標1</p>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <div class="text mg_t">
+                        <div class="address">
+                            <div class="name">
+                                <p>地址</p>
+                            </div>
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="type">
+                            <div class="name">
+                                <p>類型</p>
+                            </div>
+                            <div class="text6">
+                                <div class="rdobutton">
+                                    <div class="radio">
+                                        <div class="radio_b">
+                                            <input class="rdobutton_radio" type="checkbox" id="radioId" name="radioname" value="0" checked />
+                                            <label class="rdobutton_label" for="radioId"></label>
+                                        </div>
+                                        <div class="radio_text">
+                                            <p>國際</p>
+                                        </div>
+                                    </div>
+                                    <div class="radio mg_l">
+                                        <div class="radio_b">
+                                            <input class="rdobutton_radio" type="checkbox" id="radioId2" name="radioname" value="1" />
+                                            <label class="rdobutton_label" for="radioId2"></label>
+                                        </div>
+                                        <div class="radio_text">
+                                            <p>國內</p>
+                                        </div>
+                                    </div>
+                                    <div class="radio mg_l">
+                                        <div class="radio_b">
+                                            <input class="rdobutton_radio" type="checkbox" id="radioId3" name="radioname" value="2" />
+                                            <label class="rdobutton_label" for="radioId3"></label>
+                                        </div>
+                                        <div class="radio_text">
+                                            <p>陸鏈</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者XXX</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button_group">
+                        <div class="button">
+                            <p>刪除</p>
+                        </div>
+                        <div class="button mg_l">
+                            <p>刪除</p>
+                        </div>
+                        <div class="button mg_l">
+                            <p>刪除</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="float_icon">
+                    <div class="float_icon1"></div>
+                    <div class="float_icon2"></div>
+                    <div class="float_icon3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/time.js}"></script>
+    <!-- <script>
+        $("select#status").change(function(){
+            console.log($(this).val());
+            $(".right_text").css("display","block");
+        });
+    </script> -->
+    <script type="text/javascript">
+        $("#item1").click(function(){
+            $(".no_deta").css("display","none");
+            $(".right_text").css("display","block");
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Alaska United - West", "Capacity_G": 960.0, "URL1": "http://www.alaskaunited.com/", "Distance_K": 2500.0, "OverLand": 0, "NotLive": 0, "InService": 2008, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -149.434573333333333, 60.108398333331877 ], [ -139.022166666666664, 54.887166666665145 ], [ -132.662273187659622, 49.043324944074939 ], [ -130.271426797313211, 47.463494232775567 ], [ -125.894428260011125, 46.362991743396762 ], [ -123.924167, 46.165 ] ] ] } }
+]
+}

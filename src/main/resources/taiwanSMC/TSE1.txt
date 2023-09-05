@@ -1,0 +1,5 @@
+{"type":"FeatureCollection","name":"submarine_cables"
+,"crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}}
+,"features":[
+{"type":"Feature","properties":{"id":"taiwan-strait-express-1-tse-1","name":"Taiwan Strait Express-1 (TSE-1)","color":"#63b545","feature_id":"taiwan-strait-express-1-tse-1-0","coordinates":[120.54844475522137,25.88216650421532]},"geometry":{"type":"MultiLineString","coordinates":[[[119.29246972803506,26.071797919874427],[119.69998943934436,26.058287560298936],[121.16248840329618,25.754704263415306],[121.4625881907028,25.181712818924467]]]}}
+]}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body style="margin: 0; padding: 5px;">
+
+<p th:if="${cableName} eq '暫無更多說明'">
+
+	<center><font color='red' size='3'> [[${cableName}]]</font></center>
+	
+</p>
+	
+<p th:if="${cableName} ne '暫無更多說明'">
+	
+	<iframe th:src="@{/index(name=${cableName},zoom=${cablezoom})}" style="margin: 0;  padding: 0; width:1800px ; height:1000px"></iframe>
+	
+	
+</p>
+	
+</body>
+</html>

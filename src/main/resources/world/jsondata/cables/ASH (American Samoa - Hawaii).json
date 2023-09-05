@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "ASH (American Samoa - Hawaii)", "Capacity_G": 1.2, "URL1": "http://www.iscpc.org/cabledb/Western_Pacific_Cable_db.htm", "Distance_K": 4680.0, "OverLand": 0, "NotLive": 0, "InService": 2009, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -158.238928010924667, 21.650940627356661 ], [ -158.410577326377137, 21.768825162219969 ], [ -159.08883119662471, 21.379443776369154 ], [ -170.700556, -14.279444 ] ] ] } }
+]
+}

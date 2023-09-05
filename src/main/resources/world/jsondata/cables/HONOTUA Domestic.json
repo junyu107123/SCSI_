@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "HONOTUA Domestic", "Capacity_G": 80.0, "URL1": "http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http%3A%2F%2Fwww.opt.pf%2Fgroupe_opt%2Fhonotua_projet.php%23", "URL2": "http://en.wikipedia.org/wiki/Honotua", "Distance_K": 320.0, "OverLand": 0, "NotLive": 0, "InService": 2010, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -151.75, -16.517 ], [ -151.729641451570274, -16.605119074913784 ], [ -151.571284267463199, -16.695910527135162 ], [ -151.464114291214287, -16.709885708785727 ], [ -149.84177871648572, -17.4865485593286 ], [ -149.810352380192768, -17.441245006999026 ], [ -149.73645236094282, -17.422242144906178 ], [ -149.651995196085721, -17.415907857541896 ], [ -149.535866594407224, -17.439133577877598 ], [ -149.474635149885813, -17.47080501469901 ], [ -149.433593, -17.509 ] ] ] } }
+]
+}

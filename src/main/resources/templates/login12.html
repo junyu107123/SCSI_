@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/input.css}">
+		<link rel="stylesheet" th:href="@{/css/main.css}">
+		<link rel="stylesheet" th:href="@{/css/login.css}">
+        <title>使用者登入</title>
+    </head>
+<body>
+    <form action="/333" method="post">
+        <input type="text" id="userid" name="userid" autofocus="autofocus">
+        <input type="password" id="password" name="password" >
+		      <tr>
+      				  <td align="center"><label>驗證碼:<input type="text" name="insrand" maxlength="4" style="width:78px; height:20px;" autocomplete="off" onkeyup="value=value.replace(/[^\d]/g,'') ">
+                      <img src="/verify-code" alt="New Image" id="code" onclick="javascript:changeimg();"></td>
+                    </tr>
+		<script type="text/javascript">
+            function changeimg(){            
+                var myimg = document.getElementById("code");
+                now = new Date();
+                myimg.src = "/verify-code?change"+now.getTime();   
+                             
+            }
+        </script>	       
+        <div th:if="${param.error}">
+            <div>帳號或密碼錯誤</div>
+        </div>
+        <button type="submit" class="btn btn-primary">登入</button>
+    </form>
+</body>
+</html>

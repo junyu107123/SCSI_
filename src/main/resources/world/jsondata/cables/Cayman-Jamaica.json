@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Cayman-Jamaica", "Capacity_G": 2.5, "URL1": "http://www.iscpc.org/cabledb/Caribbean_Cable_db.htm", "Distance_K": 870.0, "OverLand": 0, "NotLive": 0, "InService": 1997, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -81.154308641002331, 19.286650513881362 ], [ -79.886839060274838, 19.108071484783885 ], [ -78.816081607651213, 18.861202405428994 ], [ -78.310446143912287, 18.700588787535448 ], [ -78.114140610931287, 18.617307652331391 ], [ -77.916667, 18.466667 ] ] ] } }
+]
+}

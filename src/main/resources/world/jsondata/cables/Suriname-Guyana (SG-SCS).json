@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Suriname-Guyana (SG-SCS)", "Capacity_G": 0.0, "URL1": "http://opnew.op.gov.gy/index.php?view=article&catid=34%3Abulletins&id=818%3Atelecommunications-landscape-transformation-reaches-climax&option=com_content&Itemid=70", "Distance_K": 520.0, "OverLand": 0, "NotLive": 0, "InService": 2010 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -58.166667, 6.8 ], [ -57.349498908718886, 8.10475043212773 ] ], [ [ -57.349498908718886, 8.10475043212773 ], [ -56.316667, 5.883333 ] ], [ [ -61.388574132362351, 10.781901283712898 ], [ -61.065422866505742, 10.886384937670982 ], [ -60.82123357785116, 10.801449532921595 ], [ -60.704447396320631, 10.652812574610152 ], [ -57.349498908718886, 8.10475043212773 ] ] ] } }
+]
+}

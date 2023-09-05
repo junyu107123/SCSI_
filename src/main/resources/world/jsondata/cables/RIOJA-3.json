@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "RIOJA-3", "Capacity_G": 5.0, "URL1": "http://en.wikipedia.org/wiki/RIOJA-3_(cable_system)", "Distance_K": 0.0, "OverLand": 0, "NotLive": 0, "InService": 1999, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 4.62649914432288, 52.618914090130943 ], [ 2.576624108356147, 51.769221202279077 ], [ 2.318461913906947, 51.651364548291397 ], [ 2.643538657540204, 51.127530937437399 ] ] ] } }
+]
+}

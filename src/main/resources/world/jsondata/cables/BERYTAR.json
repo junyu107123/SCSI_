@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "BERYTAR", "Capacity_G": 5.0, "URL1": "http://en.wikipedia.org/wiki/BERYTAR_(cable_system)", "Distance_K": 134.0, "OverLand": 0, "NotLive": 0, "InService": 1997, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 35.873112702093202, 34.891509838325433 ], [ 35.82658010900596, 34.867743879247037 ], [ 35.514534779842727, 34.045266786485683 ], [ 35.551732236299273, 33.904743062094276 ] ] ] } }
+]
+}

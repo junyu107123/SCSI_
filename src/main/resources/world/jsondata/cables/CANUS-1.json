@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "CANUS-1", "Capacity_G": 2.5, "URL1": "http://www.iscpc.org/cabledb/Atlantic_Cable_db.htm", "Distance_K": 1360.0, "OverLand": 0, "NotLive": 0, "InService": 1995, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -73.992947150748734, 40.144224401143745 ], [ -69.663309603688276, 41.06521389497653 ], [ -67.340990255305741, 42.137053594230004 ], [ -66.104252140782492, 42.453108890163726 ], [ -63.960572742275531, 43.305084035724185 ], [ -63.507102100283674, 43.621139331657901 ], [ -63.452135961860421, 44.04712690443813 ], [ -63.626760233665891, 44.430833333333332 ] ] ] } }
+]
+}

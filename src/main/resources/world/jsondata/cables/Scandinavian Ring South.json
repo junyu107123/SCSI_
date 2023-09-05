@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Scandinavian Ring South", "Capacity_G": 240.0, "URL1": "http://www.iscpc.org/cabledb/Baltic_Cable_db.htm", "Distance_K": 32.4, "OverLand": 0, "NotLive": 0, "InService": 2000 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 12.666667, 55.583333 ], [ 12.779058501162282, 55.622074768199248 ], [ 12.916667, 55.55 ], [ 12.775744430020582, 55.529280776231637 ], [ 12.666667, 55.583333 ] ] ] } }
+]
+}

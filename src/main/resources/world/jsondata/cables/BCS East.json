@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "BCS East", "Capacity_G": 240.0, "URL1": "http://www.iscpc.org/cabledb/Baltic_Cable_db.htm", "Distance_K": 98.0, "OverLand": 0, "NotLive": 0, "InService": 1995, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 21.013889, 56.511667 ], [ 20.90299202293701, 56.458403861902084 ], [ 20.909935965727488, 56.132038550749606 ], [ 21.081667, 56.025278 ] ] ] } }
+]
+}

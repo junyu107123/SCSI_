@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Korea-Japan Cable Network (KJCN)", "Capacity_G": 2880.0, "URL1": "http://genkai.info/2001-0831/KJCN.pdf", "Distance_K": 500.0, "OverLand": 0, "NotLive": 0, "InService": 2002, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 130.370293, 33.600519 ], [ 130.022138882661068, 34.374669302733217 ], [ 129.464684181562461, 34.902260359130096 ], [ 129.195528, 35.178228 ], [ 129.653820598006632, 34.932124003831809 ], [ 130.410366263783288, 34.543896622709575 ], [ 130.628158099799066, 34.200113976678082 ], [ 130.711, 33.937 ] ] ] } }
+]
+}

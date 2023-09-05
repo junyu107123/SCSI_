@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Dumai-Melaka", "Capacity_G": 320.0, "URL1": "http://en.wikipedia.org/wiki/Dumai-Melaka_Cable_System", "Distance_K": 150.0, "OverLand": 0, "NotLive": 0, "InService": 2005, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 101.455804774575753, 1.686015915252524 ], [ 101.591249514676761, 1.678276215818181 ], [ 101.73830380392927, 1.713104863272723 ], [ 102.241384267161536, 2.189096378484793 ] ] ] } }
+]
+}

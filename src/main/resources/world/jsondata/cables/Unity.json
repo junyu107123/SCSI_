@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Unity", "Capacity_G": 7680.0, "URL1": "http://en.wikipedia.org/wiki/Unity_(submarine_cable)", "Distance_K": 9920.0, "OverLand": 0, "NotLive": 0, "InService": 2010, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -118.390039065113228, 33.85686936345644 ], [ -124.697641643652673, 32.895607581280558 ], [ -135.758981393100953, 31.125793221368781 ], [ -180.0, 29.0 ] ], [ [ 139.960195, 34.97047 ], [ 142.460322946367, 34.194214446501633 ], [ 180.0, 29.0 ] ] ] } }
+]
+}

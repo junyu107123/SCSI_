@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "NorSea Com 1", "Capacity_G": 160.0, "URL1": "http://en.wikipedia.org/wiki/NorSea_Com_1_(cable_system)", "Distance_K": 750.0, "OverLand": 0, "NotLive": 0, "InService": 1999, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 1.73465, 52.45166666666514 ], [ 5.420230821452818, 59.016721995926666 ], [ 5.502966521121325, 59.274212430732817 ] ] ] } }
+]
+}

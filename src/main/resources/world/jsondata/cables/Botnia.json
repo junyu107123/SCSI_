@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Botnia", "Capacity_G": 14.4, "URL1": "http://www.iscpc.org/cabledb/Baltic_Cable_db.htm", "Distance_K": 93.0, "OverLand": 0, "NotLive": 0, "InService": 1994, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 20.25, 63.833333 ], [ 20.787226635392877, 63.67995612213835 ], [ 21.624368554339878, 63.425823753886583 ], [ 21.960720218202511, 63.298757569760696 ], [ 22.0, 63.166667 ] ] ] } }
+]
+}

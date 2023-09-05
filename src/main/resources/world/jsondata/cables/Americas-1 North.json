@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Americas-1 North", "Capacity_G": 2.5, "URL1": "http://www.iscpc.org/cabledb/Caribbean_Cable_db.htm", "Distance_K": 2120.0, "OverLand": 0, "NotLive": 0, "InService": 1994, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -80.391111, 27.641944 ], [ -77.341777321867937, 27.767016164185183 ], [ -68.697033654071305, 23.040613100663212 ], [ -66.379571506796012, 20.997587260302101 ], [ -65.190347510167911, 19.488187572274118 ], [ -64.963674335404136, 18.379469734161649 ] ] ] } }
+]
+}

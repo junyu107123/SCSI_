@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Tasman-2", "Capacity_G": 1.2, "URL1": "http://www.iscpc.org/cabledb/Australian_Cable_db.htm", "Distance_K": 2195.0, "OverLand": 0, "NotLive": 0, "InService": 1992 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 174.77231, -36.78919 ], [ 174.350745466385604, -37.350779792717525 ], [ 172.932504166620703, -37.532605600379696 ], [ 166.677696383042161, -37.13258882352293 ], [ 154.568097592741822, -35.605252039160725 ], [ 151.586154347082271, -34.368836547057988 ], [ 151.280136761966872, -33.967729046070765 ] ] ] } }
+]
+}

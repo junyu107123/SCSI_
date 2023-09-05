@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Kategat-1", "Capacity_G": 20.0, "Distance_K": 170.0, "OverLand": 0, "NotLive": 0, "InService": 1995 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 10.598365366977154, 57.740146342457656 ], [ 11.752554878421622, 57.602935001936288 ], [ 11.966667, 57.7 ] ] ] } }
+]
+}

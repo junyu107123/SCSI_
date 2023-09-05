@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Finland-Sweden 4 (SFS-4)", "Capacity_G": 40.0, "URL1": "http://www.iscpc.org/cabledb/Baltic_Cable_db.htm", "Distance_K": 254.0, "OverLand": 0, "NotLive": 0, "InService": 1993 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 18.7, 59.766667 ], [ 19.933333, 60.1 ], [ 20.165887345386427, 59.929159740194379 ], [ 21.155107544186698, 60.250656304804473 ], [ 21.934118450741913, 60.287752062259479 ], [ 22.266667, 60.45 ] ] ] } }
+]
+}

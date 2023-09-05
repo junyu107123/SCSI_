@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Alonso de Ojeda", "Capacity_G": 20.0, "URL1": "http://www.iscpc.org/cabledb/Caribbean_Cable_db.htm", "Distance_K": 128.0, "OverLand": 0, "NotLive": 0, "InService": 1999, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -69.88, 12.4138 ], [ -69.893837473140067, 12.312715892212637 ], [ -69.865286604359142, 12.257335140947765 ], [ -69.483371650363949, 12.094946105390752 ], [ -69.167615192336427, 12.061866857406917 ], [ -68.935888415725486, 12.097815836573471 ] ] ] } }
+]
+}

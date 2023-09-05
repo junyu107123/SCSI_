@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "ADRIA-1", "Capacity_G": 0.0, "URL1": "http://www.iscpc.org/cabledb/Mediterranean_and_Red_Sea_Cable_db.htm", "Distance_K": 492.0, "OverLand": 0, "NotLive": 0, "InService": 1996, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 18.108333, 42.64 ], [ 18.200436442033993, 42.114298834495948 ], [ 18.85002929662566, 41.621750406289081 ], [ 19.342577724832527, 41.443290830851808 ], [ 19.45, 41.316667 ], [ 19.378269639919981, 41.086371679977262 ], [ 19.192671681465221, 40.672345464962795 ], [ 19.271193894657618, 40.158381887703456 ], [ 19.528175683287287, 39.858569800968844 ], [ 19.75, 39.666667 ] ] ] } }
+]
+}

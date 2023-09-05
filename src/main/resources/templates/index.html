@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>OpenLayers OSM Example</title>
+
+  <!-- openlayers == start -->
+  
+  <link rel="stylesheet" th:href="@{/css/world/ol.css}" type="text/css">
+  
+  <script th:src="@{/js/world/ol.js}"></script>
+  
+  <script th:src="@{/js/world/my_map_utils.js}"></script>
+  <script th:src="@{/js/world/my_jquery.js}"></script>
+  <script th:src="@{/js/world/map_marker.js}"></script>
+  <!-- openlayers == end -->
+
+  <!-- jQuery == start -->
+  <script th:src="@{/js/world/jquery-3.6.0.min.js}"></script>
+  <script th:src="@{/js/world/my_jquery_utils.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/world/my.css}" type="text/css">
+<style>
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+svg a.is-active path{fill:#fff59d}
+.scableInfo{
+	margin-top: [[${myheight}]]px;
+	margin-left:[[${myleft}]]vw;
+}
+</style>
+<script>
+</script>
+</head>
+<body style="margin:0px;padding:0px;">
+  <!-- openlayers == start -->
+  <div style="width: 100vw;  height: 100vh;  position: relative">
+<div style="background:#66CCCC;  color:#FFFFFF;   position:fixed; top:0; z-index:1;right:10px;"><a href="#" style="text-decoration:none; font-size:1.5em;" onclick="parent.parent.$.colorbox.close();">CLOSE</a></div>
+
+<div style="font-family:DFKai-sb;z-index: 10; position: absolute; margin-top:20px; margin-left:10vw; margin-right: 10px; padding:30px; background-color:yellow;  border-radius: 10px;  border: 1px solid #cccccc;">
+<font color="brown" size="6" th:utext="${showDataPop}"></font><br><br>
+<input type="button" th:onclick="setMarkerData()" class="button" value="顯示登陸點">&nbsp;&nbsp;
+<input type="button" class="button" th:onclick="removeAllMarkers()" value="隱藏登陸點">
+</div>
+<div class="scableInfo" id="scableInfo" style="font-family:DFKai-sb;z-index: 10; position: absolute;   padding-right:10px;  border-radius: 10px;  border: 10px solid #4CAF50; background-color:#A9F5E1;">
+<font size="4" th:utext="${showDataNow}">
+
+</font>
+<!--
+ <font size="8">測試文字在右側1234567890-=123456789</font><BR>
+  2This is a map for submarin cable -- ${cableName}<BR>
+  主要是描述內容及上岸點...123456789012345678901234567890
+-->
+  </div>
+  <div id="map" class="map">
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content" style="width:200px; height:100px; background-color:yellow;font-family:DFKai-sb; color:brown;"></div>
+    </div>
+  </div>
+
+  </div>
+  <script th:inline="javascript">
+  var cableNow = [[${cableName}]];
+  //var showInfo = "<font size='4'>[[${showDataPop}]]</font>";
+  
+  var centerNow = [125.3, 23.8];
+  var setZoomValue = [[${zoom}]];
+  if(setZoomValue == "10"){
+	centerNow = [118.3, 24.4];
+  }
+  if(setZoomValue == "7"){
+	centerNow = [120.3, 23.8];
+  }
+
+  var countyJsonFiles = [];
+  countyJsonFiles[0] = "world/jsondata/countries.geo.json";
+  var Name=[[${cableName}]].replace('"','');
+  //console.log('Name='+Name);
+  var cableJsonFiles = [];
+  cableJsonFiles[0] = "/scsi/used_scable/"+Name+".json";
+
+  map = new ol.Map({
+  layers: [
+    new ol.layer.Tile({
+      source: new ol.source.OSM()
+    })
+  ],
+  target: 'map',
+  controls: [],
+  view: new ol.View({
+	  interactions : ol.interaction.defaults({doubleClickZoom :false}),
+    //center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
+    center: ol.proj.fromLonLat(centerNow),
+    zoom: setZoomValue
+  })
+});
+
+    $(document).ready(function() {
+	  loadJs("js/world/my_map_utils.js");
+      loadJs("js/world/my_jquery.js");
+	  loadJs("js/world/map_marker.js");
+      //loadJs("js/fake_data.js");
+      //loadJs("js/my_map_utils.js");
+      //urgentId = setInterval(function(){toggleUrgent()},2000);
+	  setTimeout("displaynow();",1000);
+	  setTimeout("displaynow();",2000);
+    });
+	
+	
+  </script>
+</body>
+</html>

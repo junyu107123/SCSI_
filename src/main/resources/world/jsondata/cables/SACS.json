@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "SACS", "Capacity_G": 40000.0, "URL1": "http://en.wikipedia.org/wiki/SACS_(cable_system)", "Distance_K": 6165.0, "OverLand": 0, "NotLive": 1, "InService": 2015, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 13.1975, -9.564 ], [ 8.296070088373458, -9.652275404269517 ], [ 3.388431763848497, -8.16511227562559 ], [ -6.635047723211573, -5.458475381493642 ], [ -18.472866227217235, -3.376447001392143 ], [ -25.37330314412506, -1.859540610175337 ], [ -29.358900328890787, -1.324161883863523 ], [ -34.891147167446192, -1.978513660466852 ], [ -37.121891860412084, -2.21645976104988 ], [ -38.476134049250135, -3.750139534960128 ] ] ] } }
+]
+}

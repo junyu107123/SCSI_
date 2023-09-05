@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Russia-Japan Cable Network (RJCN)", "Capacity_G": 640.0, "Distance_K": 1800.0, "OverLand": 0, "NotLive": 0, "InService": 2008, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 132.847214045527835, 42.748230121350993 ], [ 137.282544126938831, 40.329439699977577 ], [ 138.224702, 37.170251 ], [ 136.142529757658508, 39.738321138128526 ], [ 132.847214045527835, 42.748230121350993 ] ] ] } }
+]
+}

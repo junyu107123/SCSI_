@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "SMPR-1", "Capacity_G": 20.0, "URL1": "http://en.wikipedia.org/wiki/SMPR-1_(cable_system)", "Distance_K": 375.0, "OverLand": 0, "NotLive": 0, "InService": 2004 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -66.009888703738014, 18.454297969511817 ], [ -65.791966465885622, 18.703907031448058 ], [ -65.593700782938114, 18.660949466809427 ], [ -65.098036575569324, 18.122327694802006 ], [ -63.657305946150693, 18.115718838703756 ], [ -63.250861296108283, 18.026499281377372 ], [ -62.98646752658972, 18.094999681128996 ] ] ] } }
+]
+}

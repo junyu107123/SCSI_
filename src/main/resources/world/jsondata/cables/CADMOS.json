@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "CADMOS", "Capacity_G": 0.622, "URL1": "http://www.mpt.gov.lb/cadmos.htm", "URL2": "http://en.wikipedia.org/wiki/CADMOS_(cable_system)", "Distance_K": 230.0, "OverLand": 0, "NotLive": 0, "InService": 1995, "precise": 0 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 33.599430963483272, 34.82366882464671 ], [ 33.661513297377944, 34.817460591257245 ], [ 35.476386858232225, 34.031084361924712 ], [ 35.551732236299273, 33.904743062094276 ] ] ] } }
+]
+}

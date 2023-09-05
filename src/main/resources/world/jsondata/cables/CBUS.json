@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "CBUS", "Capacity_G": 480.0, "URL1": "http://www.cwbda.com/", "Distance_K": 1600.0, "OverLand": 0, "NotLive": 0, "InService": 2009, "precise": 11 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -64.746347484094869, 32.31158392041597 ], [ -64.733852039326649, 32.290063987759574 ], [ -64.718579829054363, 32.261602141343047 ], [ -64.575605340574796, 18.458356261186182 ] ] ] } }
+]
+}

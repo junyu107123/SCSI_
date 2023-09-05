@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/main.css}">
+        <link rel="stylesheet" th:href="@{/css/input.css}">
+        <link rel="stylesheet" th:href="@{/css/search.css}">
+        <title>input_data</title>
+    </head>
+<body>
+    <div class="main">
+        <div class="left">
+            <div class="left_main">
+                <div class="left_text">
+                    <div class="text1">
+                        <p>現在日期/時間</p>
+                        <ul id="time-wrap">
+                            <li id="date"></li>
+                            <li id="time"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="icon_group">
+                    <div class="icons">
+                        <div class="icon13" id="nodelist"><div class="icon_text">機房/節點</div></div>
+                        <div class="icon14" id="linklist"><div class="icon_text">路由管理</div></div>
+                        <div class="icon15" id="users"><div class="icon_text">帳號管理</div></div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon4" id="newdata1"><div class="icon_text">國家代碼</div></div>
+                        <div class="icon5" id="newdata2"><div class="icon_text">業者管理</div></div>
+                        <div class="icon6" id="newdata3"><div class="icon_text">節點類型</div></div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon7" id="newdata4"><div class="icon_text">節點狀態</div></div>
+                        <div class="icon8" id="newdata5"><div class="icon_text">路由類型</div></div>
+                        <div class="icon9" id="newdata6"><div class="icon_text">路由狀態</div></div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon10" onclick="resetf();" id="newdata7"><div class="icon_text">重置</div></div>
+                        <div class="icon11" id="upload"><div class="icon_text">資料匯入</div></div>
+                        <div class="icon12" id="logout"><div class="icon_text">登出</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="right_main">
+                <div class="tilte">
+                    <div class="name">
+                        <p>機房名稱</p>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          請選擇
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#" id="item1">Action</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text_top_line"></div>
+                <div class="no_deta">
+                    <div class="table">
+                        <div class="table_title">
+                            <div class="title1">
+                                <p>業者</p>
+                            </div>
+                            <div class="title2">
+                                <p>座標</p>
+                            </div>
+
+                            <div class="title3">
+                                <p>地址</p>
+                            </div>
+                            <div class="title4">
+                                <p>類型</p>
+                            </div>
+                            <div class="title5">
+                                <p>修改</p>
+                            </div>
+                            <div class="title6">
+                                <p>刪除</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_main">
+                        <div class="tablemain">
+                            <div class="main1">
+                                <p>台灣大哥大</p>
+                            </div>
+                            <div class="main2">
+                                <p>123°N , 123°E</p>
+                            </div>
+                            <div class="main3">
+                                <p>台北市信義區東榮里松仁路三段101號12樓之1</p>
+                            </div>
+                            <div class="main4">
+                                <p>國內</p>
+                            </div>
+                            <div class="main5">
+                                <div class="add-icon"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon"></div>
+                            </div>
+                        </div>
+                        <div class="tablemain tw">
+                            <div class="main1">
+                                <p>台灣大哥大</p>
+                            </div>
+                            <div class="main2">
+                                <p>123°N , 123°E</p>
+                            </div>
+                            <div class="main3">
+                                <p>台北市信義區東榮里松仁路三段101號12樓之1</p>
+                            </div>
+                            <div class="main4">
+                                <p>國內</p>
+                            </div>
+                            <div class="main5">
+                                <div class="add-icon"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon"></div>
+                            </div>
+                        </div>
+                        <div class="tablemain">
+                            <div class="main1">
+                                <p>台灣大哥大</p>
+                            </div>
+                            <div class="main2">
+                                <p>123°N , 123°E</p>
+                            </div>
+                            <div class="main3">
+                                <p>台北市信義區東榮里松仁路三段101號12樓之1</p>
+                            </div>
+                            <div class="main4">
+                                <p>國內</p>
+                            </div>
+                            <div class="main5">
+                                <div class="add-icon"></div>
+                            </div>
+                            <div class="main6">
+                                <div class="del-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_text">
+                    <div class="text_flex">
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者4</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>AAAA</option>
+                                    <option>AnotheActionr action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="coordinate">
+                            <div class="name">
+                                <p>座標1</p>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <div class="text mg_t">
+                        <div class="address">
+                            <div class="name">
+                                <p>地址</p>
+                            </div>
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="type">
+                            <div class="name">
+                                <p>類型</p>
+                            </div>
+                            <div class="text6">
+                                <div class="rdobutton">
+                                    <div class="radio">
+                                        <div class="radio_b">
+                                            <input class="rdobutton_radio" type="checkbox" id="radioId" name="radioname" value="0" checked />
+                                            <label class="rdobutton_label" for="radioId"></label>
+                                        </div>
+                                        <div class="radio_text">
+                                            <p>國際</p>
+                                        </div>
+                                    </div>
+                                    <div class="radio mg_l">
+                                        <div class="radio_b">
+                                            <input class="rdobutton_radio" type="checkbox" id="radioId2" name="radioname" value="1" />
+                                            <label class="rdobutton_label" for="radioId2"></label>
+                                        </div>
+                                        <div class="radio_text">
+                                            <p>國內</p>
+                                        </div>
+                                    </div>
+                                    <div class="radio mg_l">
+                                        <div class="radio_b">
+                                            <input class="rdobutton_radio" type="checkbox" id="radioId3" name="radioname" value="2" />
+                                            <label class="rdobutton_label" for="radioId3"></label>
+                                        </div>
+                                        <div class="radio_text">
+                                            <p>陸鏈</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者XXX</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text_flex mg_t">
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="industry">
+                            <div class="name">
+                                <p>業者</p>
+                            </div>
+                            <div class="dropdown">
+                                <select>
+                                    <option>APG</option>
+                                    <option>Action</option>
+                                    <option>Another action</option>
+                                    <option>Something else here</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button_group">
+                        <div class="button">
+                            <p>刪除</p>
+                        </div>
+                        <div class="button mg_l">
+                            <p>刪除</p>
+                        </div>
+                        <div class="button mg_l">
+                            <p>刪除</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="float_icon">
+                    <div class="float_icon1"></div>
+                    <div class="float_icon2"></div>
+                    <div class="float_icon3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/time.js}"></script>
+    <script type="text/javascript" >
+	function switch1(){
+		window.location.replace("../index1?id=1");
+	}		
+	function switch2(){
+		window.location.replace("../index1?id=2");
+	}
+reset();
+    $("#nodelist").attr("class","icon1 active");
+    $(".right").load("node_list");
+    $("#item1").click(function(){
+        $(".no_deta").css("display","none");
+        $(".right_text").css("display","block");
+    });
+        $("#linklist").click(function(){
+//             alert("click");
+				reset();
+        	 $("#linklist").attr("class","icon2 active");
+//         	 $("#nodelist").attr("class","icon5 ");
+        	$(".right").load("link_list");
+        });
+        $("#users").click(function(){
+//          alert("click");
+				reset();
+     	 $("#users").attr("class","icon3 active");
+//      	 $("#nodelist").attr("class","icon5 ");
+     	$(".right").load("user_list");
+     });
+        $("#nodelist").click(function(){
+//         	 alert("click");
+			reset();
+            $("#nodelist").attr("class","icon1 active");
+        	 $(".right").load("node_list");
+        });
+        function reset()
+        {
+//         	alert("reset");
+        	$("#nodelist").attr("class","icon1");
+        	$("#linklist").attr("class","icon2");
+        	$("#users").attr("class","icon3");
+        	$("#newdata1").attr("class","icon4");
+        	$("#newdata2").attr("class","icon5");
+        	$("#newdata3").attr("class","icon6");
+        	$("#newdata4").attr("class","icon7");
+        	$("#newdata5").attr("class","icon8");
+        	$("#newdata6").attr("class","icon9");
+        	$("#newdata7").attr("class","icon10");
+			$("#upload").attr("class","icon11");
+			$("#logout").attr("class","icon12");        	
+        }
+        function go_news_page1(urlToLoad)
+        {
+        	//alert(urlToLoad);
+        	 $('.right').load(urlToLoad);
+        }
+        $("#newdata1").click(function(){
+            reset();
+            $("#newdata1").attr("class","icon4 active");
+            $(".right").load("edit_list?gk=2&ck=1");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata2").click(function(){
+        	reset();
+            $("#newdata2").attr("class","icon5 active");
+            $(".right").load("edit_list?gk=4&ck=1");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata3").click(function(){
+        	reset();
+            $("#newdata3").attr("class","icon6 active");
+            $(".right").load("edit_list?gk=3&ck=1");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata4").click(function(){
+        	reset();
+            $("#newdata4").attr("class","icon7 active");
+            $(".right").load("edit_list?gk=7&ck=1");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata5").click(function(){
+        	reset();
+            $("#newdata5").attr("class","icon8 active");
+            $(".right").load("edit_list?gk=5&ck=1");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+        $("#newdata6").click(function(){
+        	reset();
+            $("#newdata6").attr("class","icon9 active");
+            $(".right").load("edit_list?gk=6&ck=1");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+
+        $("#logout").click(function(){
+            window.location.replace("/");
+    		});
+
+		 function resetf() {
+    		var yes = confirm('是否重置？');
+
+    		if (yes) {
+    		 
+    		$.post("resetf.jsp").done(
+    				function(data) {
+    					//alert(data);
+    					var str1 = data.replace(/(^\s*)|(\s*$)/g, "");
+    					//var myArray = str1.split(':');
+    					if (str1 == 'OK') {
+    						alert('重置完成');
+    					}
+
+    				});
+    		}
+    	}
+		 $("#upload").click(function(){
+        	reset();
+            $("#upload").attr("class","icon11 active");
+			//alert("暫不提供服務");
+            $(".right").load("upfile");
+    		$(".no_deta").css("display","block");
+            $(".right_text").css("display","none");
+    		});
+    </script>
+    <script>
+        $("#item1").click(function(){
+            $(".no_deta").css("display","none");
+            $(".right_text").css("display","block");
+        });
+    </script>
+</body>
+</html> 

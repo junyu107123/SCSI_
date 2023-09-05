@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Cables",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "SAS-1", "Capacity_G": 1280.0, "URL1": "http://www.stc.com.sa/cws/portal/en/business/bus-wholesale/stc-lnd-whlslr-intsrv/stc-lnd-whlslr-intsrv-ic", "Distance_K": 333.0, "OverLand": 0, "NotLive": 0, "InService": 2003 }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 37.24435479286204, 19.572421127594854 ], [ 37.639511656414633, 20.504545776557002 ], [ 39.141076163881564, 21.531498545943357 ] ] ] } }
+]
+}
