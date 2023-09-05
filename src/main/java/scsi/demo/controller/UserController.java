@@ -252,9 +252,28 @@ public class UserController {
 	}
 	
 	@GetMapping(value= {"/index1","/scsi/index1"})
-	public ModelAndView index1(@ModelAttribute("id") Integer id) {
+	public ModelAndView index1(@ModelAttribute("id") Integer id,CaseData cst,@ModelAttribute("userid") String userid,HttpServletRequest request) throws IOException, SQLException {
 //		System.out.println("modynode="+sysid);
 		ModelAndView model = new ModelAndView("index1");
+		String getid="";
+		String ip = request.getHeader("X-Forwarded-For");
+		//out.println(ip);
+		if (ip == null || ip.length() == 0) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0) {
+			ip = request.getRemoteAddr();
+		}
+		System.out.println("getid="+id);
+		if(id == 2){
+			getid = "2" ;
+			userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"Browsing MAP","進入地圖圖資頁("+ip+")");
+		}else{
+			userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"Browsing Infra","進入網路架構圖頁("+ip+")");
+		}
 		model.addObject("getid", id);
 		return model;
 	}
@@ -296,4 +315,14 @@ public class UserController {
 		
 		return("[Internal1, PERM-2, 東亞交匯海纜一號EAC1, 淡水-Backhaul-1]");
 	}
+	
+	@PostMapping(value= {"/resetf","/scsi/resetf"})
+	public @ResponseBody String resetf(CaseData cst) throws SQLException {
+			ModelAndView model = new ModelAndView("resetf");
+			
+				cst.resetnodef();
+				cst.resetlinkf();
+		return "OK";
+	}
+	
 }

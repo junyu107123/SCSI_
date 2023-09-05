@@ -19,20 +19,20 @@
                     <div class="input_title">
                         <p>使用者帳號</p>
                     </div>
-                    <input type="text" id="userid" name="userid" autocomplete="off" autofocus value="">
+                    <input type="text" id="userid" required name="userid" autocomplete="off" autofocus value="">
                 </div>
                 <div class="password">
                     <div class="input_title">
                         <p>密碼</p>
                     </div>
-                    <input id="password" type="password" autocomplete="off" name="password" value="">
+                    <input id="password" type="password" required autocomplete="off" name="password" value="">
                 </div>
                 <div class="code">
                     <div class="input_title">
-                        <p>驗證碼</p>
+                        <p>驗證碼<span id="runtime"></span></p>
                     </div>
                     <div class="img">
-					<img src="/scsi/verify-code" alt="New Image" id="code" onclick="javascript:changeimg();">
+					<img src="/scsi/verify-code" required alt="New Image" id="code" onclick="javascript:changeimg();">
                     </div>
                     <input name="insrand" value="" autocomplete="off" onkeyup="value=value.replace(/[^\d]/g,'') ">
                 </div>

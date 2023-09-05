@@ -23,7 +23,7 @@ public class DBConnect  {
 //		return conn;	
 //	}
 //	private static String url="jdbc:mariadb://localhost:3307/scsi?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true";
-	private static String url="jdbc:mysql://localhost:3306/scsi?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true";
+	private static String url="jdbc:mysql://localhost:3308/scsi?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true";
 	public static Connection getDBConnect() throws SQLException , Exception{
 //		Class.forName("org.mariadb.jdbc.Driver");
 //		Connection conn =DriverManager.getConnection(url, "root", "p0o9i8u7");

@@ -74,6 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 //		LoginFilter loginFilter = new LoginFilter(LOGIN_PAGE, useImageCaptcha);
+		http.headers().frameOptions().sameOrigin();
 		http.csrf().disable(); // 禁用 csrf 保护
 		http.authorizeRequests() // 开启配置
 				// 验证码接口放行

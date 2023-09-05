@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -24,6 +26,7 @@ import scsi.demo.repository.*;
 import scsi.demo.wisoft.Data;
 import scsi.demo.wisoft.DataProcess;
 import scsi.demo.wisoft.PathSort;
+import scsi.demo.scsi.CaseData;
 import scsi.demo.scsi.DataAPI;
 
 @Controller
@@ -183,9 +186,21 @@ public class DataController {
 	}
 	
 	@PostMapping(value= {"/findPath2_adv1","/scsi/findPath2_adv1"})
-	public @ResponseBody String findPath2(@ModelAttribute("start") int startint ,@ModelAttribute("end") int endint,@ModelAttribute("r") int ascordesc,PathSort pst,DataProcess dtp){
+	public @ResponseBody String findPath2(@ModelAttribute("start") int startint ,@ModelAttribute("end") int endint,@ModelAttribute("r") int ascordesc,PathSort pst,DataProcess dtp,CaseData cst,@ModelAttribute("userid") String userid,HttpServletRequest request) throws IOException, SQLException{
 		
 		System.out.println("start="+startint+"/end="+endint+"/r="+ascordesc);
+		String ip = request.getHeader("X-Forwarded-For");
+		//out.println(ip);
+		if (ip == null || ip.length() == 0) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0) {
+			ip = request.getRemoteAddr();
+		}
+		userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"Browsing MAP","final7,進入路由調度模擬 "+Integer.toString(startint)+"~"+Integer.toString(endint)+"("+ip+"),來源:"+request.getHeader("referer"));
 		String s="";
 		List<String> list =new ArrayList<String>();
 		int crossfog = 0 ;
@@ -291,9 +306,97 @@ try {
 }catch(Exception e1) {System.out.println("e1="+e1.toString());}
 		return s;
 	}
+	@RequestMapping(value= {"/index","/scsi/index"})
+	public ModelAndView index(@ModelAttribute("name") String get_scable,@ModelAttribute("zoom") String get_zoom) {
+		ModelAndView model = new ModelAndView("index"); 
+		
+		String cableList [] = {"APCN2","APG","CSCN","SMW3","TSE-1","TPE","NCP","C2C","EAC","EAC2","FNAL","RNAL","FASTER","PLCN","TDM2","TM1-A","TM1-B","TM1-C","TM1-D","TM3-A","TM3-B","TM3-C","TM3-D","NB2","DX","TK2","TP1","TP2","TP3","PK1-A","PK1-B","PK3-A","PK3-B"};
+
+	    String cablezoom [] = {"4","4","10","3","7","3","3","4","4","4","5","5","3","3"};
+
+	    String cableName = "";
+
+	    String cableZoom = "";
+
+	    for( int i=0; i<cableList.length; i++ ){
+	        if( cableList[i].equals(get_scable) ){
+	            cableName = cableList[i];
+	            continue;
+	        }
+	    }
+
+	    for( int i=0; i<cablezoom.length; i++ ){
+	        if( cablezoom[i].equals(get_zoom) ){
+	            cableZoom = cablezoom[i];
+	            continue;
+	        }
+	    }
+		
+		String SMW3_1 =  "SMW3法新歐亞三號海纜<br>啟用時間：1999年09月<br>纜線長度： 39,000 km";
+		String SMW3="</font><font size='4'>擁有者：<br>Orange、英國電信、KDDI、新加坡電信、Telecom Italia Sparkle、馬來西亞電訊公司、OTEGlobe、AT&T、Proximus、泰國通訊機構、中國電信集團、德國電信、阿聯酋電信、埃及電信、澳門電訊、印尼電訊、汶萊通訊服務、韓國電信、葡萄牙電訊公司、摩洛哥電信、菲律賓長途電話公司、沙烏地電信公司、斯里蘭卡電信、土耳其電信公司、塔塔通訊、中華電信、威訊無線、荷蘭皇家電信、奧地利電信、奧普特斯電信公司、澳大利亞電信、越南國際電信公司、Omantel、電訊盈科、巴基斯坦電信、Cyta、eircom、LG U+、 Softbank Telecom、Telkom、俄羅斯電信公司、Orange波蘭、阿根廷電信公司、緬甸郵電公司、斯普林特公司、Vocus Communications、吉布地電信、巴西電信、沃達豐、土耳其電信公司、烏克蘭電信<br></font><font size='4'>URL：http://www.smw3.com<br>登陸點：<br>亞歷山大港 (埃及)、安佐爾 (印尼)、八打雁 (菲律賓)、干尼亞 (希臘)、科契 (印度)、峴港 (越南)、深水灣 (香港)、吉布地市 (吉布地)、枋山 (台灣)、富吉拉 (阿聯)、Goonhilly Downs (英國)、吉達 (沙烏地阿拉伯)、喀拉蚩 (巴基斯坦)、巨濟 (南韓)、馬爾馬里斯 (土耳其)、馬紮拉德爾瓦洛 (義大利)、棉蘭 (印尼)、豐盛港 (馬來西亞)、代希瓦勒-芒特拉維尼 (斯里蘭卡)、孟買 (印度)、馬斯喀特 (阿曼)、諾爾登 (德國)、沖繩 (日本)、奧斯滕德 (比利時)、檳城 (馬來西亞)、龐馬爾克 (法國)、伯斯 (澳洲)、皮亞朋 (緬甸)、沙敦 (泰國)、塞新布拉 (葡萄牙)、上海 (中國)、汕頭 (中國)、蘇伊士 (埃及)、氹仔 (中國)、頭城 (台灣)、大士 (新加坡)、Tungku (汶萊)、得土安 (摩洛哥)、Yeroskipos (賽普勒斯)";
+		String APCN2_1 = "APCN2亞太網路二號<br>啟用時間：2001年12月<br>纜線長度： 19,000 km";
+		String APCN2="擁有者：<br></font><font size='4'>新加坡電信、威訊無線、KDDI、中華電信、AT&T、英國電信、Orange、Softbank Telecom、日本電信電話、塔塔通訊、馬來西亞電訊公司、星和電信、菲律賓長途電話公司、中國聯通、韓國電信、奧普特斯電信公司、澳大利亞電信、電訊盈科、中國電信集團、LG U+、香港寬頻、沃達豐<br></font><font size='6'>URL：http://www.apcn2na.com<br></font><font size='6'>登陸點：<br>八打雁 (菲律賓)、千倉 (日本)、崇明 (中國)、加東 (新加坡)、北茨城 (日本)、關丹 (馬來西亞)、大嶼山 (香港)、釜山 (南韓)、汕頭 (中國)、淡水 (台灣)";
+		String APG_1 = "APG亞太直達海纜<br>啟用時間：2016年11月<br>纜線長度： 10,400 km";
+		String APG = "擁有者：<br></font><font size='4'>日本電信電話、中國電信集團、中國聯通、中華電信、韓國電信、星和電信、LG U+、中國移動、越南軍用電子電信、越南國際電信公司、Global Transit、Facebook<br></font><font size='6'>登陸點：<br>崇明 (中國)、峴港 (越南)、關丹 (馬來西亞)、丸山 (日本)、南匯 (中國)、釜山 (南韓)、志摩 (日本)、宋卡 (泰國)、丹那美拉 (新加坡)、頭城 (台灣)、將軍澳 (香港)";
+		String CSCN_1 = "CSCN金廈海纜<br>啟用時間：2012年08月<br>纜線長度：21 km";
+		String CSCN = "擁有者：<br></font><font size='4'>中華電信、中國電信集團、中國聯通、中國移動<br></font><font size='6'>登陸點：<br>大嶝島 (中國)、觀音山 (中國)、古寧頭 (台灣)、慈湖 (台灣)";
+		String TSE1_1 = "TSE-1海峽光纜1號<br>啟用時間：2013年01月<br>纜線長度：260 km";
+		String TSE1 = "擁有者：<br></font><font size='4'>中國聯通、遠傳電信、台灣大哥大、中國電信集團、中華電信、中國移動<br></font><font size='6'>登陸點：<br>福州 (中國)、淡水 (台灣)";
+		String TPE_1 = "TPE橫太平洋快速海纜<br>啟用時間：2008年08月<br>纜線長度：17,000 km";
+		String TPE = "擁有者：<br></font><font size='4'>中國電信集團、中國聯通、中華電信、韓國電信、威訊無線、日本電信電話、AT&T<br></font><font size='6'>URL：http://tpecable.org<br>登陸點：<br>崇明 (中國)、巨濟 (南韓)、丸山 (日本)、尼多拿海灘 (美國俄勒岡州)、青島 (中國)、淡水 (台灣)";
+		String NCP_1 = "NCP新橫太平洋海纜<br>啟用時間：2018年<br>纜線長度：13,618 km";
+		String NCP = "擁有者：<br></font><font size='4'>中國電信集團、中國聯通、中華電信、韓國電信、中國移動、微軟、Softbank Telecom<br></font><font size='6'>登陸點：<br>崇明 (中國)、臨港 (中國)、丸山 (日本)、南匯 (中國)、太平洋城 (美國俄勒岡州)、釜山 (南韓)、頭城 (台灣)";
+		String C2C_1 = "C2C市通市海纜<br>啟用時間：2002年11月<br>纜線長度：36,500 km";
+		String C2C = "擁有者：<br></font><font size='4'>澳大利亞電信<br></font><font size='6'>URL：https://www.telstraglobal.com<br>登陸點：<br>阿字浦 (日本)、八打雁 (菲律賓)、甲米地 (菲律賓)、樟宜 (新加坡)、千倉 (日本)、舂坎角 (香港)、枋山 (台灣)、八里 (台灣)、釜山 (南韓)、青島 (中國)、上海 (中國)、志摩 (日本)、薪斗里 (南韓)、淡水 (台灣)、將軍澳 (香港)";
+		String EAC_1 = "EAC東亞光網海纜/C2C市通市海纜<br>啟用時間：2002年11月<br>纜線長度：36,500 km";
+		String EAC = "擁有者：<br></font><font size='4'>澳大利亞電信<br></font><font size='6'>URL：https://www.telstraglobal.com<br>登陸點：<br>阿字浦 (日本)、八打雁 (菲律賓)、甲米地 (菲律賓)、樟宜 (新加坡)、千倉 (日本)、舂坎角 (香港)、枋山 (台灣)、八里 (台灣)、釜山 (南韓)、青島 (中國)、上海 (中國)、志摩 (日本)、薪斗里 (南韓)、淡水 (台灣)、將軍澳 (香港)";
+		String FNAL_1 = "FNAL北亞海纜/RNAL北亞光纜環系統<br>啟用時間：2001年06月<br>纜線長度：9,504 km";
+		String FNAL = "擁有者：<br></font><font size='4'>Global Cloud Xchange、電訊盈科、澳大利亞電信<br></font><font size='6'>登陸點：<br>釜山 (南韓)、塘福 (香港)、頭城 (台灣)、和田 (日本)";
+		String RNAL_1 = "RNAL北亞光纜環系統<br>啟用時間：2001年06月<br>纜線長度：9,504 km";
+		String RNAL = "擁有者：<br></font><font size='4'>Global Cloud Xchange、電訊盈科、澳大利亞電信<br></font><font size='6'>登陸點：<br>釜山 (南韓)、塘福 (香港)、頭城 (台灣)、和田 (日本)";
+		String FASTER_1 = "FASTER<br>啟用時間：2016年06月<br>纜線長度：11,629 km";
+		String FASTER = "擁有者：<br></font><font size='4'>Google、KDDI、新加坡電信、中國電信集團、中國移動、Global Transit<br></font><font size='6'>登陸點：<br>班頓 (美國俄勒岡州)、千倉 (日本)、志摩 (日本)、淡水 (台灣)";
+		String EAC1_1 = "EAC1東亞光網海纜<br>啟用時間：2002年11月<br>纜線長度：36,500 km";
+		String EAC1 = "擁有者：<br></font><font size='4'>澳大利亞電信<br></font><font size='6'>URL：https://www.telstraglobal.com<br>登陸點：<br>阿字浦 (日本)、千倉 (日本)、舂坎角 (香港)、枋山 (台灣)、八里 (台灣)、釜山 (南韓)、青島 (中國)、志摩 (日本)、薪斗里 (南韓)、淡水 (台灣)、將軍澳 (香港)";
+		String EAC2_1 = "EAC2東亞光網海纜<br>啟用時間：2002年11月<br>纜線長度：36,500 km";
+		String EAC2 = "擁有者：<br></font><font size='4'>澳大利亞電信<br></font><font size='6'>URL：https://www.telstraglobal.com<br>登陸點：<br>八打雁 (菲律賓)、樟宜 (新加坡)、舂坎角 (香港)、淡水 (台灣)、將軍澳 (香港)";
+		String PLCN_1 = "PLCN<br>啟用時間：2022年01月<br>纜線長度：11,806 km";
+		String PLCN = "擁有者：<br></font><font size='4'>Google、Meta<br></font><font size='6'>登陸點：<br>El Segundo(埃爾塞貢多), CA (美國加利福尼亞州)、巴萊爾 (菲律賓)、頭城 (台灣)";
+
+
+		String showDataNow = "";
+		String showDataPop = "";
+		String myheight = "700";
+		String myleft = "50";
+		
+		if(cableName.equals("SMW3")){showDataNow = SMW3;showDataPop=SMW3_1;myheight = "600";}
+		if(cableName.equals("APCN2")){showDataNow = APCN2;showDataPop=APCN2_1;}
+		if(cableName.equals("APG")){showDataNow = APG;showDataPop=APG_1;}
+		if(cableName.equals("CSCN")){showDataNow = CSCN;showDataPop=CSCN_1;myheight = "800";}
+		if(cableName.equals("TSE-1")){showDataNow = TSE1;showDataPop=TSE1_1;myheight = "800";myleft="63";}
+		if(cableName.equals("TPE")){showDataNow = TPE;showDataPop=TPE_1;}
+		if(cableName.equals("NCP")){showDataNow = NCP;showDataPop=NCP_1;myheight = "800";}
+		if(cableName.equals("C2C")){showDataNow = C2C;showDataPop=C2C_1;}
+		if(cableName.equals("EAC")){showDataNow = EAC;showDataPop=EAC_1;}
+		if(cableName.equals("EAC1")){showDataNow = EAC1;showDataPop=EAC1_1;}
+		if(cableName.equals("EAC2")){showDataNow = EAC2;showDataPop=EAC2_1;}
+		if(cableName.equals("FNAL")){showDataNow = FNAL;showDataPop=FNAL_1;}
+		if(cableName.equals("RNAL")){showDataNow = RNAL;showDataPop=RNAL_1;}
+		if(cableName.equals("FASTER")){showDataNow = FASTER;showDataPop=FASTER_1;}
+		if(cableName.equals("PLCN")){showDataNow = PLCN;showDataPop=PLCN_1;}
+		
+		model.addObject("showDataNow",showDataNow);
+		model.addObject("showDataPop",showDataPop);
+		model.addObject("cableName",cableName);
+		model.addObject("myheight",myheight);
+		model.addObject("myleft",myleft);
+		
+		return model;
+	}
 	
-	@PostMapping(value= {"/myiframe","/scsi/myiframe"})
-	public @ResponseBody String myiframe(@ModelAttribute("name") String get_scable,
+	
+	@RequestMapping(value= {"/myiframe","/scsi/myiframe"})
+	public ModelAndView myiframe(@ModelAttribute("name") String get_scable,
 			@ModelAttribute("zoom") String get_zoom) {
 		ModelAndView model = new ModelAndView("myiframe");
 		String cableList [] = {"APCN2","APG","CSCN","SMW3","TSE-1","TPE","NCP","C2C","EAC","EAC2","FNAL","RNAL","FASTER","PLCN","TDM2","TM1-A","TM1-B","TM1-C","TM1-D","TM3-A","TM3-B","TM3-C","TM3-D","NB2","DX","TK2","TP1","TP2","TP3","PK1-A","PK1-B","PK3-A","PK3-B"};
@@ -317,11 +420,12 @@ try {
 	    }
 	    
 	    if(cableName.equals("")){
-			return ("<center><font color='red' size='3'> 暫無更多說明</font></center>");
+			model.addObject("cableName","暫無更多說明");
 		}else{
-			
+			model.addObject("cableName",cableName);
+			model.addObject("cablezoom",cableZoom);
 		}
-	return "";
+	return model;
 	}
 	
 	@RequestMapping(value= {"/cruite_write","/scsi/cruite_write"})
