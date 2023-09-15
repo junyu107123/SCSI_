@@ -397,6 +397,7 @@
 
     <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/time.js}"></script>
+    <script type="text/javascript" th:src="@{/js/xss.js}"></script>
     <script type="text/javascript">
     $("#newnode").click(function(){
 		$(".no_deta").css("display","none");
@@ -514,6 +515,7 @@
      }
         $("#send_search").click(function(){
         	var gk = $("#gk").val();
+        	var gk = filterXSS(gk);
 //          alert("click");
         	$(".right").load("/scsi/node_list?gk="+encodeURIComponent(gk.trim()));
      });

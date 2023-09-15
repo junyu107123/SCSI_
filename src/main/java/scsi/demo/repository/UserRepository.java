@@ -1,5 +1,6 @@
 package scsi.demo.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
@@ -26,7 +27,7 @@ public interface UserRepository extends CrudRepository<User,String>{
     User findBySysid(String sysid);
     
     @Query(value = "select * from sc_users where user_id =?1 and del_mark is null", nativeQuery = true)
-    User findByUserid(String userid);
+    User findByUser_id(String userid);
     
     @Modifying
     @Transactional
@@ -58,4 +59,29 @@ public interface UserRepository extends CrudRepository<User,String>{
     
     @Query(value ="select user_gr from sc_users where user_id =?1 and del_mark is null" ,nativeQuery=true)
     String getgr(@Param(value = "user_id")String user_id);
+    
+    
+    @Modifying
+    @Transactional
+    @Query(value = "update sc_users set fail_times =?2 where user_id =?1 and del_mark is null" ,nativeQuery = true)
+    void updateFailedAttempts(String user_id,int failtimes );
+    
+    @Modifying
+    @Transactional
+    @Query(value = "update sc_users set lock_st =?2 where user_id =?1 and del_mark is null" ,nativeQuery = true)
+    void setlocktime(String user_id,String lock_st);
+    
+    @Modifying
+    @Transactional
+    @Query(value = "update sc_users set lock_flag =?2 , lock_st ='' where user_id =?1 and del_mark is null" ,nativeQuery = true)
+    void setlockflag(String user_id,int lock);
+    
+    @Query(value = "SELECT u.fail_times FROM sc_users u WHERE u.user_id = ?1 and del_mark is null", nativeQuery = true)
+    Integer getfailt(String user_id);
+    
+    @Query(value = "SELECT u.lock_flag FROM sc_users u WHERE u.user_id = ?1 and del_mark is null", nativeQuery = true)
+    Integer getlflag(String user_id);
+    
+    @Query(value = "SELECT u.lock_st FROM sc_users u WHERE u.user_id = ?1 and del_mark is null", nativeQuery = true)
+    String getlockst(String user_id);
 }

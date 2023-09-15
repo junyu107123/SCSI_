@@ -41,7 +41,7 @@ public class DataController {
 	public @ResponseBody String DataAPI(@ModelAttribute("func") String myfunc,
 			@ModelAttribute("scable") String get_scable, @ModelAttribute("loc") String get_loc, Data dta, DataAPI api) {
 		ModelAndView model = new ModelAndView("DataAPI");
-		System.out.println("myfunc=" + myfunc + "/get_scable=" + get_scable + "/get_loc=" + get_loc);
+//		System.out.println("myfunc=" + myfunc + "/get_scable=" + get_scable + "/get_loc=" + get_loc);
 		String[] typevalue = {};
 		String[] para = {};
 		int goNext = 0;
@@ -167,10 +167,10 @@ public class DataController {
 		
 		try {
 			for(String str:typevalue) {
-				System.out.println("typevalue="+str);
+//				System.out.println("typevalue="+str);
 			}
 			for(String str2:para){
-				System.out.println("para="+str2);
+//				System.out.println("para="+str2);
 			}
 			feedback = api.getNewData(myfunc,typevalue,para).trim();
 		} catch (IOException e) {

@@ -33,7 +33,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable{
+public class User implements Serializable,UserDetails{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +50,7 @@ public class User implements Serializable{
 	private String username;
 	
 	@Column(name = "fail_times")
-	private String fail_times;
+	private int fail_times;
 	
 	@Column(name = "lock_flag")
 	private String lock_flag;
@@ -65,5 +65,41 @@ public class User implements Serializable{
 	@JsonIgnore
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_sysid",referencedColumnName = "user_sysid"), inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "role_id"))
 	private Set<Role> roles =new HashSet<>();
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		boolean b=true;
+		// TODO Auto-generated method stub
+		if(getLock_flag().equals("0")) {
+			b=true;
+		}else {
+			b=false;
+		}
+		return b;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }

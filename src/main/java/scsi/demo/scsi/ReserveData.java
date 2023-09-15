@@ -687,7 +687,7 @@ public ArrayList<User> getUsers(ResultSet rs) {
 			users.setUserid(rs.getString("userid"));
 			users.setPassword(rs.getString("password"));
 			users.setUsername(rs.getString("user_name"));
-			users.setFail_times(rs.getString("fail_times"));
+			users.setFail_times(rs.getInt("fail_times"));
 			users.setLock_flag(rs.getString("lock_flag"));
 			users.setUser_gr(rs.getString("user_gr"));
 			users.setLock_st(rs.getString("lock_st"));

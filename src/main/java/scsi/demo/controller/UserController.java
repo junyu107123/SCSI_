@@ -3,6 +3,9 @@ package scsi.demo.controller;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -11,12 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.jasypt.encryption.StringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +54,8 @@ import scsi.demo.wisoft.DataProcess;
 @RequiredArgsConstructor
 @SessionAttributes("userid")
 public class UserController {
+	
+	private RedirectStrategy redirectStrategy =new DefaultRedirectStrategy();
 
 	@Autowired
 	private UserRepository userRepository;
@@ -69,6 +77,9 @@ public class UserController {
 	
 	@Autowired
     public PasswordEncoder pwdEncoder;
+	
+	@Autowired
+	public StringEncryptor StringEncryptor;
 	
 	
 	
@@ -106,16 +117,81 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value= {"/login?error","/scsi/login?error"})
-	public String login(CaseData cst,@ModelAttribute("userid") String userid) throws IOException, SQLException {
+	@RequestMapping(value= {"/login","/scsi/login"})
+	public ModelAndView login(CaseData cst,@ModelAttribute("userid") String userid,@ModelAttribute("error") String error) throws IOException, SQLException {
+		ModelAndView model = new ModelAndView("login");
+		if(error.equals("1")) {
+		System.out.println("login error");
 		userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"login","登入失敗");
-		return "/";
+		model.addObject("error",error);
+		}
+		return model;
+	}
+	
+	@RequestMapping(value= {"/login2","/scsi/login2"})
+	public ModelAndView login2(CaseData cst,@ModelAttribute("userid") String userid,@ModelAttribute("error") String error) throws IOException, SQLException, ParseException {
+		ModelAndView model = new ModelAndView("login2");
+		if(error.equals("2")) {
+			error="驗證碼錯誤";
+		}else {
+			
+			try {
+			Integer ft = userRepository.getfailt(userid);
+			Integer flag = userRepository.getlflag(userid);
+			System.out.println("failt= "+ft +"/ lock= "+flag);
+			}catch(Exception e) {
+				System.out.println("uid e :"+e.toString());
+			}
+			
+			
+			Integer ft = userRepository.getfailt(userid);
+			Integer flag = userRepository.getlflag(userid);
+			if(ft < userService.MAX_FAILED_ATTEMPTS-1 && flag == 0) {	//ft =0,1
+				userRepository.updateFailedAttempts(userid, (ft+1));
+				userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"login","錯誤"+(ft+1)+"次");
+				error="帳號或密碼錯誤";
+			}else if(flag == 1) {
+				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				String nowtime=cst.todaytime_hhmm();
+				String lock_st ="";
+				lock_st= userRepository.getlockst(userid);
+					Date ls=sdf.parse(lock_st);
+					Date nowt=sdf.parse(nowtime);
+				long diff = nowt.getTime() - ls.getTime();
+				if(nowt.getTime()-ls.getTime()<15*60*1000) {
+					error = "帳號鎖定中";
+				}else {
+					userRepository.setlockflag(userid, 0);
+					error = "帳號已解鎖 請重新登入";
+				}
+			}else {
+				userRepository.setlockflag(userid, 1);
+				userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"login","錯誤3次 已鎖定");
+				try {
+					userRepository.setlocktime(userid, cst.todaytime_hhmm());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					System.out.println("e = "+e.toString());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("e1 = "+e1.toString());
+				}
+				userRepository.updateFailedAttempts(userid, 0);
+				error="錯誤3次 帳號已鎖定 "+cst.todaytime_hhmm();
+			}
+			
+		}
+		System.out.println("login error");
+		model.addObject("error",error);
+//		userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"login","登入失敗");
+		return model;
 	}
 
 	@RequestMapping(value= {"/main","/scsi/main"})
 	public ModelAndView main(@ModelAttribute("userid") String userid,CaseData cst) throws SQLException, IOException {
 		ModelAndView model = new ModelAndView("main");
 		String gr="";
+		
 		gr=userRepository.getgr(userid);
 		System.out.println("usergr=" + gr);
 		model.addObject("userid", userid);
@@ -131,7 +207,7 @@ public class UserController {
 		return model;
 	}
 
-	@RequestMapping(value= {"/","/scsi/login","/scsi/","/login"})
+	@RequestMapping(value= {"/","/scsi/"})
 	public String welcome() {
 		return "login";
 	}
@@ -254,7 +330,10 @@ public class UserController {
 	@GetMapping(value= {"/index1","/scsi/index1"})
 	public ModelAndView index1(@ModelAttribute("id") Integer id,CaseData cst,@ModelAttribute("userid") String userid,HttpServletRequest request) throws IOException, SQLException {
 //		System.out.println("modynode="+sysid);
+//		String pwdd = StringEncryptor.encrypt("p0o9i8u7");
+//		System.out.println("pwdd="+pwdd);
 		ModelAndView model = new ModelAndView("index1");
+		userRepository.setlockflag(userid, 0);
 		String getid="";
 		String ip = request.getHeader("X-Forwarded-For");
 		//out.println(ip);
@@ -276,8 +355,8 @@ public class UserController {
 		}
 		model.addObject("getid", id);
 		return model;
-	}
-	
+		
+	}	
 	@PostMapping(value= {"/test2","/scsi/test2"})
 	public @ResponseBody String test2(HttpSession session) {
 		ModelAndView model = new ModelAndView("test2");

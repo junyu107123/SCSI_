@@ -917,204 +917,204 @@ public class CaseData extends getData {
 		return Integer.toString(count_success)+"/"+count_fail+"/"+SN;
 	}
 	
-	public String readconn(String filename, int sheetpage)
-			throws IOException, SQLException, InterruptedException, ParseException {
-		System.out.println("readconn="+filename);
-        int count_success = 0;
-        StringBuilder count_fail = new StringBuilder();
-        String SC="";
-        //int count_fail = 0;
-		// 1.Read Excel File into workbook
-        //System.out.println("file="+filename);
-        FileInputStream inp = new FileInputStream(filename);
-		XSSFWorkbook wb = new XSSFWorkbook(inp);
-
-		// 2.get wb sheet(0)
-		XSSFSheet sheet = wb.getSheetAt(sheetpage);
-		// get total num of row
-		int rowLength = sheet.getLastRowNum();
-		String sheetName = sheet.getSheetName();
-		// 3.get wb row
-		XSSFRow row = sheet.getRow(0);
-		// total num of cols(cell)
-		int cellLength = row.getLastCellNum();
-		// 4.get wb cols(cell
-		XSSFCell cell = row.getCell(0);
-		DecimalFormat df = new DecimalFormat("0");
-
-		// this loop will scane all info at each cell
-		System.out.println("rowLength ="+rowLength);
-		for (int i = 1; i <= rowLength; i++) {
-			// get each row
-
-			if (sheetpage == 0) {
-				try
-				{
-				XSSFRow row1 = sheet.getRow(i);
-				System.out.println("");
-				XSSFCell cellcid = row1.getCell(0);
-				cellcid.setCellType(CellType.STRING);
-				System.out.println("cid="+cellcid.toString());
-				XSSFCell cellcA = row1.getCell(1);
-				cellcA.setCellType(CellType.STRING);
-				System.out.println("cellcA="+cellcA.toString());
-				XSSFCell cellcB = row1.getCell(2);
-				cellcB.setCellType(CellType.STRING);
-				System.out.println("cellcB="+cellcB.toString());
-				XSSFCell cellvoice = row1.getCell(3);
-				cellvoice.setCellType(CellType.STRING);
-				System.out.println("cellvoice="+cellvoice.toString());
-				XSSFCell cellnet = row1.getCell(4);
-				cellnet.setCellType(CellType.STRING);
-				System.out.println("cellnet="+cellnet.toString());
-				XSSFCell cellcl = row1.getCell(5);
-				cellcl.setCellType(CellType.STRING);
-				System.out.println("cellcl="+cellcl.toString());
-				XSSFCell cellcbw = row1.getCell(6);
-				cellcbw.setCellType(CellType.STRING);
-				System.out.println("cellcbw="+cellcbw.toString());
-				
-				/*
-				 cid=st1
-				 * ,cA=st2,msg=st3,type=st4,address=st5,tel=st6,hexcardid=st7,
-				 * note=st8,box=st9,photo=st10
-				 *  
-				 */
-
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//	public String readconn(String filename, int sheetpage)
+//			throws IOException, SQLException, InterruptedException, ParseException {
+//		System.out.println("readconn="+filename);
+//        int count_success = 0;
+//        StringBuilder count_fail = new StringBuilder();
+//        String SC="";
+//        //int count_fail = 0;
+//		// 1.Read Excel File into workbook
+//        //System.out.println("file="+filename);
+//        FileInputStream inp = new FileInputStream(filename);
+//		XSSFWorkbook wb = new XSSFWorkbook(inp);
+//
+//		// 2.get wb sheet(0)
+//		XSSFSheet sheet = wb.getSheetAt(sheetpage);
+//		// get total num of row
+//		int rowLength = sheet.getLastRowNum();
+//		String sheetName = sheet.getSheetName();
+//		// 3.get wb row
+//		XSSFRow row = sheet.getRow(0);
+//		// total num of cols(cell)
+//		int cellLength = row.getLastCellNum();
+//		// 4.get wb cols(cell
+//		XSSFCell cell = row.getCell(0);
+//		DecimalFormat df = new DecimalFormat("0");
+//
+//		// this loop will scane all info at each cell
+//		System.out.println("rowLength ="+rowLength);
+//		for (int i = 1; i <= rowLength; i++) {
+//			// get each row
+//
+//			if (sheetpage == 0) {
+//				try
+//				{
+//				XSSFRow row1 = sheet.getRow(i);
+//				System.out.println("");
+//				XSSFCell cellcid = row1.getCell(0);
+//				cellcid.setCellType(CellType.STRING);
+//				System.out.println("cid="+cellcid.toString());
+//				XSSFCell cellcA = row1.getCell(1);
+//				cellcA.setCellType(CellType.STRING);
+//				System.out.println("cellcA="+cellcA.toString());
+//				XSSFCell cellcB = row1.getCell(2);
+//				cellcB.setCellType(CellType.STRING);
+//				System.out.println("cellcB="+cellcB.toString());
+//				XSSFCell cellvoice = row1.getCell(3);
+//				cellvoice.setCellType(CellType.STRING);
+//				System.out.println("cellvoice="+cellvoice.toString());
+//				XSSFCell cellnet = row1.getCell(4);
+//				cellnet.setCellType(CellType.STRING);
+//				System.out.println("cellnet="+cellnet.toString());
+//				XSSFCell cellcl = row1.getCell(5);
+//				cellcl.setCellType(CellType.STRING);
+//				System.out.println("cellcl="+cellcl.toString());
+//				XSSFCell cellcbw = row1.getCell(6);
+//				cellcbw.setCellType(CellType.STRING);
+//				System.out.println("cellcbw="+cellcbw.toString());
 //				
-				
-				SC=this.Saveconn("1","",cellcid.toString(), cellcA.toString(),cellcB.toString(),cellvoice.toString(),
-						cellnet.toString(),cellcl.toString(),cellcbw.toString());
-				System.out.println("SC="+SC);
-				if(!SC.equals("OK")) {
-					 count_fail.append(i+",");
-				}else {
-				count_success = count_success+1;
-				}
-				}catch(Exception e) {
-					if(rowLength > 0)
-					{
-						System.out.println(e.toString());
-						 // appends the string argument to the StringBuilder
-						 count_fail.append(i+",");
-					}	
-						
-					
-					
-				}finally {
-					inp.close();
-					wb.close();
-				}
-			} 
-
-		}
-
-		return Integer.toString(count_success)+"/"+count_fail+"/"+SC;
-	}
-	
-	public String readfail(String filename, int sheetpage)
-			throws IOException, SQLException, InterruptedException, ParseException {
-		System.out.println("readfail="+filename);
-        int count_success = 0;
-        StringBuilder count_fail = new StringBuilder();
-        String SF="";
-        //int count_fail = 0;
-		// 1.Read Excel File into workbook
-        //System.out.println("file="+filename);
-        FileInputStream inp = new FileInputStream(filename);
-		XSSFWorkbook wb = new XSSFWorkbook(inp);
-		
-
-		// 2.get wb sheet(0)
-		XSSFSheet sheet = wb.getSheetAt(sheetpage);
-		// get total num of row
-		int rowLength = sheet.getLastRowNum();
-		String sheetName = sheet.getSheetName();
-		// 3.get wb row
-		XSSFRow row = sheet.getRow(0);
-		// total num of cols(cell)
-		int cellLength = row.getLastCellNum();
-		// 4.get wb cols(cell
-		XSSFCell cell = row.getCell(0);
-		DecimalFormat df = new DecimalFormat("0");
-
-		// this loop will scane all info at each cell
-		System.out.println("rowLength ="+rowLength);
-		for (int i = 1; i <= rowLength; i++) {
-			// get each row
-
-			if (sheetpage == 0) {
-				try
-				{
-					String datetime="";
-				XSSFRow row1 = sheet.getRow(i);
-				System.out.println("");
-				XSSFCell cellcid = row1.getCell(0);
-				cellcid.setCellType(CellType.STRING);
-				System.out.println("cid="+cellcid.toString());
-				XSSFCell cellftime = row1.getCell(3);
-				cellftime.setCellType(CellType.STRING);
-				System.out.println("cellftime="+cellftime.toString());
-				if (cellftime.getCellType() == CellType.BLANK) {
-					datetime=this.todaytime();
-				}else {
-					datetime=cellftime.toString();
-				}
-				XSSFCell cellvoice = row1.getCell(4);
-				cellvoice.setCellType(CellType.STRING);
-				System.out.println("cellvoice="+cellvoice.toString());
-				XSSFCell cellnet = row1.getCell(5);
-				cellnet.setCellType(CellType.STRING);
-				System.out.println("cellnet="+cellnet.toString());
-				XSSFCell cellcl = row1.getCell(6);
-				cellcl.setCellType(CellType.STRING);
-				System.out.println("cellcl="+cellcl.toString());
-				XSSFCell cellcbw = row1.getCell(7);
-				cellcbw.setCellType(CellType.STRING);
-				System.out.println("cellcbw="+cellcbw.toString());
-				
-				/*
-				 cid=st1
-				 * ,cA=st2,msg=st3,type=st4,address=st5,tel=st6,hexcardid=st7,
-				 * note=st8,box=st9,photo=st10
-				 *  
-				 */
-
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//				/*
+//				 cid=st1
+//				 * ,cA=st2,msg=st3,type=st4,address=st5,tel=st6,hexcardid=st7,
+//				 * note=st8,box=st9,photo=st10
+//				 *  
+//				 */
+//
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+////				
 //				
-				
-				SF=this.Savefail("1","",cellcid.toString(),datetime,cellvoice.toString(),
-						cellnet.toString(),cellcl.toString(),cellcbw.toString());
-				System.out.println("SF="+SF);
-				//if needed can writ card to card marchine here
-				if(!SF.equals("OK")) {
-					 count_fail.append(i+",");
-				}else {
-				count_success = count_success+1;
-				}
-				}catch(Exception e) {
-					System.out.println("e="+e.toString());
-					if(rowLength > 0)
-					{
-						System.out.println(e.toString());
-						 // appends the string argument to the StringBuilder
-						 count_fail.append(i+",");
-					}	
-						
-					
-					
-				}finally {
-					inp.close();
-					wb.close();
-				}
-			} 
-
-		}
-
-		return Integer.toString(count_success)+"/"+count_fail+"/"+SF;
-	}
+//				SC=this.Saveconn("1","",cellcid.toString(), cellcA.toString(),cellcB.toString(),cellvoice.toString(),
+//						cellnet.toString(),cellcl.toString(),cellcbw.toString());
+//				System.out.println("SC="+SC);
+//				if(!SC.equals("OK")) {
+//					 count_fail.append(i+",");
+//				}else {
+//				count_success = count_success+1;
+//				}
+//				}catch(Exception e) {
+//					if(rowLength > 0)
+//					{
+//						System.out.println(e.toString());
+//						 // appends the string argument to the StringBuilder
+//						 count_fail.append(i+",");
+//					}	
+//						
+//					
+//					
+//				}finally {
+//					inp.close();
+//					wb.close();
+//				}
+//			} 
+//
+//		}
+//
+//		return Integer.toString(count_success)+"/"+count_fail+"/"+SC;
+//	}
 	
+//	public String readfail(String filename, int sheetpage)
+//			throws IOException, SQLException, InterruptedException, ParseException {
+//		System.out.println("readfail="+filename);
+//        int count_success = 0;
+//        StringBuilder count_fail = new StringBuilder();
+//        String SF="";
+//        //int count_fail = 0;
+//		// 1.Read Excel File into workbook
+//        //System.out.println("file="+filename);
+//        FileInputStream inp = new FileInputStream(filename);
+//		XSSFWorkbook wb = new XSSFWorkbook(inp);
+//		
+//
+//		// 2.get wb sheet(0)
+//		XSSFSheet sheet = wb.getSheetAt(sheetpage);
+//		// get total num of row
+//		int rowLength = sheet.getLastRowNum();
+//		String sheetName = sheet.getSheetName();
+//		// 3.get wb row
+//		XSSFRow row = sheet.getRow(0);
+//		// total num of cols(cell)
+//		int cellLength = row.getLastCellNum();
+//		// 4.get wb cols(cell
+//		XSSFCell cell = row.getCell(0);
+//		DecimalFormat df = new DecimalFormat("0");
+//
+//		// this loop will scane all info at each cell
+//		System.out.println("rowLength ="+rowLength);
+//		for (int i = 1; i <= rowLength; i++) {
+//			// get each row
+//
+//			if (sheetpage == 0) {
+//				try
+//				{
+//					String datetime="";
+//				XSSFRow row1 = sheet.getRow(i);
+//				System.out.println("");
+//				XSSFCell cellcid = row1.getCell(0);
+//				cellcid.setCellType(CellType.STRING);
+//				System.out.println("cid="+cellcid.toString());
+//				XSSFCell cellftime = row1.getCell(3);
+//				cellftime.setCellType(CellType.STRING);
+//				System.out.println("cellftime="+cellftime.toString());
+//				if (cellftime.getCellType() == CellType.BLANK) {
+//					datetime=this.todaytime();
+//				}else {
+//					datetime=cellftime.toString();
+//				}
+//				XSSFCell cellvoice = row1.getCell(4);
+//				cellvoice.setCellType(CellType.STRING);
+//				System.out.println("cellvoice="+cellvoice.toString());
+//				XSSFCell cellnet = row1.getCell(5);
+//				cellnet.setCellType(CellType.STRING);
+//				System.out.println("cellnet="+cellnet.toString());
+//				XSSFCell cellcl = row1.getCell(6);
+//				cellcl.setCellType(CellType.STRING);
+//				System.out.println("cellcl="+cellcl.toString());
+//				XSSFCell cellcbw = row1.getCell(7);
+//				cellcbw.setCellType(CellType.STRING);
+//				System.out.println("cellcbw="+cellcbw.toString());
+//				
+//				/*
+//				 cid=st1
+//				 * ,cA=st2,msg=st3,type=st4,address=st5,tel=st6,hexcardid=st7,
+//				 * note=st8,box=st9,photo=st10
+//				 *  
+//				 */
+//
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+////				
+//				
+//				SF=this.Savefail("1","",cellcid.toString(),datetime,cellvoice.toString(),
+//						cellnet.toString(),cellcl.toString(),cellcbw.toString());
+//				System.out.println("SF="+SF);
+//				//if needed can writ card to card marchine here
+//				if(!SF.equals("OK")) {
+//					 count_fail.append(i+",");
+//				}else {
+//				count_success = count_success+1;
+//				}
+//				}catch(Exception e) {
+//					System.out.println("e="+e.toString());
+//					if(rowLength > 0)
+//					{
+//						System.out.println(e.toString());
+//						 // appends the string argument to the StringBuilder
+//						 count_fail.append(i+",");
+//					}	
+//						
+//					
+//					
+//				}finally {
+//					inp.close();
+//					wb.close();
+//				}
+//			} 
+//
+//		}
+//
+//		return Integer.toString(count_success)+"/"+count_fail+"/"+SF;
+//	}
+//	
 	public String readlink(String filename, int sheetpage)
 			throws IOException, SQLException, InterruptedException, ParseException {
 		System.out.println("readlk="+filename);

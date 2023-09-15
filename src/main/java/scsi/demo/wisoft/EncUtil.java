@@ -81,7 +81,7 @@ public class EncUtil
 		IvParameterSpec iv = new IvParameterSpec(keyAndIV[1]);
 
 		byte[] encrypted = Arrays.copyOfRange(cipherData, 16, cipherData.length);
-		Cipher aesCBC = Cipher.getInstance("AES/CBC/PKCS5Padding");
+		Cipher aesCBC = Cipher.getInstance("AES/GCM/PKCS5Padding");
 		aesCBC.init(Cipher.DECRYPT_MODE, key, iv);
 		byte[] decryptedData = aesCBC.doFinal(encrypted);
 		String decryptedText = new String(decryptedData, StandardCharsets.UTF_8);
@@ -95,7 +95,7 @@ public class EncUtil
             byte[] salt = new byte[8];
             sr.nextBytes(salt);
             final byte[][] keyAndIV = GenerateKeyAndIV(32, 16, 1, salt, password.getBytes(StandardCharsets.UTF_8),MessageDigest.getInstance("MD5"));
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES/GCM/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(keyAndIV[0], "AES"), new IvParameterSpec(keyAndIV[1]));
             byte[] encryptedData = cipher.doFinal(stringToEncrypt.getBytes(StandardCharsets.UTF_8));
             byte[] prefixAndSaltAndEncryptedData = new byte[16 + encryptedData.length];

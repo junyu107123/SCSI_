@@ -6,7 +6,6 @@ import java.util.*;
 import java.util.Date;
 import java.lang.*;
 import java.text.SimpleDateFormat;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,10 +30,14 @@ public static String sentHttpPostRequest(String url, String args) throws IOExcep
     connection.setDoOutput(true);
     connection.setDoInput(true);
     OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+    try {
     out.write(args);
     out.flush();
-    out.close();
-
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    } finally {
+        safeCloseOutputStream(out);
+    }
    	InputStream is = connection.getInputStream();
 	//JDK 5 up
 	Scanner scanner = new Scanner(is, "UTF-8");
@@ -44,5 +47,14 @@ public static String sentHttpPostRequest(String url, String args) throws IOExcep
     return stx.trim();
 }
 
+public static void safeCloseOutputStream(OutputStreamWriter out) {
+    if (out != null) {
+        try {
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
 
 } //end of class

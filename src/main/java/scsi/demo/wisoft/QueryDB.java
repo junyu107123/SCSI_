@@ -116,7 +116,7 @@ public ResultSet queryData(String st, String[] al ,String[] al1) throws IOExcept
 				pst.setLong(x, Long.valueOf(al[x-1]));
 			}
 		}
-		System.out.println("p_st="+pst);
+//		System.out.println("p_st="+pst);
 		rs1=pst.executeQuery();
 	}catch (Exception e){
 		System.out.println("QDB_118="+e.toString());

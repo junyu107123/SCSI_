@@ -189,7 +189,7 @@
                                 <p></p>
                             </div>
                             <div class="name">
-                            <input type="text" class="form-control" id="g1" th:value="${code_id}" placeholder="codeid"  readonly>
+                            <input type="hidden" class="form-control" id="g1" th:value="${code_id}" placeholder="codeid"  readonly>
                             </div>
                         </div>
                         
@@ -234,6 +234,7 @@
 
     <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/time.js}"></script>
+	<script type="text/javascript" th:src="@{/js/xss.js}"></script>
     <script type="text/javascript">
     
     $("#newdata").click(function(){
@@ -263,9 +264,12 @@
         	if(seq ==''){
         		seq==9999;
         	}
-        	var a = $("#g1").val()
+        	var a = $("#g1").val();
         	var b = $("#g2").val();
         	var c = $("#g3").val();
+			var a = filterXSS(a);
+        	var b = filterXSS(b);
+        	var c = filterXSS(c);
         	
         	//alert(seq+"/"+a+"/"+b+"/"+c+"/"+xxx);
 
@@ -303,8 +307,10 @@
         }
         }
         function goback() {
+		var a = $("#g1").val();
+		var a = filterXSS(a);
 //          alert("click");
-        	$(".right").load("/scsi/edit_list");
+        	$(".right").load("/scsi/edit_list?gk="+a);
      }
         function dele_edit(xxx,yyy){
 //             alert(xxx,yyy);

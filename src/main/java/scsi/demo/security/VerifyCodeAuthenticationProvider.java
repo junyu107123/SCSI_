@@ -22,6 +22,7 @@ public class VerifyCodeAuthenticationProvider extends DaoAuthenticationProvider 
         HttpSession session = req.getSession();
         String sessionVerifyCode = (String) session.getAttribute("verify_code");
         if (StringUtils.isEmpty(code)){
+        	
             throw new AuthenticationServiceException("驗證碼不能為空!");
         }
         if(StringUtils.isEmpty(sessionVerifyCode)){

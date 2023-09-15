@@ -15,8 +15,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
-        User user = userRepository.findByUserid(userid);
+        User user = userRepository.findByUser_id(userid);
+        Integer flag = userRepository.getlflag(userid);
         if (user == null) {
+            throw new UsernameNotFoundException("該帳號不存在");
+        }
+        if (flag == 1) {
             throw new UsernameNotFoundException("該帳號不存在");
         }
         return new CustomUserDetails(user);

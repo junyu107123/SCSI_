@@ -60,13 +60,15 @@ public class WiNetHttps
         HostnameVerifier trustAllHostnames = new HostnameVerifier() {
             @Override
             public boolean verify(String hostname, SSLSession session) {
-                return true; // Just allow them all.
-            }
+            	HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                return hv.verify(hostname, session);
+                }
+            
         };
 
         try {
             System.setProperty("jsse.enableSNIExtension", "false");
-            SSLContext sc = SSLContext.getInstance("SSL");
+            SSLContext sc = SSLContext.getInstance("TLSv1.2");
             sc.init(null, trustAllCertificates, new SecureRandom());
             
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
@@ -122,7 +124,12 @@ public class WiNetHttps
             while ((inputLine = in.readLine()) != null) {
                 bw.write(inputLine);
             }
-            in.close();
+            if(in!=null) {
+            	safeclose(in);
+            }
+            if(bw!=null) {
+            	safeclose1(bw);
+            }
             bw.flush();
             bw.close();
             //print result
@@ -148,13 +155,36 @@ public class WiNetHttps
                 buffer.append(str);
             }
             String result = buffer.toString();
+            if(in!=null) {
+            	safeclose(in);
+            }
             return result;
             //print result
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-        
     }
+    	
+}    	
+    public static void safeclose(BufferedReader in) {
+		if(in!=null) {
+			try {
+				in.close();
+			}catch (Exception e) {
+				
+			}
+			
+		}
+	}
+    public static void safeclose1(BufferedWriter bw) {
+		if(bw!=null) {
+			try {
+				bw.close();
+			}catch (Exception e) {
+				
+			}
+			
+		}
+	}
     
     /**
      * Send POST parameters to given connection

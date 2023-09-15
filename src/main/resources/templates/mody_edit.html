@@ -60,7 +60,7 @@
                             <div class="name">
                                 <p></p>
                             </div>
-                            <input type="text" class="form-control" id="g1" th:value="${code_id}" placeholder="code_id" readonly>
+                            <input type="hidden" class="form-control" id="g1" th:value="${code_id}" placeholder="code_id" readonly>
                         </div>
                     </div>
                     <div class="text_flex">
@@ -109,6 +109,7 @@
     <script>
     <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/time.js}"></script>
+	<script type="text/javascript" th:src="@{/js/xss.js}"></script>
     <script type="text/javascript">
         function addedit(xxx){
         	var seq = $("#g0").val()

@@ -38,9 +38,7 @@
                     </div>
                     <input name="insrand" value="" autocomplete="off" onkeyup="value=value.replace(/[^\d]/g,'') ">
                 </div>
-                <div th:if="${error}">
-            	<div><font color="red">帳號或密碼錯誤</font></div>
-        		</div>
+            	<div><font color="red">[[${error}]]</font></div>
             </div>
             <div class="login_button">
                 <input type="submit" value="">

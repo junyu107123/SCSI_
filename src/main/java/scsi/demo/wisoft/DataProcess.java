@@ -30,7 +30,7 @@ public class DataProcess extends Data
 	private ResultSet rs1, rs_album = null;
 	private ResultSet rs2, rs_track = null;
 	private String source = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	private Random rd = new Random();
+	private SecureRandom rd = new SecureRandom();
 	private String ncode = "" ;
 	private int j = 0 ;
 	private int k = 0 ;

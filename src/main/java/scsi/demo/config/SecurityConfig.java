@@ -78,14 +78,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable(); // 禁用 csrf 保护
 		http.authorizeRequests() // 开启配置
 				// 验证码接口放行
-				.antMatchers("/verify-code", "/","/allo").permitAll()
-				.antMatchers("/scsi/verify-code", "/","/scsi/allo").permitAll()
+				.antMatchers("/verify-code", "/","/allo","/login?error","/login2").permitAll()
+				.antMatchers("/scsi/verify-code", "/","/scsi/allo","/scsi/login?error","/scsi/login2").permitAll()
 				.anyRequest() // 其他请求
 				.authenticated()// 验证 表示其他请求需要登录才能访问
 				.and()
 				.formLogin()
 				.loginPage("/") // 登录页面
 				.loginProcessingUrl("/main") // 登录接口，此地址可以不真实存在
+				.failureUrl("/scsi/login2")
 				.usernameParameter("userid") // 用户名字段
 				.passwordParameter("password") // 密码字段
 				.successHandler(new MyAuthenticationSuccessHandler())
