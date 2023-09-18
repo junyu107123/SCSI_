@@ -146,6 +146,9 @@ public class UserController {
 			
 			Integer ft = userRepository.getfailt(userid);
 			Integer flag = userRepository.getlflag(userid);
+			if(ft==null && flag==null) {
+				error="查無此帳號";
+			}else {
 			if(ft < userService.MAX_FAILED_ATTEMPTS-1 && flag == 0) {	//ft =0,1
 				userRepository.updateFailedAttempts(userid, (ft+1));
 				userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"login","錯誤"+(ft+1)+"次");
@@ -179,7 +182,7 @@ public class UserController {
 				userRepository.updateFailedAttempts(userid, 0);
 				error="錯誤3次 帳號已鎖定 "+cst.todaytime_hhmm();
 			}
-			
+			}
 		}
 		System.out.println("login error");
 		model.addObject("error",error);

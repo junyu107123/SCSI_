@@ -57,21 +57,6 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
 //		}catch(Exception e) {
 //			System.out.println("uid e :"+e.toString());
 //		}
-//		if(ftimes < userService.MAX_FAILED_ATTEMPTS-1) {
-//			userRepository.setlockflag(uid, "1");
-//			try {
-//				userRepository.setlocktime(uid, cst.todaytime());
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				System.out.println("e = "+e.toString());
-//			} catch (SQLException e1) {
-//				// TODO Auto-generated catch block
-//				System.out.println("e1 = "+e1.toString());
-//			}
-//			userRepository.updateFailedAttempts(uid, 0);
-//		}else {
-//			userRepository.updateFailedAttempts(uid, ftimes+1);
-//		}
 		
 		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 //      response.getWriter().write(JSONUtil.toJsonStr(map));
@@ -80,9 +65,9 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
 		
 
 		if(exception.getMessage().contains("Bad")) {
-		redirectStrategy.sendRedirect(request, response, "/scsi/login2?error=1");
+		redirectStrategy.sendRedirect(request, response, "/login2?error=1");
 		}else {
-			redirectStrategy.sendRedirect(request, response, "/scsi/login2?error=2");
+			redirectStrategy.sendRedirect(request, response, "/login2?error=2");
 		}
 	}
 }

@@ -20,6 +20,8 @@ import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -108,6 +110,18 @@ public class WiNetHttps
         try {
             ensureAllParametersArePresent(parameters);
             //we need this cookie to submit form
+            url = new String(url.getBytes("UTF-8"), "ISO-8859-1");
+            String regex = "[`~!@#$%^&*()\\+\\=\\{}|:\"?><【】\\/r\\/n]";
+
+            Pattern pa = Pattern.compile(regex);
+
+            Matcher ma = pa.matcher(url);
+
+            if(ma.find()){
+
+             url = ma.replaceAll("");
+
+            }
             String initialCookies = getUrlConnection(url, "").getHeaderField("Set-Cookie");
             HttpsURLConnection con = getUrlConnection(url, initialCookies);
             String urlParameters = processRequestParameters(parameters);
@@ -144,6 +158,18 @@ public class WiNetHttps
     	try {
             ensureAllParametersArePresent(parameters);
             //we need this cookie to submit form
+            url = new String(url.getBytes("UTF-8"), "ISO-8859-1");
+            String regex = "[`~!@#$%^&*()\\+\\=\\{}|:\"?><【】\\/r\\/n]";
+
+            Pattern pa = Pattern.compile(regex);
+
+            Matcher ma = pa.matcher(url);
+
+            if(ma.find()){
+
+             url = ma.replaceAll("");
+
+            }
             String initialCookies = getUrlConnection(url, "").getHeaderField("Set-Cookie");
             HttpsURLConnection con = getUrlConnection(url, initialCookies);
             String urlParameters = processRequestParameters(parameters);
