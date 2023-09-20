@@ -33,6 +33,7 @@ import javax.net.ssl.X509TrustManager;
 
 public class WiNetHttps
 {
+	static X509TrustManager delegate = null;
 		  // default user agent to send requests with
     private final static String USER_AGENT = "Mozilla/5.0";
     // File to save response to
@@ -41,22 +42,6 @@ public class WiNetHttps
     static {
         // this part is needed cause Lebocoin has invalid SSL certificate, that cannot be normally processed by Java
         TrustManager[] trustAllCertificates = new TrustManager[]{
-                new X509TrustManager() {
-                    @Override
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return null; // Not relevant.
-                    }
-
-                    @Override
-                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                        // Do nothing. Just allow them all.
-                    }
-
-                    @Override
-                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                        // Do nothing. Just allow them all.
-                    }
-                }
         };
 
         HostnameVerifier trustAllHostnames = new HostnameVerifier() {
@@ -106,91 +91,90 @@ public class WiNetHttps
      * @param parameters POST request parameters. currently expecting following parameters:
      *                   name, email, phone, body, send
      */
-    public static void makePostRequest(String url, Map<String, String> parameters) {
-        try {
-            ensureAllParametersArePresent(parameters);
-            //we need this cookie to submit form
-            url = new String(url.getBytes("UTF-8"), "ISO-8859-1");
-            String regex = "[`~!@#$%^&*()\\+\\=\\{}|:\"?><【】\\/r\\/n]";
-
-            Pattern pa = Pattern.compile(regex);
-
-            Matcher ma = pa.matcher(url);
-
-            if(ma.find()){
-
-             url = ma.replaceAll("");
-
-            }
-            String initialCookies = getUrlConnection(url, "").getHeaderField("Set-Cookie");
-            HttpsURLConnection con = getUrlConnection(url, initialCookies);
-            String urlParameters = processRequestParameters(parameters);
-            // Send post request
-            sendPostParameters(con, urlParameters);
-            BufferedReader in = new BufferedReader(new InputStreamReader(((HttpURLConnection) (new URL(url)).openConnection()).getInputStream(), Charset.forName("UTF-8")));
-            
-            File outputFile = new File(RESPONSE_FILE_LOCATION);
-            if (!outputFile.exists()) {
-                outputFile.createNewFile();
-            }
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile)));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                bw.write(inputLine);
-            }
-            if(in!=null) {
-            	safeclose(in);
-            }
-            if(bw!=null) {
-            	safeclose1(bw);
-            }
-            bw.flush();
-            bw.close();
-            //print result
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public static void makePostRequest(String url, Map<String, String> parameters) {
+//        try {
+//            ensureAllParametersArePresent(parameters);
+//            //we need this cookie to submit form
+//            url = new String(url.getBytes("UTF-8"), "ISO-8859-1");
+//            String regex = "[`~!@#$%^&*()\\+\\=\\{}|:\"?><【】\\/r\\/n]";
+//
+//            Pattern pa = Pattern.compile(regex);
+//
+//            Matcher ma = pa.matcher(url);
+//
+//            if(ma.find()){
+//
+//             url = ma.replaceAll("");
+//
+//            }
+//            String initialCookies = getUrlConnection(url, "").getHeaderField("Set-Cookie");
+//            HttpsURLConnection con = getUrlConnection(url, initialCookies);
+//            String urlParameters = processRequestParameters(parameters);
+//            // Send post request
+//            sendPostParameters(con, urlParameters);
+//            BufferedReader in = new BufferedReader(new InputStreamReader(((HttpURLConnection) (new URL(url)).openConnection()).getInputStream(), Charset.forName("UTF-8")));
+//            
+//            File outputFile = new File(RESPONSE_FILE_LOCATION);
+//            if (!outputFile.exists()) {
+//                outputFile.createNewFile();
+//            }
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile)));
+//            String inputLine;
+//            while ((inputLine = in.readLine()) != null) {
+//                bw.write(inputLine);
+//            }
+//            if(in!=null) {
+//            	safeclose(in);
+//            }
+//            if(bw!=null) {
+//            	safeclose1(bw);
+//            }
+//            bw.flush();
+//            //print result
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     
-    public String makePostRequestNoFile(String url, Map<String, String> parameters) {
-        StringBuffer buffer = new StringBuffer();
-    	try {
-            ensureAllParametersArePresent(parameters);
-            //we need this cookie to submit form
-            url = new String(url.getBytes("UTF-8"), "ISO-8859-1");
-            String regex = "[`~!@#$%^&*()\\+\\=\\{}|:\"?><【】\\/r\\/n]";
-
-            Pattern pa = Pattern.compile(regex);
-
-            Matcher ma = pa.matcher(url);
-
-            if(ma.find()){
-
-             url = ma.replaceAll("");
-
-            }
-            String initialCookies = getUrlConnection(url, "").getHeaderField("Set-Cookie");
-            HttpsURLConnection con = getUrlConnection(url, initialCookies);
-            String urlParameters = processRequestParameters(parameters);
-            // Send post request
-            sendPostParameters(con, urlParameters);
-            BufferedReader in = new BufferedReader(new InputStreamReader(((HttpURLConnection) (new URL(url)).openConnection()).getInputStream(), Charset.forName("UTF-8")));
-            String str = null;
-            while ((str = in.readLine()) != null) {
-                buffer.append(str);
-            }
-            String result = buffer.toString();
-            if(in!=null) {
-            	safeclose(in);
-            }
-            return result;
-            //print result
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-    }
-    	
-}    	
+//    public String makePostRequestNoFile(String url, Map<String, String> parameters) {
+//        StringBuffer buffer = new StringBuffer();
+//    	try {
+//            ensureAllParametersArePresent(parameters);
+//            //we need this cookie to submit form
+//            url = new String(url.getBytes("UTF-8"), "ISO-8859-1");
+//            String regex = "[`~!@#$%^&*()\\+\\=\\{}|:\"?><【】\\/r\\/n]";
+//
+//            Pattern pa = Pattern.compile(regex);
+//
+//            Matcher ma = pa.matcher(url);
+//
+//            if(ma.find()){
+//
+//             url = ma.replaceAll("");
+//
+//            }
+//            String initialCookies = getUrlConnection(url, "").getHeaderField("Set-Cookie");
+//            HttpsURLConnection con = getUrlConnection(url, initialCookies);
+//            String urlParameters = processRequestParameters(parameters);
+//            // Send post request
+//            sendPostParameters(con, urlParameters);
+//            BufferedReader in = new BufferedReader(new InputStreamReader(((HttpURLConnection) (new URL(url)).openConnection()).getInputStream(), Charset.forName("UTF-8")));
+//            String str = null;
+//            while ((str = in.readLine()) != null) {
+//                buffer.append(str);
+//            }
+//            String result = buffer.toString();
+//            if(in!=null) {
+//            	safeclose(in);
+//            }
+//            return result;
+//            //print result
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//    }
+//    	
+//}    	
     public static void safeclose(BufferedReader in) {
 		if(in!=null) {
 			try {
@@ -211,6 +195,16 @@ public class WiNetHttps
 			
 		}
 	}
+    public static void safeclose2(DataOutputStream wr) {
+		if(wr!=null) {
+			try {
+				wr.close();
+			}catch (Exception e) {
+				
+			}
+			
+		}
+	}
     
     /**
      * Send POST parameters to given connection
@@ -219,13 +213,16 @@ public class WiNetHttps
      * @param urlParameters encoded URL POST parameters
      * @throws IOException
      */
-    private static void sendPostParameters(URLConnection con, String urlParameters) throws IOException {
-        con.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.writeBytes(urlParameters);
-        wr.flush();
-        wr.close();
-    }
+//    private static void sendPostParameters(URLConnection con, String urlParameters) throws IOException {
+//        con.setDoOutput(true);
+//        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+//        wr.writeBytes(urlParameters);
+//        wr.flush();
+//        if(wr!=null) {
+//        	safeclose2(wr);
+//        }
+//        
+//    }
 
     /**
      * Create HttpsURLConnection for given URL with given Cookies
@@ -237,6 +234,18 @@ public class WiNetHttps
      */
     private static HttpsURLConnection getUrlConnection(String url, String cookies) throws IOException {
         HttpsURLConnection con = (HttpsURLConnection) new URL(url).openConnection();
+        cookies = new String(cookies.getBytes("UTF-8"), "ISO-8859-1");
+      String regex = "[`~!@#$%^&*()\\+\\=\\{}|:\"?><【】\\/r\\/n]";
+
+      Pattern pa = Pattern.compile(regex);
+
+      Matcher ma = pa.matcher(cookies);
+
+      if(ma.find()){
+
+       cookies = ma.replaceAll("");
+
+      }
         con.setRequestMethod("POST");
         con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("Cookie", cookies);

@@ -333,10 +333,9 @@ public class UserController {
 	@GetMapping(value= {"/index1","/scsi/index1"})
 	public ModelAndView index1(@ModelAttribute("id") Integer id,CaseData cst,@ModelAttribute("userid") String userid,HttpServletRequest request) throws IOException, SQLException {
 //		System.out.println("modynode="+sysid);
-//		String pwdd = StringEncryptor.encrypt("p0o9i8u7");
-//		System.out.println("pwdd="+pwdd);
 		ModelAndView model = new ModelAndView("index1");
 		userRepository.setlockflag(userid, 0);
+		userRepository.updateFailedAttempts(userid, 0);
 		String getid="";
 		String ip = request.getHeader("X-Forwarded-For");
 		//out.println(ip);
