@@ -91,6 +91,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.passwordParameter("password") // 密码字段
 				.successHandler(new MyAuthenticationSuccessHandler())
 				.failureHandler(new MyAuthenticationFailureHandler())
+				.and()
+				.sessionManagement()
+				.invalidSessionUrl("/"); 
 //				.permitAll() // 上述 login.html 页面、/auth/login接口放行
 //				.and()
 //				.logout()

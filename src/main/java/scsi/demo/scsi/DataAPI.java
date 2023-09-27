@@ -206,6 +206,7 @@ public class DataAPI extends HttpServlet {
   public String getNewData(String st, String[] typevalue1, String[] para1) throws IOException, SQLException{
 		DataProcess dta1 = new DataProcess();
 		String retval = "QQ";
+		System.out.println("get ND :"+st);
 		try{
 			if(st.equals("1")) retval = dta1.ScableList(typevalue1,para1);
 			if(st.equals("2")) retval = dta1.ScableNations(typevalue1,para1);

@@ -334,6 +334,10 @@ public class UserController {
 	public ModelAndView index1(@ModelAttribute("id") Integer id,CaseData cst,@ModelAttribute("userid") String userid,HttpServletRequest request) throws IOException, SQLException {
 //		System.out.println("modynode="+sysid);
 		ModelAndView model = new ModelAndView("index1");
+		String gr="";
+		gr=userRepository.getgr(userid);
+		System.out.println("index gr=" + gr);
+		
 		userRepository.setlockflag(userid, 0);
 		userRepository.updateFailedAttempts(userid, 0);
 		String getid="";
@@ -356,6 +360,7 @@ public class UserController {
 			userRepository.logs(cst.todaytime2(),userid,cst.todaytime(),"Browsing Infra","進入網路架構圖頁("+ip+")");
 		}
 		model.addObject("getid", id);
+		model.addObject("usergr", gr);
 		return model;
 		
 	}	

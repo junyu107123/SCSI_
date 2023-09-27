@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	 <meta charset="utf-8">    
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <meta property="fb:app_id" content=""/>
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="activity" />
+    <meta property="og:url" content="" />
+    <meta property="og:description" content="" />
+
+    <meta property="og:image" content="/images/img_for_fb.png" />
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="620">
+
+    <title>國際電路詳細資料</title>
+
+    <!-- CSS -->
+    <link href="assets/css/reset.css" rel="stylesheet"> 
+    <link href="assets/css/layout.css" rel="stylesheet">     
+    <link href="css/index.css" rel="stylesheet">   
+
+  </head>
+  <body class="index">
+    <div class="wrap">
+      <div class="row">
+
+        <div class="top">
+          <div class="left"></div>
+          <div class="right">
+
+            <div class="date">
+              <span class="date-y-c">日期</span>
+              <span class="date-y">112/12/16</span>
+              <span class="date-y-c">時間</span>
+              <span class="date-t">23:00</span>
+              <span class="date-w">星期四</span>
+            </div>
+
+            <div class="bottom">
+              <button class="latest-info-box"><img src="images/latest_info_btn.png" alt="images/latest_info_btn.png"></button>
+              <div class="bottom-right">
+                <div class="bar"><img src="images/bar.jpg" alt="images/bar.jpg"></div>
+                <ul class="info-circles-wrap">
+                  <li class="circle-box"><img src="images/circle.png" alt="images/circle.png" class="info-circle"><span>9999</span><div>國際語音(路)%</div></li>
+                  <li class="circle-box"><img src="images/circle.png" alt="images/circle.png" class="info-circle"><span>999</span><div>國際網際網路(Gbps)%</div></li>
+                  <li class="circle-box"><img src="images/circle.png" alt="images/circle.png" class="info-circle"><span>99</span><div>國際出租電路(路)%</div></li>
+                  <li class="circle-box"><img src="images/circle.png" alt="images/circle.png" class="info-circle"><span>99</span><div>國際出租電路頻寬(Gbps)%</div></li>
+                </ul>
+              </div>
+            </div>
+            
+          </div>
+
+        </div>
+        <div class="decor-line"><img src="images/curve_bar.png" alt="images/curve_bar.jpg"></div>
+        <div class="indicates"><img src="images/info_bar.png" alt="images/bar.jpg"></div>
+        <div class="line-under-indicates"></div>
+        <div class="msg-list" id="marquee">
+          
+          <ul class="msg-list-ul">
+            <!-- item start -->
+            <li class="msg-item mode-type mode-us-df">
+              <div class="mode-icon ">
+                <div><img src="images/people_icon.png" alt="" class="rwd-img-center type-us-df"></div>
+              </div>
+              <div class="msg-txt-con">
+                <div class="msg-txt"><div>告警事件<br>總數量</div><span>0039</span></div>
+              </div>
+              <ul class="mode-type-list">
+                <li><div class="img-box"><img src="images/circle_yellow.png" alt="" class="type-yl"><span>033</span></div></li>                           
+                <li><div class="img-box"><img src="images/circle_orange.png" alt="" class="type-yl"><span>033</span></div></li>                           
+                <li><div class="img-box"><img src="images/circle_red.png" alt="" class="type-yl"><span>033</span></div></li>                           
+                <li><div class="img-box"><img src="images/circle_black.png" alt="" class="type-yl"><span>033</span></div></li>                           
+              </ul>
+            </li><!-- item end -->
+          </ul>
+          <div id="up-and-down">
+            <button id="up-icon">▲</button>
+            <button id="down-icon">▼</button>
+          </div>
+        </div>
+        
+        <div class="wrap-bottom">
+          <div class="bottom-left-wrap">
+            <div class="top">
+              <div class="switch-wrap">
+                <button id="switch" class="switch">
+                  <img src="images/switch_left.png" alt="switch" class="switch switch-left  hidden">
+                  <img src="images/switch_right.png" alt="switch" class="switch switch-right">
+                </button>
+              </div>
+            </div>
+            <div class="left-container hidden" id="left-container">
+              <ul class="middle">
+                  <li>全選</li>
+                  <li>國際海纜</li>
+                  <li>國內海纜</li>
+                  <li>國內海纜</li>
+                  <li>國內海纜</li>
+                  <li>國內海纜</li>
+                  <li>陸地鏈路</li>
+                  <li>陸地鏈路</li>
+                  <li>陸地鏈路</li>
+                  <li>陸地鏈路</li>
+                  <li>陸地鏈路</li>
+                  <li>陸地鏈路</li>
+                  <li>國際電路</li>
+              </ul>
+              <div class="info-box">
+                <p class="info-title">告警訊息</p>
+                <p class="info-textarea">2021/10/31上午11:25左右,日本籍大型拖網漁船,因作業不慎,勾斷APG由頭城至日本段海續,導致該段海續不通目前已聯絡海纜單位,前往搶修中。</p>
+              </div>
+            </div>
+            <div class="left-container" id="left-container2">
+              <div class="icon-wrap">
+                <div class="icon-box">
+                  <img src="images/icon1.png" alt="images/icon1.png" class="icon">
+                    <p>機房/節點</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon2.png" alt="images/icon2.png" class="icon">
+                    <p>路由管理</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon3.png" alt="images/icon3.png" class="icon">
+                    <p>帳號管理</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon4.png" alt="images/icon4.png" class="icon">
+                    <p>節點類型</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon5.png" alt="images/icon5.png" class="icon">
+                    <p>業者管理</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon6.png" alt="images/icon6.png" class="icon">
+                    <p>國家代碼</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon7.png" alt="images/icon7.png" class="icon">
+                    <p>節點狀態</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon8.png" alt="images/icon8.png" class="icon">
+                    <p>路由類型</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon9.png" alt="images/icon9.png" class="icon">
+                    <p>路由狀態</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon10.png" alt="images/icon10.png" class="icon">
+                    <p>重置</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon11.png" alt="images/icon11.png" class="icon">
+                    <p>資料匯入</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+                <div class="icon-box">
+                  <img src="images/icon12.png" alt="images/icon12.png" class="icon">
+                    <p>登出</p>
+                  </img>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-right-wrap">
+            <div id="mode-structure" class="hidden">架構圖模式</div>
+            <div id="mode-map">地圖模式</div>
+            <div id="icon-btn-wrap">
+              <button id="globe-btn"><img src="images/globe_icon.png" alt="globe"></button>
+              <button id="gear-btn"><img src="images/gear_icon.png" alt="gear"></button>
+            </div>
+            <div id="mode-wrap">
+              <div id="mode-icon-wrap">
+                <button id="mode-text">
+                  <span id="mode-text-wrap">
+                    <span num="0" >海纜模式</span>
+                    <span num="1" class="hidden">陸鏈模式</span>
+                    <span num="2" class="hidden">電路模式</span>
+                  </span>
+                  <br>▼
+                </button>
+                <div id="mode-icon">
+                  <img src="images/mode_bg0.png" alt="">
+                  <img class="hidden" src="images/mode_bg1.png" alt="">
+                  <img class="hidden" src="images/mode_bg2.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+    </div>	  
+
+  <script src="assets/js/jquery.1.12.4.min.js"></script>
+	<script src="assets/js/jquery.easing.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>  
+
+  <script src="js/mytheme.js"></script>
+
+	</body>
+</html>

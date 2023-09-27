@@ -1359,6 +1359,7 @@ function makeMarkers(c){
 }
 
 function readFeedBackJson(c,j){
+	console.log(c+'* * *'+j);
 	if(c!="{}"){
 	var tag_id = corridor_head[j]+"-";
 	var startx = x_point + (j* x_gap) ;

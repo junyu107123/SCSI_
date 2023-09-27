@@ -41,7 +41,7 @@ public class DataController {
 	public @ResponseBody String DataAPI(@ModelAttribute("func") String myfunc,
 			@ModelAttribute("scable") String get_scable, @ModelAttribute("loc") String get_loc, Data dta, DataAPI api) {
 		ModelAndView model = new ModelAndView("DataAPI");
-//		System.out.println("myfunc=" + myfunc + "/get_scable=" + get_scable + "/get_loc=" + get_loc);
+		System.out.println("myfunc=" + myfunc + "/get_scable=" + get_scable + "/get_loc=" + get_loc);
 		String[] typevalue = {};
 		String[] para = {};
 		int goNext = 0;

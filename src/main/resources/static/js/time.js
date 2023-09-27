@@ -319,17 +319,17 @@ function goCase(x)
 }
 
  function first_ready(x) {
-    prepareVectorStylesArray(); //添加圖層樣式陣列
-    prepareVectorArray();
-	preparePlugin_Color(1);
-	getScableList();
+    prepareVectorStylesArray(); //添加圖層樣式陣列  my_jquery.js
+    prepareVectorArray();		//移除所有marker,以地圖為單位  my_jquery.js
+	preparePlugin_Color(1);		//纜線  my_jquery.js
+	getScableList();			//DATAAPI fun:1 -->DATA.ScableList  
 	switchScreen(x);
 	if(x=='2') showDES();
 	//setTimeout("initCurveLayer();",500);
 	$(".ol-zoom").css("left","95%");
 	$(".ol-zoom").css("top","90%");
 	$(".ol-scale-line").css("left","5%");
-	initCurveLayer();
+	initCurveLayer();			//串接CNOC資料 -->$.post("/scsi/DataAPI", {scable:"h",func:"18",loc:"111"})
 	//showLineSwitch(1);
 	}
 

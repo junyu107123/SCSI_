@@ -402,16 +402,16 @@ var adj = 0 ;
 var showLandingStation = "";
 function switchInfra(){
 	$("#shorestpath").hide();
-	$("#infraarea").show();
-	$("#showinput").show();
+	$("#infraarea").show(); //架構圖_3
+	$("#showinput").show(); //架構圖_1
 	$("#myresult").hide();
 	$("#myinput").hide();
 	$("#map").hide();
-	$("#dataarea").show();
-	$("#maindata").show();
-	$(".grading").show();
+	$("#dataarea").show(); //架構圖_2
+	$("#maindata").show(); //左半部分_站點AB
+	$(".grading").show();  //頻寬等級
 	$(".alarm_level").hide();
-	showDES();
+	showDES();		//結構
 }
 
 function switchMap(){
@@ -444,7 +444,7 @@ $(window).click(function(e) {
 });
 
  $(document).ready(function() {
- showInput();
+// showInput();
  //var get_id = $("#get_id").val();
 	//alert(GetURLParameter('test'));
     setAreaHeight("dataarea");
